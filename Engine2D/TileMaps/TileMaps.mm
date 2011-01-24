@@ -173,6 +173,9 @@
 			value = [TBXML valueOfAttributeNamed:@"Visible" forElement:TileProperties];
 			tmpLevel[i].visible = [value boolValue];
 			
+			value = [TBXML valueOfAttributeNamed:@"PhysicsTile" forElement:TileProperties];
+			tmpLevel[i].physicsTile = [value boolValue];
+			
 			value = [TBXML valueOfAttributeNamed:@"Nowalkable" forElement:TileProperties];
 			tmpLevel[i].nowalkable = [value boolValue];
 			
@@ -334,6 +337,7 @@
 				level[l][y][j].nowalkable			= tmpLevel[index].nowalkable;
 				level[l][y][j].object				= tmpLevel[index].object;
 				level[l][y][j].tileAnimated			= tmpLevel[index].tileAnimated;
+				level[l][y][j].physicsTile			= tmpLevel[index].physicsTile;
 				level[l][y][j].totalFramesAnimation = tmpLevel[index].totalFramesAnimation;
 				level[l][y][j].delay				= tmpLevel[index].delay;
 				level[l][y][j].nextframe			= tmpLevel[index].nextframe;
@@ -358,7 +362,7 @@
 					}
 				
 					//this one is a real tile, add a static physic body 
-					if (index != 0)
+					if (index != 0 && level[l][y][j].physicsTile)
 					{
 						Tiles *tmp = [[Tiles alloc] init];
 						tmp.tilesWithPhysics = [[PhysicBodyBase alloc] init:b2_staticBody
@@ -408,6 +412,7 @@
 				level[l][y][x].visible = false;
 				level[l][y][x].nowalkable = false;
 				level[l][y][x].object = false;
+				level[l][y][x].physicsTile = false;
 				level[l][y][x].totalFramesAnimation = 0;
 				level[l][y][x].tileAnimated = false;
 				level[l][y][x].animated = NULL;

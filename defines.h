@@ -17,7 +17,6 @@
 
 
 
-#define HD_Devices 0
 
 //type of bodies available in box2d by default
 typedef enum {

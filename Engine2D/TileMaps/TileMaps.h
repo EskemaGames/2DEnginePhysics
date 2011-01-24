@@ -51,6 +51,7 @@ typedef struct Tiles2 {
 	bool	nowalkable;
 	bool	tileAnimated;
 	bool	object;
+	bool	physicsTile;
 	int		totalFramesAnimation;
 	int		*animated;
 	int		delay, nextframe;

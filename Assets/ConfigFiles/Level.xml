@@ -17,8 +17,8 @@
 	<HavePhysics value="true"/>
 	
 	<!-- tiles properties -->
-    <TileProperties value="0" Visible="false" Nowalkable="false" TileAnimated="false" AnimatedFrames="0" Object="false" DelaySpeed="0"/>
-	<TileProperties value="1" Visible="false" Nowalkable="false" TileAnimated="true" AnimatedFrames="4" Object="false" DelaySpeed="5">
+    <TileProperties value="0" Visible="false" PhysicsTile="false" Nowalkable="false" TileAnimated="false" AnimatedFrames="0" Object="false" DelaySpeed="0"/>
+	<TileProperties value="1" Visible="false" PhysicsTile="false" Nowalkable="false" TileAnimated="true" AnimatedFrames="4" Object="false" DelaySpeed="5">
 	<propertiesAnimation TileNum="6">
 	</propertiesAnimation>
 	<propertiesAnimation TileNum="6">
@@ -28,13 +28,13 @@
 	<propertiesAnimation TileNum="6">
 	</propertiesAnimation>
 	</TileProperties>
-	<TileProperties value="2" Visible="false" Nowalkable="false" TileAnimated="false" AnimatedFrames="0" Object="false" DelaySpeed="0"/>
-	<TileProperties value="3" Visible="false" Nowalkable="false" TileAnimated="false" AnimatedFrames="0" Object="false" DelaySpeed="0"/>
-	<TileProperties value="4" Visible="false" Nowalkable="false" TileAnimated="false" AnimatedFrames="0" Object="false" DelaySpeed="0"/>
-	<TileProperties value="5" Visible="false" Nowalkable="false" TileAnimated="false" AnimatedFrames="0" Object="false" DelaySpeed="0"/>
-	<TileProperties value="6" Visible="true" Nowalkable="false" TileAnimated="false" AnimatedFrames="0" Object="false" DelaySpeed="0"/>
-	<TileProperties value="7" Visible="false" Nowalkable="false" TileAnimated="false" AnimatedFrames="0" Object="false" DelaySpeed="0"/>
-	<TileProperties value="8" Visible="false" Nowalkable="false" TileAnimated="false" AnimatedFrames="0" Object="false" DelaySpeed="0"/>
-	<TileProperties value="9" Visible="false" Nowalkable="false" TileAnimated="false" AnimatedFrames="0" Object="false" DelaySpeed="0"/>
+	<TileProperties value="2" Visible="false" PhysicsTile="false" Nowalkable="false" TileAnimated="false" AnimatedFrames="0" Object="false" DelaySpeed="0"/>
+	<TileProperties value="3" Visible="false" PhysicsTile="false" Nowalkable="false" TileAnimated="false" AnimatedFrames="0" Object="false" DelaySpeed="0"/>
+	<TileProperties value="4" Visible="false" PhysicsTile="false" Nowalkable="false" TileAnimated="false" AnimatedFrames="0" Object="false" DelaySpeed="0"/>
+	<TileProperties value="5" Visible="false" PhysicsTile="false" Nowalkable="false" TileAnimated="false" AnimatedFrames="0" Object="false" DelaySpeed="0"/>
+	<TileProperties value="6" Visible="true" PhysicsTile="true" Nowalkable="false" TileAnimated="false" AnimatedFrames="0" Object="false" DelaySpeed="0"/>
+	<TileProperties value="7" Visible="false" PhysicsTile="false" Nowalkable="false" TileAnimated="false" AnimatedFrames="0" Object="false" DelaySpeed="0"/>
+	<TileProperties value="8" Visible="false" PhysicsTile="false" Nowalkable="false" TileAnimated="false" AnimatedFrames="0" Object="false" DelaySpeed="0"/>
+	<TileProperties value="9" Visible="false" PhysicsTile="false" Nowalkable="false" TileAnimated="false" AnimatedFrames="0" Object="false" DelaySpeed="0"/>
 	</Values>
 </Properties>
