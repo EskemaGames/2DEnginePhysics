@@ -134,8 +134,7 @@
 							Flip:1 
 						  Colors:color 
 						Rotation:rotation];
-		[widgetFont DrawTextCenteredPosX:widgetImage
-								   Width:[self GetWidthOfWidget] 
+		[widgetFont DrawTextCenteredPosXWidth:[self GetWidthOfWidget] 
 									   X:[self GetPositionX] 
 									   Y:[self GetCenterOfWidgetY] 
 								   Scale:1.0f
@@ -158,8 +157,7 @@
 							Flip:1 
 						  Colors:color 
 						Rotation:rotation];
-		[widgetFont DrawTextCenteredPosX:widgetImage
-								   Width:[self GetWidthOfWidget] + 5
+		[widgetFont DrawTextCenteredPosXWidth:[self GetWidthOfWidget] + 5
 									   X:[self GetPositionX] 
 									   Y:[self GetCenterOfWidgetY] - ([widgetFont GetTextHeight:scaletext myChar:text]/2)
 								   Scale:scaletext

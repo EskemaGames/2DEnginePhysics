@@ -248,7 +248,7 @@
 
 -(void) DrawLevelGame
 {
-	NSLog(@"skljdksa");
+
 	//background map
 	[testMap DrawLevelWithScrollY:YES Layer:0 Colors:Color4fInit GameSpeed:gameState.SpeedFactor PauseGame:pausedgame];
 
@@ -277,14 +277,14 @@
 	
 	//now draw text in another batch because this is an alpha material
 	//more text drawn at the bottom
-	[font1 DrawText:SpriteGame X:gameState.screenBounds.x - [font1 GetTextWidth:@"scores down here" Scale:1.0f]  Y:gameState.screenBounds.y - [font1 GetTextHeight:1.0]  Scale:1.0  Text:@"scores down here"];
+	[font1 DrawTextX:gameState.screenBounds.x - [font1 GetTextWidth:@"scores down here" Scale:1.0f]  Y:gameState.screenBounds.y - [font1 GetTextHeight:1.0]  Scale:1.0  Text:@"scores down here"];
 	
 	
 	
 	//we want to draw fps?
 	if(FPS)
 	{
-		[font1 DrawText:SpriteGame X:0 Y:gameState.screenBounds.y - [font1 GetTextHeight:1.0f] Scale:1.0f Text:[NSString stringWithFormat: @"FPS %.1f", gameState._FPS]];
+		[font1 DrawTextX:0 Y:gameState.screenBounds.y - [font1 GetTextHeight:1.0f] Scale:1.0f Text:[NSString stringWithFormat: @"FPS %.1f", gameState._FPS]];
 	}
 	
 	

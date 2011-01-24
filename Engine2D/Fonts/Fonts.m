@@ -20,6 +20,9 @@
 	self = [super init];
 	if (self != nil) {
 
+		//get the reference to the sprite used for the font
+		fontImg = ImageDraw;
+		
 		//init the values as usual, a calloc will put all values to 0
 		textureCoordinates = calloc( 1, sizeof( Quad2f ) );
 		vertices = calloc( 1, sizeof( Quad2f ) );
@@ -28,7 +31,7 @@
 		cachedTexture = calloc((256), sizeof(Quad2f));
 		
 		//call parsefont to fill all the quads array
-		[self parseFont:fileFont ImageArray:ImageDraw];
+		[self parseFont:fileFont];
 		
 	}
 	return self;
@@ -39,7 +42,8 @@
 
 
 - (void) dealloc
-{	
+{
+	fontImg = nil;
 	free(cachedTexture);
 	free(textureCoordinates);
 	free(vertices);
@@ -65,9 +69,9 @@
 //and a width, for example to center text
 //inside a button or a square for text
 //==============================================================================
--(void) DrawTextCenteredPosX:(Image *)Surf_Draw  Width:(float)Width X:(float)X  Y:(float)Y  Scale:(float)scale  Text:(NSString *)Text 
+-(void) DrawTextCenteredPosXWidth:(float)Width X:(float)X  Y:(float)Y  Scale:(float)scale  Text:(NSString *)Text 
 {
-	[self DrawTextCenteredPosX:Surf_Draw Width:Width X:X Y:Y Scale:scale Colors:Color4fMake(255.0, 255.0, 255.0, 1.0) Text:Text];
+	[self DrawTextCenteredPosXWidth:Width X:X Y:Y Scale:scale Colors:Color4fMake(255.0, 255.0, 255.0, 1.0) Text:Text];
 	
 }
 
@@ -76,7 +80,7 @@
 //inside a button or a square for text
 //colored version
 //==============================================================================
--(void) DrawTextCenteredPosX:(Image *)Surf_Draw  Width:(float)Width X:(float)X  Y:(float)Y  Scale:(float)scale  Colors:(Color4f)_colors Text:(NSString *)Text 
+-(void) DrawTextCenteredPosXWidth:(float)Width X:(float)X  Y:(float)Y  Scale:(float)scale  Colors:(Color4f)_colors Text:(NSString *)Text 
 {
 	
 	//get the width of the text
@@ -117,20 +121,18 @@
 		}
 		
 		
-		Quad2f tex = [Surf_Draw getTextureCoordsForSpriteAt:charID  CachedTextures:cachedTexture];
-		Quad2f vert = *[Surf_Draw getVerticesForSpriteAtrect:CGRectMake(dx, dy, arrayFonts[charID].w * scale, arrayFonts[charID].h * scale) Vertices:vertices Flip:1];
+		//Quad2f tex = [fontImg getTextureCoordsForSpriteAt:charID  CachedTextures:cachedTexture];
+		Quad2f vert = *[fontImg getVerticesForSpriteAtrect:CGRectMake(dx, dy, arrayFonts[charID].w * scale, arrayFonts[charID].h * scale) Vertices:vertices Flip:1];
 		
-		// Triangle #1
-		[Surf_Draw _addVertex:vert.tl_x  Y:vert.tl_y  UVX:tex.tl_x  UVY:tex.tl_y  Color:_color];
-		[Surf_Draw _addVertex:vert.tr_x  Y:vert.tr_y  UVX:tex.tr_x  UVY:tex.tr_y  Color:_color];
-		[Surf_Draw _addVertex:vert.bl_x  Y:vert.bl_y  UVX:tex.bl_x  UVY:tex.bl_y  Color:_color];
+		[fontImg _addVertex:vert.tl_x  Y:vert.tl_y  UVX:cachedTexture[charID].tl_x  UVY:cachedTexture[charID].tl_y  Color:_color];
+		[fontImg _addVertex:vert.tr_x  Y:vert.tr_y  UVX:cachedTexture[charID].tr_x  UVY:cachedTexture[charID].tr_y  Color:_color];
+		[fontImg _addVertex:vert.bl_x  Y:vert.bl_y  UVX:cachedTexture[charID].bl_x  UVY:cachedTexture[charID].bl_y  Color:_color];
 		
 		// Triangle #2
-		[Surf_Draw _addVertex:vert.tr_x  Y:vert.tr_y  UVX:tex.tr_x  UVY:tex.tr_y  Color:_color];
-		[Surf_Draw _addVertex:vert.bl_x  Y:vert.bl_y  UVX:tex.bl_x  UVY:tex.bl_y  Color:_color];
-		[Surf_Draw _addVertex:vert.br_x  Y:vert.br_y  UVX:tex.br_x  UVY:tex.br_y  Color:_color];
-	
-		
+		[fontImg _addVertex:vert.tr_x  Y:vert.tr_y  UVX:cachedTexture[charID].tr_x  UVY:cachedTexture[charID].tr_y  Color:_color];
+		[fontImg _addVertex:vert.bl_x  Y:vert.bl_y  UVX:cachedTexture[charID].bl_x  UVY:cachedTexture[charID].bl_y  Color:_color];
+		[fontImg _addVertex:vert.br_x  Y:vert.br_y  UVX:cachedTexture[charID].br_x  UVY:cachedTexture[charID].br_y  Color:_color];
+
 		//calculate the size to advance, based on its scale
 		widetext = (arrayFonts[charID].xadvance  * scale);
 		
@@ -147,9 +149,9 @@
 //draw text centered on screen based on
 //landscape value
 //==============================================================================
--(void) DrawTextCentered:(Image *)Surf_Draw  Lanscape:(bool)landsCape Y:(float)Y  Scale:(float)scale  Text:(NSString *)Text 
+-(void) DrawTextCenteredLanscape:(bool)landsCape Y:(float)Y  Scale:(float)scale  Text:(NSString *)Text 
 {
-	[self DrawTextCentered:Surf_Draw Lanscape:landsCape Y:Y Scale:scale Colors:Color4fMake(255.0, 255.0, 255.0, 1.0) Text:Text];
+	[self DrawTextCenteredLanscape:landsCape Y:Y Scale:scale Colors:Color4fMake(255.0, 255.0, 255.0, 1.0) Text:Text];
 }
 
 
@@ -158,7 +160,7 @@
 //landscape value
 //colored version
 //==============================================================================
--(void) DrawTextCentered:(Image *)Surf_Draw  Lanscape:(bool)landsCape Y:(float)Y  Scale:(float)scale  Colors:(Color4f)_colors Text:(NSString *)Text 
+-(void) DrawTextCenteredLanscape:(bool)landsCape Y:(float)Y  Scale:(float)scale  Colors:(Color4f)_colors Text:(NSString *)Text 
 {
 	float pos;
 	
@@ -205,19 +207,16 @@
 		}
 		
 		
-		Quad2f tex = [Surf_Draw getTextureCoordsForSpriteAt:charID  CachedTextures:cachedTexture];
-		Quad2f vert = *[Surf_Draw getVerticesForSpriteAtrect:CGRectMake(dx, dy, arrayFonts[charID].w * scale, arrayFonts[charID].h * scale) Vertices:vertices Flip:1];
+		Quad2f vert = *[fontImg getVerticesForSpriteAtrect:CGRectMake(dx, dy, arrayFonts[charID].w * scale, arrayFonts[charID].h * scale) Vertices:vertices Flip:1];
 		
-		// Triangle #1
-		[Surf_Draw _addVertex:vert.tl_x  Y:vert.tl_y  UVX:tex.tl_x  UVY:tex.tl_y  Color:_color];
-		[Surf_Draw _addVertex:vert.tr_x  Y:vert.tr_y  UVX:tex.tr_x  UVY:tex.tr_y  Color:_color];
-		[Surf_Draw _addVertex:vert.bl_x  Y:vert.bl_y  UVX:tex.bl_x  UVY:tex.bl_y  Color:_color];
+		[fontImg _addVertex:vert.tl_x  Y:vert.tl_y  UVX:cachedTexture[charID].tl_x  UVY:cachedTexture[charID].tl_y  Color:_color];
+		[fontImg _addVertex:vert.tr_x  Y:vert.tr_y  UVX:cachedTexture[charID].tr_x  UVY:cachedTexture[charID].tr_y  Color:_color];
+		[fontImg _addVertex:vert.bl_x  Y:vert.bl_y  UVX:cachedTexture[charID].bl_x  UVY:cachedTexture[charID].bl_y  Color:_color];
 		
 		// Triangle #2
-		[Surf_Draw _addVertex:vert.tr_x  Y:vert.tr_y  UVX:tex.tr_x  UVY:tex.tr_y  Color:_color];
-		[Surf_Draw _addVertex:vert.bl_x  Y:vert.bl_y  UVX:tex.bl_x  UVY:tex.bl_y  Color:_color];
-		[Surf_Draw _addVertex:vert.br_x  Y:vert.br_y  UVX:tex.br_x  UVY:tex.br_y  Color:_color];
-
+		[fontImg _addVertex:vert.tr_x  Y:vert.tr_y  UVX:cachedTexture[charID].tr_x  UVY:cachedTexture[charID].tr_y  Color:_color];
+		[fontImg _addVertex:vert.bl_x  Y:vert.bl_y  UVX:cachedTexture[charID].bl_x  UVY:cachedTexture[charID].bl_y  Color:_color];
+		[fontImg _addVertex:vert.br_x  Y:vert.br_y  UVX:cachedTexture[charID].br_x  UVY:cachedTexture[charID].br_y  Color:_color];
 		
 		//calculate the size to advance, based on its scale
 		widetext = (arrayFonts[charID].xadvance  * scale);
@@ -244,16 +243,16 @@
 
 
 //==============================================================================
--(void) DrawText:(Image *)Surf_Draw X:(float)X  Y:(float)Y  Scale:(float)scale  Text:(NSString *)Text 
+-(void) DrawTextX:(float)X  Y:(float)Y  Scale:(float)scale  Text:(NSString *)Text 
 {
-	[self DrawText:Surf_Draw X:X Y:Y Scale:scale Colors:Color4fMake(255.0, 255.0, 255.0, 1.0) Text:Text];
+	[self DrawTextX:X Y:Y Scale:scale Colors:Color4fMake(255.0, 255.0, 255.0, 1.0) Text:Text];
 }
 
 
 //the basic render font function, with basic parameters
 //just supply the text, the positions, scale and other values
 //==============================================================================
--(void) DrawText:(Image *)Surf_Draw X:(float)X  Y:(float)Y  Scale:(float)scale  Colors:(Color4f)_colors  Text:(NSString *)Text 
+-(void) DrawTextX:(float)X  Y:(float)Y  Scale:(float)scale  Colors:(Color4f)_colors  Text:(NSString *)Text 
 {
 	
 	
@@ -292,21 +291,16 @@
 		}
 
 		
-		//get the texture coordinate for the letter, this value is cached to speed up things
-		Quad2f tex = [Surf_Draw getTextureCoordsForSpriteAt:charID  CachedTextures:cachedTexture];
-		//get the coordinates on screen for the quad to render the font
-		//flip 1 means normal position, no rotation applied
-		Quad2f vert = *[Surf_Draw getVerticesForSpriteAtrect:CGRectMake(dx, dy, arrayFonts[charID].w * scale, arrayFonts[charID].h * scale) Vertices:vertices Flip:1];
+		Quad2f vert = *[fontImg getVerticesForSpriteAtrect:CGRectMake(dx, dy, arrayFonts[charID].w * scale, arrayFonts[charID].h * scale) Vertices:vertices Flip:1];
 		
-		// Triangle #1
-		[Surf_Draw _addVertex:vert.tl_x  Y:vert.tl_y  UVX:tex.tl_x  UVY:tex.tl_y  Color:_color];
-		[Surf_Draw _addVertex:vert.tr_x  Y:vert.tr_y  UVX:tex.tr_x  UVY:tex.tr_y  Color:_color];
-		[Surf_Draw _addVertex:vert.bl_x  Y:vert.bl_y  UVX:tex.bl_x  UVY:tex.bl_y  Color:_color];
+		[fontImg _addVertex:vert.tl_x  Y:vert.tl_y  UVX:cachedTexture[charID].tl_x  UVY:cachedTexture[charID].tl_y  Color:_color];
+		[fontImg _addVertex:vert.tr_x  Y:vert.tr_y  UVX:cachedTexture[charID].tr_x  UVY:cachedTexture[charID].tr_y  Color:_color];
+		[fontImg _addVertex:vert.bl_x  Y:vert.bl_y  UVX:cachedTexture[charID].bl_x  UVY:cachedTexture[charID].bl_y  Color:_color];
 		
 		// Triangle #2
-		[Surf_Draw _addVertex:vert.tr_x  Y:vert.tr_y  UVX:tex.tr_x  UVY:tex.tr_y  Color:_color];
-		[Surf_Draw _addVertex:vert.bl_x  Y:vert.bl_y  UVX:tex.bl_x  UVY:tex.bl_y  Color:_color];
-		[Surf_Draw _addVertex:vert.br_x  Y:vert.br_y  UVX:tex.br_x  UVY:tex.br_y  Color:_color];
+		[fontImg _addVertex:vert.tr_x  Y:vert.tr_y  UVX:cachedTexture[charID].tr_x  UVY:cachedTexture[charID].tr_y  Color:_color];
+		[fontImg _addVertex:vert.bl_x  Y:vert.bl_y  UVX:cachedTexture[charID].bl_x  UVY:cachedTexture[charID].bl_y  Color:_color];
+		[fontImg _addVertex:vert.br_x  Y:vert.br_y  UVX:cachedTexture[charID].br_x  UVY:cachedTexture[charID].br_y  Color:_color];
 
 		
 		//calculate the size to advance, based on its scale
@@ -369,7 +363,7 @@
 
 //parse the font and fill the cached quad array with texture coordinates
 //this is done only once and improves the performace a lot
-- (void)parseFont:(NSString*)controlFile  ImageArray:(Image *)imageArray{
+- (void)parseFont:(NSString*)controlFile {
 	
 	// Read the contents of the file into a string
 	NSString *contents = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:controlFile ofType:nil] encoding:NSUTF8StringEncoding error:nil];
@@ -388,7 +382,7 @@
 		// Check to see if the start of the line is something we are interested in
 		if([line hasPrefix:@"char"]) {
 
-			[self parseCharacterDefinition:line  ImageArray:imageArray];
+			[self parseCharacterDefinition:line ];
 		}
 	}
 	// Finished with lines so release it
@@ -397,7 +391,7 @@
 
 
 
-- (void)parseCharacterDefinition:(NSString*)line  ImageArray:(Image *)imageArray{
+- (void)parseCharacterDefinition:(NSString*)line{
 	
 	int idNum;
 	
@@ -448,7 +442,7 @@
 	
 	//call the cache function to fill the array with the positions of this letter
 	//when we end parsing the file, we have a full array with cached quad texture coordinates
-	[imageArray cacheTexCoords:arrayFonts[idNum].w
+	[fontImg cacheTexCoords:arrayFonts[idNum].w
 			  SubTextureHeight:arrayFonts[idNum].h  
 			 CachedCoordinates:textureCoordinates 
 				CachedTextures:cachedTexture

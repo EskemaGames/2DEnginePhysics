@@ -19,6 +19,7 @@
 	Quad2f *vertices;
 	Quad2f *textureCoordinates;
 	_ArrayFonts arrayFonts[256];
+	Image *fontImg;
 }
 
 
@@ -30,17 +31,17 @@
 //==============================================================================
 //==============================================================================
 - (id) LoadFont:(Image *)ImageDraw   FileFont:(NSString *)fileFont;
-- (void) DrawTextCenteredPosX:(Image *)Surf_Draw  Width:(float)Width X:(float)X  Y:(float)Y  Scale:(float)scale  Colors:(Color4f)_colors Text:(NSString *)Text;
-- (void) DrawTextCentered:(Image *)Surf_Draw  Lanscape:(bool)landsCape Y:(float)Y  Scale:(float)scale  Colors:(Color4f)_colors Text:(NSString *)Text;
-- (void) DrawTextCenteredPosX:(Image *)Surf_Draw  Width:(float)Width  X:(float)X  Y:(float)Y  Scale:(float)scale  Text:(NSString *)Text;
-- (void) DrawTextCentered:(Image *)Surf_Draw  Lanscape:(bool)landsCape Y:(float)Y  Scale:(float)scale  Text:(NSString *)Text ;
-- (void) DrawText:(Image *)Surf_Draw X:(float)x  Y:(float)y  Scale:(float)scale  Text:(NSString *)Text;
-- (void) DrawText:(Image *)Surf_Draw X:(float)X  Y:(float)Y  Scale:(float)scale  Colors:(Color4f)_colors  Text:(NSString *)Text;
+- (void) DrawTextCenteredPosXWidth:(float)Width X:(float)X  Y:(float)Y  Scale:(float)scale  Colors:(Color4f)_colors Text:(NSString *)Text;
+- (void) DrawTextCenteredLanscape:(bool)landsCape Y:(float)Y  Scale:(float)scale  Colors:(Color4f)_colors Text:(NSString *)Text;
+- (void) DrawTextCenteredPosXWidth:(float)Width  X:(float)X  Y:(float)Y  Scale:(float)scale  Text:(NSString *)Text;
+- (void) DrawTextCenteredLanscape:(bool)landsCape Y:(float)Y  Scale:(float)scale  Text:(NSString *)Text ;
+- (void) DrawTextX:(float)x  Y:(float)y  Scale:(float)scale  Text:(NSString *)Text;
+- (void) DrawTextX:(float)X  Y:(float)Y  Scale:(float)scale  Colors:(Color4f)_colors  Text:(NSString *)Text;
 - (int) GetTextWidth:(NSString *)text Scale:(float)scale;
 - (int) GetTextHeight:(float) scale;
 - (int) GetTextHeight:(float) scale myChar:(NSString *)mychar;
-- (void)parseFont:(NSString*)controlFile  ImageArray:(Image *)imageArray;
-- (void)parseCharacterDefinition:(NSString*)line  ImageArray:(Image *)imageArray;
+- (void)parseFont:(NSString*)controlFile;
+- (void)parseCharacterDefinition:(NSString*)line;
 
 
 @end
