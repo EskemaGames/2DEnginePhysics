@@ -1,0 +1,25 @@
+2D engine to create iPhone/iPod games. Created by Alejandro Perez 2011, licensed for free to anyone, copy, use it or do whatever with it, no need for credits if you don't want to.
+
+
+Tools recommended/needed:
+Mappy for tilemaps
+Glyph for bitmap fonts from 71squared.com
+Particle designer for particle emmiters from 71squared.com
+
+
+Things included:
+-OpenglES for sprites, it's important to maximize the perfomance to use spritesheets/atlas (call them whatever) for everything. 
+All the sprites are cached using a vertex array interleaved buffer, no VBO used
+-OpenAL for in game sounds
+-Avplayer for mp3 music using the accelerated iphonehardware to play them
+-Tilemaps with mappy, export your each layer as a .CSV file and use them in the engine
+-Bitmap fonts, using Hiero or Glyph export your bitmap font and the .fnt file and use it in the engine. It's better to put the font with the rest of the sprites together in a single 1024x1024 image to increase performance
+-Particle emmiter, using the 71squared class and particle designer to create your particles. This was never been so easy
+-Widgets, for your menus, buttons or any other sprite.
+-Animation class, use the xml included as a template and configure your game animations within the xml
+-Language selector, using the default iphone language load a xml file with the texts needed for your game, take a look at the xml files provided as a example. Simple name each file with the proper termination (euro zone only) ES.xml = spanish, DE.xml = deutsch, etc,etc.
+-Touchmanager
+-Statemanager, to control the game workflow.
+
+
+The engine comes with an example with a main menu and 2 scenes, one with physics and another with a tilemap with automatic scroll, like a topdown shooter. Learn how you can go from the menu to the game and return to the menu with the buttons included in the game. The top right button pauses the game, then with the game paused press the bottom right button to exit the game to the main menu.
