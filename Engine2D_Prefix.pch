@@ -1,0 +1,8 @@
+//
+// Prefix header for all source files of the 'War_Warriors' target in the 'War_Warriors' project
+//
+
+#ifdef __OBJC__
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+#endif

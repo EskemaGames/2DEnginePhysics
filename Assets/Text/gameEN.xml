@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config>
+    <text>
+	Score
+    </text>
+	<text>
+	Some text
+    </text>
+    <text>
+    Other text
+    </text>
+	<text>
+	Loading...
+	</text>
+</config>

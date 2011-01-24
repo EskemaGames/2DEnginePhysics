@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config>
+    <text>
+	Puntuacion
+    </text>
+	<text>
+	Un texto
+    </text>
+    <text>
+    Otro texto
+    </text>
+	<text>
+	Cargando...
+	</text>
+</config>

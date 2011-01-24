@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config>
+    <text>
+	Scene without physics
+    </text>
+	<text>
+	Scene with physics
+    </text>
+    <text>
+    Empty button
+    </text>
+	<text>
+	Loading...
+	</text>
+</config>
