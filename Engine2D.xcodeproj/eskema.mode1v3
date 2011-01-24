@@ -229,8 +229,6 @@
 			<key>Layout</key>
 			<array>
 				<dict>
-					<key>BecomeActive</key>
-					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -267,7 +265,6 @@
 							<array>
 								<string>29B97314FDCFA39411CA2CEA</string>
 								<string>AC912274113E6090009B7C27</string>
-								<string>AC9122B8113E627C009B7C27</string>
 								<string>29B97317FDCFA39411CA2CEA</string>
 								<string>AC91226F113E6019009B7C27</string>
 								<string>19C28FACFE9D520D11CA2CBB</string>
@@ -313,6 +310,8 @@
 					<key>Dock</key>
 					<array>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -330,7 +329,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>ACD7BF4612EDEED100C69963</string>
+										<string>ACD7BF5E12EE30D400C69963</string>
 										<key>history</key>
 										<array>
 											<string>ACC1167E113ED90700CC7DF1</string>
@@ -436,7 +435,7 @@
 											<string>ACD7BF4212EDEED100C69963</string>
 											<string>ACD7BF4312EDEED100C69963</string>
 											<string>ACD7BF4412EDEED100C69963</string>
-											<string>ACD7BF4512EDEED100C69963</string>
+											<string>ACD7BF5712EE308100C69963</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -494,9 +493,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>ACD7BF2F12EDEE7600C69963</string>
+				<string>ACD7BF5F12EE30D400C69963</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>ACD7BF3012EDEE7600C69963</string>
+				<string>ACD7BF6012EE30D400C69963</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -636,7 +635,7 @@
 	<array>
 		<string>ACAB5649113C5F39001ACAAE</string>
 		<string>1CD10A99069EF8BA00B06720</string>
-		<string>/Users/eskema/Programming/CocoaTouch/Actual_work/Engine2D_v2/Engine2D.xcodeproj</string>
+		<string>/Users/eskema/2DEnginePhysics/Engine2D.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
 	<string>0 148 1920 1030 0 0 1920 1178 </string>
@@ -716,7 +715,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>ACAB5649113C5F39001ACAAE</string>
-				<string>ACD7BF3112EDEE7600C69963</string>
+				<string>ACD7BF6112EE30D400C69963</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>
@@ -838,13 +837,13 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>ACD7BF3212EDEE7600C69963</string>
+				<string>ACD7BF6212EE30D400C69963</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>ACD7BF3312EDEE7600C69963</string>
-				<string>ACD7BF3412EDEE7600C69963</string>
-				<string>ACD7BF3512EDEE7600C69963</string>
-				<string>ACD7BF3612EDEE7600C69963</string>
-				<string>ACD7BF3712EDEE7600C69963</string>
+				<string>ACD7BF6312EE30D400C69963</string>
+				<string>ACD7BF6412EE30D400C69963</string>
+				<string>ACD7BF6512EE30D400C69963</string>
+				<string>ACD7BF6612EE30D400C69963</string>
+				<string>ACD7BF6712EE30D400C69963</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debugV3</string>

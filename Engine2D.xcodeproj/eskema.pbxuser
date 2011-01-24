@@ -110,8 +110,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 317582964;
-			PBXWorkspaceStateSaveDate = 317582964;
+			PBXPerProjectTemplateStateSaveDate = 317599903;
+			PBXWorkspaceStateSaveDate = 317599903;
 		};
 		perUserProjectItems = {
 			AC04DFBA12EC5C920019594D /* PBXTextBookmark */ = AC04DFBA12EC5C920019594D /* PBXTextBookmark */;
@@ -216,8 +216,8 @@
 			ACD7BF4212EDEED100C69963 /* PBXTextBookmark */ = ACD7BF4212EDEED100C69963 /* PBXTextBookmark */;
 			ACD7BF4312EDEED100C69963 /* PBXTextBookmark */ = ACD7BF4312EDEED100C69963 /* PBXTextBookmark */;
 			ACD7BF4412EDEED100C69963 /* PBXTextBookmark */ = ACD7BF4412EDEED100C69963 /* PBXTextBookmark */;
-			ACD7BF4512EDEED100C69963 /* PBXTextBookmark */ = ACD7BF4512EDEED100C69963 /* PBXTextBookmark */;
-			ACD7BF4612EDEED100C69963 /* PBXTextBookmark */ = ACD7BF4612EDEED100C69963 /* PBXTextBookmark */;
+			ACD7BF5712EE308100C69963 /* PBXTextBookmark */ = ACD7BF5712EE308100C69963 /* PBXTextBookmark */;
+			ACD7BF5E12EE30D400C69963 /* PBXTextBookmark */ = ACD7BF5E12EE30D400C69963 /* PBXTextBookmark */;
 			ACEF54FD12E2690400394A05 /* PBXTextBookmark */ = ACEF54FD12E2690400394A05 /* PBXTextBookmark */;
 		};
 		sourceControlManager = ACAB5640113C5F2C001ACAAE /* Source Control */;
@@ -940,8 +940,8 @@
 	AC9122B3113E6210009B7C27 /* defines.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1591, 952}}";
-			sepNavSelRange = "{453, 0}";
-			sepNavVisRange = "{0, 1072}";
+			sepNavSelRange = "{472, 0}";
+			sepNavVisRange = "{0, 1092}";
 		};
 	};
 	AC9122BF113E627C009B7C27 /* MainGamescreen.h */ = {
@@ -1908,24 +1908,24 @@
 		vrLen = 2003;
 		vrLoc = 0;
 	};
-	ACD7BF4512EDEED100C69963 /* PBXTextBookmark */ = {
+	ACD7BF5712EE308100C69963 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = AC9122B3113E6210009B7C27 /* defines.h */;
-		name = "defines.h: 21";
+		name = "defines.h: 20";
 		rLen = 0;
-		rLoc = 453;
+		rLoc = 470;
 		rType = 0;
-		vrLen = 1072;
+		vrLen = 1101;
 		vrLoc = 0;
 	};
-	ACD7BF4612EDEED100C69963 /* PBXTextBookmark */ = {
+	ACD7BF5E12EE30D400C69963 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = AC9122B3113E6210009B7C27 /* defines.h */;
-		name = "defines.h: 21";
+		name = "defines.h: 20";
 		rLen = 0;
-		rLoc = 453;
+		rLoc = 472;
 		rType = 0;
-		vrLen = 1072;
+		vrLen = 1092;
 		vrLoc = 0;
 	};
 	ACEF54FD12E2690400394A05 /* PBXTextBookmark */ = {
