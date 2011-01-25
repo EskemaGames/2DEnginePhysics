@@ -8,6 +8,7 @@ Particle designer for particle emmiters from 71squared.com
 
 
 Things included:
+-Written in Obj-C
 -OpenglES for sprites, it's important to maximize the perfomance to use spritesheets/atlas (call them whatever) for everything. 
 All the sprites are cached using a vertex array interleaved buffer, no VBO used
 -OpenAL for in game sounds
@@ -20,6 +21,7 @@ All the sprites are cached using a vertex array interleaved buffer, no VBO used
 -Language selector, using the default iphone language load a xml file with the texts needed for your game, take a look at the xml files provided as a example. Simple name each file with the proper termination (euro zone only) ES.xml = spanish, DE.xml = deutsch, etc,etc.
 -Touchmanager
 -Statemanager, to control the game workflow.
+-Physics with Box2D
 
 
 The engine comes with an example with a main menu and 2 scenes, one with physics and another with a tilemap with automatic scroll, like a topdown shooter. Learn how you can go from the menu to the game and return to the menu with the buttons included in the game. The top right button pauses the game, then with the game paused press the bottom right button to exit the game to the main menu.
