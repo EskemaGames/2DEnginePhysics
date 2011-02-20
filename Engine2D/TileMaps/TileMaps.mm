@@ -439,7 +439,7 @@
 
 	for ( int row=0; row < MaxRows; row++) {
 		for ( int column=0; column < MaxColumns; column++) {
-            fscanf(f, "%d, ", &level[Layer][row][column].Tilenum);
+            fscanf(f, "%d ,", &level[Layer][row][column].Tilenum);
         }
     }
     fclose(f);
