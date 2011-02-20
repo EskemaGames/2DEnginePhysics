@@ -266,6 +266,8 @@
 								<string>29B97314FDCFA39411CA2CEA</string>
 								<string>AC912274113E6090009B7C27</string>
 								<string>ACB9056E1294A6F800AC35AF</string>
+								<string>AC912278113E6090009B7C27</string>
+								<string>AC91228D113E6090009B7C27</string>
 								<string>AC9122B8113E627C009B7C27</string>
 								<string>29B97317FDCFA39411CA2CEA</string>
 								<string>AC91226F113E6019009B7C27</string>
@@ -279,9 +281,8 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>8</integer>
-									<integer>6</integer>
-									<integer>3</integer>
+									<integer>45</integer>
+									<integer>37</integer>
 									<integer>0</integer>
 								</array>
 							</array>
@@ -305,7 +306,7 @@
 							<real>246</real>
 						</array>
 						<key>RubberWindowFrame</key>
-						<string>0 148 1920 1030 0 0 1920 1178 </string>
+						<string>0 148 1371 1030 0 0 1920 1178 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXSmartGroupTreeModule</string>
@@ -323,7 +324,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>TileMaps.mm</string>
+								<string>MainGameWithoutPhysics.mm</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -331,11 +332,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>TileMaps.mm</string>
+										<string>MainGameWithoutPhysics.mm</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>ACA9D97C1311869A0080AFBC</string>
+										<string>ACA9D9AB131189170080AFBC</string>
 										<key>history</key>
 										<array>
 											<string>ACC1167E113ED90700CC7DF1</string>
@@ -392,7 +393,6 @@
 											<string>AC04E30412ECE2960019594D</string>
 											<string>AC04E45612ED039C0019594D</string>
 											<string>AC04E48512ED05760019594D</string>
-											<string>ACD7BD8D12EDBE4500C69963</string>
 											<string>ACD7BD8E12EDBE4500C69963</string>
 											<string>ACD7BD9012EDBE4500C69963</string>
 											<string>ACD7BD9112EDBE4500C69963</string>
@@ -401,23 +401,17 @@
 											<string>ACD7BD9412EDBE4500C69963</string>
 											<string>ACD7BDD112EDD9DF00C69963</string>
 											<string>ACD7BDD812EDD9DF00C69963</string>
-											<string>ACD7BE1512EDE3FA00C69963</string>
-											<string>ACD7BE1612EDE3FA00C69963</string>
 											<string>ACD7BE1812EDE3FA00C69963</string>
 											<string>ACD7BE1A12EDE3FA00C69963</string>
 											<string>ACD7BE1B12EDE3FA00C69963</string>
 											<string>ACD7BE1C12EDE3FA00C69963</string>
 											<string>ACD7BE1F12EDE3FA00C69963</string>
 											<string>ACD7BE2012EDE3FA00C69963</string>
-											<string>ACD7BE2A12EDE3FA00C69963</string>
 											<string>ACD7BE3412EDE4F700C69963</string>
 											<string>ACD7BE3512EDE4F700C69963</string>
 											<string>ACD7BE6312EDE84400C69963</string>
 											<string>ACD7BE6412EDE84400C69963</string>
-											<string>ACD7BEA012EDEB0800C69963</string>
-											<string>ACD7BEAA12EDEB7B00C69963</string>
 											<string>ACD7BEAC12EDEB7B00C69963</string>
-											<string>ACD7BEAD12EDEB7B00C69963</string>
 											<string>ACD7BEB712EDEC4B00C69963</string>
 											<string>ACD7BEB812EDEC4B00C69963</string>
 											<string>ACD7BEB912EDEC4B00C69963</string>
@@ -428,16 +422,23 @@
 											<string>ACD7BF4412EDEED100C69963</string>
 											<string>ACD7BF7012EE342600C69963</string>
 											<string>ACD7BF7112EE342600C69963</string>
-											<string>ACD7BF7212EE342600C69963</string>
 											<string>ACD7BF7312EE342600C69963</string>
 											<string>ACD7BFA212EE472E00C69963</string>
 											<string>ACD7BFA412EE472E00C69963</string>
-											<string>ACD7BFA512EE472E00C69963</string>
 											<string>ACD7BFA712EE472E00C69963</string>
-											<string>ACD7BFB012EE475200C69963</string>
-											<string>ACD7BFB112EE475200C69963</string>
-											<string>ACA9D97B1311869A0080AFBC</string>
-											<string>ACD7BFA312EE472E00C69963</string>
+											<string>ACA9D99E131189170080AFBC</string>
+											<string>ACA9D99F131189170080AFBC</string>
+											<string>ACA9D9A0131189170080AFBC</string>
+											<string>ACA9D9A1131189170080AFBC</string>
+											<string>ACA9D9A2131189170080AFBC</string>
+											<string>ACA9D9A3131189170080AFBC</string>
+											<string>ACA9D9A4131189170080AFBC</string>
+											<string>ACA9D9A5131189170080AFBC</string>
+											<string>ACA9D9A6131189170080AFBC</string>
+											<string>ACA9D9A7131189170080AFBC</string>
+											<string>ACA9D9A8131189170080AFBC</string>
+											<string>ACA9D9A9131189170080AFBC</string>
+											<string>ACA9D9AA131189170080AFBC</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -449,9 +450,9 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 0}, {1652, 984}}</string>
+								<string>{{0, 0}, {1103, 984}}</string>
 								<key>RubberWindowFrame</key>
-								<string>0 148 1920 1030 0 0 1920 1178 </string>
+								<string>0 148 1371 1030 0 0 1920 1178 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
@@ -469,9 +470,9 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 989}, {1652, 0}}</string>
+								<string>{{0, 989}, {1103, 0}}</string>
 								<key>RubberWindowFrame</key>
-								<string>0 148 1920 1030 0 0 1920 1178 </string>
+								<string>0 148 1371 1030 0 0 1920 1178 </string>
 							</dict>
 							<key>Module</key>
 							<string>XCDetailModule</string>
@@ -480,7 +481,7 @@
 						</dict>
 					</array>
 					<key>Proportion</key>
-					<string>1652pt</string>
+					<string>1103pt</string>
 				</dict>
 			</array>
 			<key>Name</key>
@@ -495,9 +496,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>ACA9D97D1311869A0080AFBC</string>
+				<string>ACA9D9AC131189170080AFBC</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>ACA9D97E1311869A0080AFBC</string>
+				<string>ACA9D9AD131189170080AFBC</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -640,7 +641,7 @@
 		<string>/Users/eskema/2DEnginePhysics/Engine2D.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
-	<string>0 148 1920 1030 0 0 1920 1178 </string>
+	<string>0 148 1371 1030 0 0 1920 1178 </string>
 	<key>WindowToolsV3</key>
 	<array>
 		<dict>
@@ -717,7 +718,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>ACAB5649113C5F39001ACAAE</string>
-				<string>ACA9D97F1311869A0080AFBC</string>
+				<string>ACA9D995131187240080AFBC</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>
@@ -839,13 +840,13 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>ACA9D9801311869A0080AFBC</string>
+				<string>ACA9D996131187240080AFBC</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>ACA9D9811311869A0080AFBC</string>
-				<string>ACA9D9821311869A0080AFBC</string>
-				<string>ACA9D9831311869A0080AFBC</string>
-				<string>ACA9D9841311869A0080AFBC</string>
-				<string>ACA9D9851311869A0080AFBC</string>
+				<string>ACA9D997131187240080AFBC</string>
+				<string>ACA9D998131187240080AFBC</string>
+				<string>ACA9D999131187240080AFBC</string>
+				<string>ACA9D99A131187240080AFBC</string>
+				<string>ACA9D99B131187240080AFBC</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debugV3</string>
@@ -854,7 +855,7 @@
 			<key>WindowToolGUID</key>
 			<string>1CD10A99069EF8BA00B06720</string>
 			<key>WindowToolIsVisible</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>Identifier</key>

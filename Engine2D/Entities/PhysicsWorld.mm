@@ -17,12 +17,12 @@
 @synthesize collisions;
 
 
-- (id) init:(StateManager *)States_ SleepBodies:(bool)SleepBodies
+- (id) initSleepBodies:(bool)SleepBodies
 {  
 	self = [super init];
 	if (self != nil) {
 		
-		gameState = States_;
+		gameState = [StateManager sharedStateManager];
 		
 		//opengl have coordinates 0,0 from bottom left corner, I'm using 0,0 in top left corner
 		//so gravity must be inverted, 10 means down, -10 means up

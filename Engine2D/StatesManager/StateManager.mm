@@ -20,6 +20,8 @@
 
 
 @implementation StateManager
+
+@synthesize sharedSoundManager;
 @synthesize input;
 @synthesize screenBounds;
 @synthesize menuinitialised, gameinitialised, gamenophysics;
@@ -27,7 +29,17 @@
 @synthesize blanktexture, _FPS, SpeedFactor,  TotalVolume, VolumeGlobal;
 
 
+// Make this class a singleton class
+SYNTHESIZE_SINGLETON_FOR_CLASS(StateManager);
 
+
+- (id)init {
+    self = [super init];
+    if(self != nil) {
+		
+    }
+    return self;
+}
 
 
 - (id) initStates:(bool)landscapeView
@@ -193,7 +205,7 @@
 				[self UpdateScreenTransition];
 			}
 			else{
-				[MainGame handleInput:input];
+				[MainGame handleInput];
 				[MainGame update:deltaTime];
 			}
 			break;
@@ -204,7 +216,7 @@
 				[self UpdateScreenTransition];
 			}
 			else{
-				[MainGameNoPhysics handleInput:input];
+				[MainGameNoPhysics handleInput];
 				[MainGameNoPhysics update:deltaTime];
 			}
 			break;
@@ -217,7 +229,7 @@
 				[self UpdateScreenTransition];
 			}
 			else{
-				[MainMenu handleInput:input];
+				[MainMenu handleInput];
 				[MainMenu update:deltaTime];
 			}
 			break;	
@@ -248,7 +260,7 @@
 		case PLAY:
 		if (!gameinitialised)
 		{
-			MainGame = [[MainGameScreen alloc] init:self];
+			MainGame = [[MainGameScreen alloc] init];
 			gameinitialised = YES;
 		}
 		else
@@ -264,7 +276,7 @@
 		case PLAYNOPHYSICS:
 			if (!gamenophysics)
 			{
-				MainGameNoPhysics = [[MainGameWithoutPhysics alloc] init:self];
+				MainGameNoPhysics = [[MainGameWithoutPhysics alloc] init];
 				gamenophysics = YES;
 			}
 			else
@@ -281,7 +293,7 @@
 		case MENU:
 		if (!menuinitialised)
 		{
-			MainMenu = [[MenuScreen alloc] init:self];
+			MainMenu = [[MenuScreen alloc] init];
 			menuinitialised = YES;
 		}
 		else

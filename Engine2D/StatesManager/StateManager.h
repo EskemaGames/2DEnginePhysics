@@ -74,6 +74,7 @@
 	
 }
 
+@property (nonatomic, retain) SoundManager *sharedSoundManager;
 @property (nonatomic, readwrite) Vector2f screenBounds;
 @property (nonatomic, retain) InputManager *input;
 @property (nonatomic, retain) Image *blanktexture;
@@ -84,7 +85,9 @@
 @property (readwrite) int counteralpha, counteralphaOut, TimeAlpha, TimeAlphaOut, VolumeGlobal;
 
 
-
+// Class method to return an instance of GameController.  This is needed as this
+// class is a singleton class
++ (StateManager *)sharedStateManager;
 
 
 //==============================================================================

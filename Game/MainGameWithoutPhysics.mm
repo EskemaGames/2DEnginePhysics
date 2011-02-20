@@ -12,13 +12,11 @@
 //main classes
 #import "StateManager.h"
 #import "Fonts.h"
-#import "SoundManager.h"
 #import "LenguageManager.h"
 #import "ParticleEmitter.h"
 #import "TileMaps.h"
 #import "PlayerShip.h"
 #import "Widgets.h"
-#import "PhysicsWorld.h"
 #import "Image.h"
 
 
@@ -28,12 +26,12 @@
 //  
 //  Initialize the ingame screen  
 //  
--(id) init:(StateManager *)States_;
+-(id) init
 {  
     self = [super init];
 	if (self != nil)  
     {  
-		gameState = States_;
+		gameState = [StateManager sharedStateManager];
 		[self loadContent]; 
 		
 	}
@@ -140,21 +138,21 @@
 //update touches ingame
 //this code is only a skeleton, and based on a specific game
 //you need to delete this and create your touch code for you joystick or whatever
-- (void) handleInput:(InputManager *)inputGame
+- (void) handleInput
 {  
 	//touches to move the player ship, this simply control when a touch is detected
 	//the player class will handle the touch
-	if ( inputGame.currentState.isBeingTouched )
+	if ( gameState.input.currentState.isBeingTouched )
 	{
-		touchLocation = inputGame.currentState.touchLocation;
+		touchLocation = gameState.input.currentState.touchLocation;
 	}
 	
 	
 	//if game is paused, unpause, if not pause game
-	if ([inputGame isButtonPressed:pauseButton.touch Active:YES] && pausedgame == YES)  
+	if ([gameState.input isButtonPressed:pauseButton.touch Active:YES] && pausedgame == YES)  
 	{ 
 		pausedgame = NO;
-	} else if ([inputGame isButtonPressed:pauseButton.touch Active:YES]  && pausedgame == NO){
+	} else if ([gameState.input isButtonPressed:pauseButton.touch Active:YES]  && pausedgame == NO){
 		pausedgame = YES;
 	}
 	
@@ -162,7 +160,7 @@
 	//if you are in pause and press the button, exit to main menu
 	if (pausedgame == YES)
 	{
-		if ([inputGame isButtonPressed:fireButton.touch Active:YES])    
+		if ([gameState.input isButtonPressed:fireButton.touch Active:YES])    
 		{
 			exitScreen = YES;
 		}
@@ -170,7 +168,7 @@
 	
 	
 	//release all touches
-	if ( !inputGame.currentState.isBeingTouched )
+	if ( !gameState.input.currentState.isBeingTouched )
 	{
 		touched = NO;
 	}

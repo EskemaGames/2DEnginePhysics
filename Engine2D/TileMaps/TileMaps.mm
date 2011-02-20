@@ -18,12 +18,13 @@
 
 
 
+
 @implementation TileMaps
 
-- (id) init:(StateManager *)states_
+- (id) init
 {  
     self = [super init];
-	statesManager = states_;
+	statesManager = [StateManager sharedStateManager];
 	WideTotalMap = HeighTotalMap = MaxColumns = MaxRows  = Layers = TileSize = indiceScroll = speedScroll = 0;
 	havePhysics = NO;
 	return self;  

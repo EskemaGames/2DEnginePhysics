@@ -34,7 +34,7 @@
 //====================== FUNCTIONS =============================================
 //==============================================================================
 //==============================================================================
--(id) init:(StateManager *)States_ SleepBodies:(bool)SleepBodies;
+-(id) initSleepBodies:(bool)SleepBodies;
 -(void)Update;
 -(b2Vec2) toMeters:(CGPoint)point;
 -(CGPoint) toPixels:(b2Vec2)vec;

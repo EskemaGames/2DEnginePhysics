@@ -11,16 +11,13 @@
 
 @class StateManager;
 @class Fonts;
-@class SoundManager;
 @class LenguageManager;
 @class Camera;
 @class ParticleEmitter;
 @class TileMaps;
 @class PlayerShip;
 @class Widgets;
-@class PhysicsWorld;
 @class Image;
-@class InputManager;
 
 
 @interface MainGameWithoutPhysics : NSObject {
@@ -73,10 +70,10 @@
 ///	 GENERAL FUNCTIONS
 ///
 ///////////////////////
-- (id) init:(StateManager *)States_; 
+
 - (void) loadContent;
 - (void) unloadContent;
-- (void) handleInput:(InputManager *)inputGame;
+- (void) handleInput;
 - (void) update:(float)deltaTime;
 - (void) draw;
 

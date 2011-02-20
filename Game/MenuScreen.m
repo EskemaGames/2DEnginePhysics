@@ -1,7 +1,6 @@
 
 #import "MenuScreen.h"
 #import "Fonts.h"
-#import "SoundManager.h"
 #import "LenguageManager.h"
 #import "Widgets.h"
 #import "Image.h"
@@ -13,10 +12,10 @@
 
 
 
-- (id) init:(StateManager *)states_ 
+- (id) init
 {  
     self = [super init]; 
-	menustate = states_; 
+	menustate = [StateManager sharedStateManager]; 
 
 	[self loadContent];
 	
@@ -37,9 +36,7 @@
 
 - (void) loadContent  
 { 
-	
-	// Init sound
-	sharedSoundManager = [SoundManager sharedSoundManager];
+
 	
 	//sprites to draw the button and the buttons
 	SpriteGame  = [[Image alloc] initWithTexture:@"mainmenu.png"  filter:GL_NEAREST Use32bits:YES TotalVertex:2000];
@@ -155,17 +152,17 @@
 
 
 
-- (void) handleInput:(InputManager *)inputmenu  
+- (void) handleInput
 {  	
 	
 	if (active == 0)
 	{
-		if ([inputmenu isButtonPressed:button1.touch Active:button1.active])  
+		if ([menustate.input isButtonPressed:button1.touch Active:button1.active])  
 		{  
 			selected = 1;
 			active = 1;
 		} 
-		if ([inputmenu isButtonPressed:button2.touch Active:button2.active])  
+		if ([menustate.input isButtonPressed:button2.touch Active:button2.active])  
 		{  
 			selected = 2;
 			active = 1;

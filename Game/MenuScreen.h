@@ -11,7 +11,6 @@
 
 
 
-@class SoundManager;
 @class Fonts;
 @class LenguageManager;
 @class Widgets;
@@ -21,8 +20,7 @@
 {
 	
 	LenguageManager *MenuText; 
-	//sound
-	SoundManager *sharedSoundManager;
+
 
 	//game sprites
 	Image *SpriteGame;
@@ -49,9 +47,9 @@
 ///	 GENERAL FUNCTIONS
 ///
 //////////////////
-- (id) init:(StateManager *)states_; 
+
 - (void) loadContent;
-- (void) handleInput:(InputManager *)inputmenu;
+- (void) handleInput;
 - (void) update:(float)deltaspeed;
 - (void) draw;
 - (void) LoadOption;
