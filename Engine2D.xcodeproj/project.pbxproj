@@ -90,6 +90,7 @@
 		ACC11626113ED08F00CC7DF1 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC11625113ED08F00CC7DF1 /* Default.png */; };
 		ACC11628113ED09F00CC7DF1 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC11627113ED09F00CC7DF1 /* Icon.png */; };
 		ACC116AB113EE26A00CC7DF1 /* Widgets.m in Sources */ = {isa = PBXBuildFile; fileRef = ACC116AA113EE26A00CC7DF1 /* Widgets.m */; };
+		ACC779CB13168E2F00920347 /* MainWindow@2x.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACC779CA13168E2F00920347 /* MainWindow@2x.xib */; };
 		ACD7BDFC12EDE27D00C69963 /* MainGameWithoutPhysics.mm in Sources */ = {isa = PBXBuildFile; fileRef = ACD7BDFB12EDE27D00C69963 /* MainGameWithoutPhysics.mm */; };
 		ACD7BEE912EDEDC400C69963 /* gunexported.fnt in Resources */ = {isa = PBXBuildFile; fileRef = ACD7BEDE12EDEDC400C69963 /* gunexported.fnt */; };
 		ACD7BEEA12EDEDC400C69963 /* Level.xml in Resources */ = {isa = PBXBuildFile; fileRef = ACD7BEDF12EDEDC400C69963 /* Level.xml */; };
@@ -258,6 +259,7 @@
 		ACC116A8113EE26000CC7DF1 /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
 		ACC116A9113EE26A00CC7DF1 /* Widgets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Widgets.h; sourceTree = "<group>"; };
 		ACC116AA113EE26A00CC7DF1 /* Widgets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Widgets.m; sourceTree = "<group>"; };
+		ACC779CA13168E2F00920347 /* MainWindow@2x.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = "MainWindow@2x.xib"; sourceTree = "<group>"; };
 		ACD7BDFA12EDE27D00C69963 /* MainGameWithoutPhysics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainGameWithoutPhysics.h; sourceTree = "<group>"; };
 		ACD7BDFB12EDE27D00C69963 /* MainGameWithoutPhysics.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MainGameWithoutPhysics.mm; sourceTree = "<group>"; };
 		ACD7BEDE12EDEDC400C69963 /* gunexported.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gunexported.fnt; sourceTree = "<group>"; };
@@ -341,6 +343,7 @@
 			children = (
 				AC91226F113E6019009B7C27 /* Assets */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
+				ACC779CA13168E2F00920347 /* MainWindow@2x.xib */,
 				8D1107310486CEB800E47090 /* Engine2D-Info.plist */,
 			);
 			name = Resources;
@@ -785,6 +788,7 @@
 				ACD7BF0712EDEE1300C69963 /* spacemap_layer0.CSV in Resources */,
 				ACD7BF3A12EDEE7F00C69963 /* gameEN.xml in Resources */,
 				ACD7BF3B12EDEE7F00C69963 /* gameES.xml in Resources */,
+				ACC779CB13168E2F00920347 /* MainWindow@2x.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

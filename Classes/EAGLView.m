@@ -63,6 +63,16 @@
 			return nil;
 		}
 		
+		if((void *)UI_USER_INTERFACE_IDIOM() != NULL &&
+		   UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+		{
+			isIpad = YES;
+		}
+		else {
+			isIpad = NO;
+		}
+		
+		
 		// Get the bounds of the main screen
 		//by default the screen is always in portrait
 		//we want to override this values with the define LANDSCAPE
@@ -205,18 +215,25 @@
     //  it via the bool switch in the touches manager file.  
 	if(	LANDSCAPE)
     {  
-        viewport = CGRectMake(0, 0, 480, 320);  
+		if (isIpad)
+			viewport = CGRectMake(0, 0, 1024, 768);
+		else {
+			viewport = CGRectMake(0, 0, 480, 320);
+		}
+		
         glViewport(0, 0, viewport.size.height, viewport.size.width);  
         glRotatef(-90, 0, 0, 1);  
         glOrthof(0, viewport.size.width, viewport.size.height, 0, -1.0, 1.0);    
-		
     }  
     else    //  Game is to be played in portrait  
     {  
-        viewport = CGRectMake(0, 0, 320, 480);  
+		if (isIpad)
+			viewport = CGRectMake(0, 0, 768, 1024);
+		else {
+			viewport = CGRectMake(0, 0, 320, 480);
+		}
         glViewport(0, 0, viewport.size.width, viewport.size.height);  
-        glOrthof(0.0, viewport.size.width, viewport.size.height, 0.0, -1.0, 1.0);     
-		
+        glOrthof(0.0, viewport.size.width, viewport.size.height, 0.0, -1.0, 1.0); 
     }  
 	
 
@@ -371,9 +388,8 @@
 	if (orientation == UIDeviceOrientationLandscapeRight) {
 		glMatrixMode(GL_PROJECTION);  
 		glLoadIdentity();  
-		viewport = CGRectMake(0, 0, 480, 320);  
-        glViewport(0, 0, viewport.size.height, viewport.size.width);   
-		glOrthof(0, viewport.size.width, viewport.size.height, 0, -1.0, 1.0);    
+        viewport = CGRectMake(0, 0, States.screenBounds.x, States.screenBounds.y);  
+        glViewport(0, 0, viewport.size.height, viewport.size.width);  
         glRotatef(90, 0, 0, 1);  
         glOrthof(0, viewport.size.width, viewport.size.height, 0, -1.0, 1.0);    
 		glMatrixMode(GL_MODELVIEW);  
@@ -383,9 +399,8 @@
 	if (orientation == UIDeviceOrientationLandscapeLeft) {
 		glMatrixMode(GL_PROJECTION);  
 		glLoadIdentity();  
-		viewport = CGRectMake(0, 0, 480, 320);  
-        glViewport(0, 0, viewport.size.height, viewport.size.width);    
-		glOrthof(0, viewport.size.width, viewport.size.height, 0, -1.0, 1.0);    
+        viewport = CGRectMake(0, 0, States.screenBounds.x, States.screenBounds.y);  
+        glViewport(0, 0, viewport.size.height, viewport.size.width);  
         glRotatef(-90, 0, 0, 1);  
         glOrthof(0, viewport.size.width, viewport.size.height, 0, -1.0, 1.0);    
 		glMatrixMode(GL_MODELVIEW);  
@@ -393,6 +408,7 @@
 		
 	}
 }
+
 
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event  

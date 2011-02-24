@@ -24,8 +24,10 @@
 	<string>1.0</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSMainNibFile</key>
+	<key>NSMainNibFile~iphone</key>
 	<string>MainWindow</string>
+	<key>NSMainNibFile~ipad</key>
+	<string>MainWindow@2x</string>
 	<key>UIStatusBarHidden</key>
 	<true/>
 	<key>UIApplicationExitsOnSuspend</key>
