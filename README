@@ -22,6 +22,7 @@ All the sprites are cached using a vertex array interleaved buffer, no VBO used
 -Touchmanager
 -Statemanager, to control the game workflow.
 -Physics with Box2D
+-Joystick class for virtual joystick support on your games
 
 
 The engine comes with an example with a main menu and 2 scenes, one with physics and another with a tilemap with automatic scroll, like a topdown shooter. Learn how you can go from the menu to the game and return to the menu with the buttons included in the game. The top right button pauses the game, then with the game paused press the bottom right button to exit the game to the main menu.
