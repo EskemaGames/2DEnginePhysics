@@ -6,7 +6,7 @@
 //  Copyright 2009 Michael Daley. All rights reserved.
 //
 
-#import "Common.h"
+#import "CommonEngine.h"
 #import "Image.h"
 #import "GameTextureBound.h"
 

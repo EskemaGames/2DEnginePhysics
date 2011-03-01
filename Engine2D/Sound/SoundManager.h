@@ -12,7 +12,7 @@
 #import <OpenAL/alc.h>
 #import <AudioToolbox/AudioToolbox.h>
 #import <AVFoundation/AVFoundation.h>
-#import "Common.h"
+#import "CommonEngine.h"
 #import "SynthesizeSingleton.h"
 
 

@@ -12,7 +12,7 @@
 
 
 #import "defines.h"
-#import "Common.h"
+#import "CommonEngine.h"
 
 #import <Foundation/Foundation.h>  
 
@@ -30,6 +30,8 @@
     int step;				//counter to increase frame
     state status;			//the animation states
     int delay;				//establish time between frames 
+	bool EndAnimation;		//flag for animation ended
+	bool AnimationActive;	//flag for animation active
 }  
 
 
@@ -39,7 +41,7 @@
 @property (nonatomic, readwrite) int frametoDisplay;  
 @property (nonatomic, readwrite) int step;
 @property (nonatomic, readwrite) int delay;
-
+@property (readwrite) bool EndAnimation, AnimationActive;
 
 
 //==============================================================================
@@ -48,12 +50,21 @@
 //==============================================================================
 //==============================================================================
 -(void)InitArray:(state)states Number:(int)num;
--(void) LoadAnimation:(state)states   AnimationValues:(CGRect)Animationvalues Speed:(int)speed frames_number:(int)frames EndAnimation:(int)endAnimation CachedNum:(int)cachedNum;
+-(void) LoadAnimation:(state)states   AnimationValues:(CGRect)Animationvalues Speed:(int)speed 
+		frames_number:(int)frames 
+		 EndAnimation:(int)endAnimation 
+			CachedNum:(int)cachedNum 
+			  OffsetX:(int)offsetx 
+			  OffsetY:(int)offsety
+		LoopAnimation:(bool)loopAnimation;
 -(int) NextAnimationFrame;
 -(void) SelectFrame:(int) frames;
 -(int) GetActualFrame;
+-(bool)ReturnLoopAnimation;
 -(int)GetFrameSizeWidth;
 -(int)GetFrameSizeHeight;
+-(int)GetFrameOffsetX;
+-(int)GetFrameOffsetY;
 -(int) GetState;
 
 //States

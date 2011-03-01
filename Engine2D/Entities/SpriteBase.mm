@@ -16,7 +16,7 @@
 @synthesize mvertex;
 @synthesize physicBody;
 @synthesize physicsEnabled;
-@synthesize position, size;
+@synthesize position, size, offset;
 @synthesize speed, flip;
 @synthesize rotation;
 
@@ -36,23 +36,13 @@
 // release resources when they are no longer needed.
 - (void)dealloc
 {
+	sprtImg = nil;
 	[physicBody release];
 	free(cachedTexture);
 	free(textureCoordinates);
 	free(mvertex);
 	[super dealloc];
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 

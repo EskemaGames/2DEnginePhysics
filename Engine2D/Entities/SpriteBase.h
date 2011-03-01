@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Common.h"
+#import "CommonEngine.h"
 #import "PhysicBodyBase.h"
-
+#import "Image.h"
 
 @interface SpriteBase : NSObject {
 
@@ -21,11 +21,14 @@
 	//variables
 	Vector2f position;
 	Vector2f size;
-	
+	Vector2f offset;
 	float speed; //speed to move sprite
 	
 	int flip; //used to flip sprite left/right/up/down
 	float rotation; //maybe we want to rotate the sprite
+	
+	//image for all sprites derived from this class
+	Image *sprtImg;
 	
 	// Array used to store texture coords and vertices info for rendering
 	Quad2f *cachedTexture;
@@ -39,7 +42,7 @@
 @property (nonatomic, readwrite) Quad2f *mvertex;
 
 @property (retain) PhysicBodyBase *physicBody;
-@property (nonatomic, readwrite) Vector2f position, size;
+@property (nonatomic, readwrite) Vector2f position, size, offset;
 @property (nonatomic, readwrite) int flip;
 @property (nonatomic, readwrite) float rotation, speed;
 @property (nonatomic, readwrite) bool physicsEnabled;

@@ -9,7 +9,8 @@
 @synthesize frametoDisplay;
 @synthesize step;
 @synthesize delay;
-
+@synthesize EndAnimation;
+@synthesize AnimationActive;
 
 
 - (id) init 
@@ -19,6 +20,8 @@
 	step = 0;
 	frame = 0;
 	frametoDisplay = 0;
+	EndAnimation = NO;
+	AnimationActive = NO;
 	
 	//create a sprite array to hold all the animations and states
 	//init only half array, the other part will be initiated
@@ -57,6 +60,9 @@
 		frames_number:(int)frames_number  
 		 EndAnimation:(int)endAnimation 
 			CachedNum:(int)cachedNum
+			  OffsetX:(int)offsetx
+			  OffsetY:(int)offsety
+		LoopAnimation:(bool)loopAnimation
 {	
 	//size and position on the spritesheet of this sprite frame
 	SpriteFrames[states][frames_number].speed = speed;
@@ -64,14 +70,16 @@
 	SpriteFrames[states][frames_number].posY = Animationvalues.origin.y;
 	SpriteFrames[states][frames_number].w = Animationvalues.size.width;
 	SpriteFrames[states][frames_number].h = Animationvalues.size.height;
+	SpriteFrames[states][frames_number].offsetX = offsetx;
+	SpriteFrames[states][frames_number].offsetY = offsety;
+	SpriteFrames[states][frames_number].loopAnimation = loopAnimation;
 	if (endAnimation != -1)
-	SpriteFrames[states][frames_number].frame = frames_number;
+		SpriteFrames[states][frames_number].frame = frames_number;
 	else {
 		SpriteFrames[states][frames_number].frame = END_ANIMATION;
 	}
-
+	
 	SpriteFrames[states][frames_number].cachedFrameNum = cachedNum;
-
 }
 
 
@@ -85,14 +93,26 @@
 	{
 		step ++;
 		frame = SpriteFrames[status][step].frame;
+		delay = SpriteFrames[status][step].speed;  //reset delay counter to value asigned
 		
-        delay = SpriteFrames[status][step].speed;  //reset delay counter to value asigned
-		
+		//check the end of animation
 		if (frame == END_ANIMATION)
 		{
-			step = 0;
-			frame = SpriteFrames[status][0].frame;
-			return 1;
+			//the animation will loop?
+			if (!SpriteFrames[status][0].loopAnimation)
+			{
+				AnimationActive = NO;
+				EndAnimation = YES;
+				return 1;
+			}
+			//yes we loop the animation
+			else {
+				AnimationActive = YES;
+				EndAnimation = YES;
+				step = 0;
+				frame = SpriteFrames[status][0].frame;
+				return 1;
+			}
 		}
 	}
 	else delay --;
@@ -100,6 +120,11 @@
 	return 0;
 }
 
+
+-(bool)ReturnLoopAnimation
+{
+	return SpriteFrames[status][0].loopAnimation;
+}
 
 
 //select the frame we want to show
@@ -115,8 +140,8 @@
 -(int) GetActualFrame
 {
 	return SpriteFrames[status][step].cachedFrameNum;
-	//return frame;
 }
+
 
 
 //return the values for this animation
@@ -130,12 +155,24 @@
 	return SpriteFrames[status][step].h;
 }
 
+-(int)GetFrameOffsetX
+{
+	return SpriteFrames[status][step].offsetX;
+}
+
+-(int)GetFrameOffsetY
+{
+	return SpriteFrames[status][step].offsetY;
+}
+
 
 //return our state to know in wich state we are
 -(int) GetState
 {
 	return status;
 }
+
+
 
 
 
@@ -150,18 +187,21 @@
 //change our animation state
 -(void) ChangeStates:(state) Status
 {
+	EndAnimation = NO;
+	AnimationActive = YES;
 	status = Status;
-	step = 0;
 }
+
 
 
 
 //change our state and reset the animation to its first frame
 -(void) ChangeStatesAndResetAnim:(state) State
 {
+	EndAnimation = NO;
+	AnimationActive = YES;
 	status = State;
 	step = 0;
-	frame = SpriteFrames[status][0].frame;
 }
 
 
@@ -169,6 +209,10 @@
 //refresh the animation to know what frame we need to draw
 -(void) RefreshStates
 {
+	//the animation is not active, skip this
+	if (!AnimationActive)
+		return;
+	
 	[self NextAnimationFrame];
 }
 

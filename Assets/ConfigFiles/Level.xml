@@ -15,6 +15,10 @@
 	<LayerCollision value="1"/>
 	<LayerObjects value="2"/>
 	<HavePhysics value="true"/>
+	<AutoScrollX value="false"/>
+	<AutoScrollY value="false"/>
+	<ScrollXForward value="false"/>
+	<ScrollYForward value="false"/>
 	
 	<!-- tiles properties -->
     <TileProperties value="0" Visible="false" PhysicsTile="false" Nowalkable="false" TileAnimated="false" AnimatedFrames="0" Object="false" DelaySpeed="0"/>

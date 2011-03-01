@@ -120,6 +120,9 @@ typedef struct Tiles2 {
 	//tiles X,Y
 	int tilesX, tilesY;
 	float CameraY;
+	float CameraX;
+	bool ScrollX, ScrollY;
+	bool ScrollXForward, ScrollYForward;
 	
 	//image reference to store the spritesheet to work with
 	Image *mapImg;
@@ -166,11 +169,11 @@ typedef struct Tiles2 {
 
 
 //update scroll
--(void) UpdateScroll:(float)GameSpeed PauseGame:(bool)pauseGame;
+-(void) UpdateScroll:(float)GameSpeed;
 
 //scrolled maps DON'T have physics
 //turn now to draw the level, choose between an automatic scroll or a fixed map with movement controlled by the player
--(void) DrawLevelWithScrollY:(bool)ScrollY  Layer:(int)Layer Colors:(Color4f)_colors  GameSpeed:(float)gameSpeed PauseGame:(bool)pauseGame;
+-(void) DrawLevelWithScrollLayer:(int)Layer Colors:(Color4f)_colors;
 
 //convert map coords in pixels coords in x,y
 //remember levels start at position 0,0

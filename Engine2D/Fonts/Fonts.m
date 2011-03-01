@@ -62,9 +62,6 @@
 
 
 
-
-
-
 //draw text centered on a position given
 //and a width, for example to center text
 //inside a button or a square for text
@@ -132,7 +129,7 @@
 		[fontImg _addVertex:vert.tr_x  Y:vert.tr_y  UVX:cachedTexture[charID].tr_x  UVY:cachedTexture[charID].tr_y  Color:_color];
 		[fontImg _addVertex:vert.bl_x  Y:vert.bl_y  UVX:cachedTexture[charID].bl_x  UVY:cachedTexture[charID].bl_y  Color:_color];
 		[fontImg _addVertex:vert.br_x  Y:vert.br_y  UVX:cachedTexture[charID].br_x  UVY:cachedTexture[charID].br_y  Color:_color];
-
+		
 		//calculate the size to advance, based on its scale
 		widetext = (arrayFonts[charID].xadvance  * scale);
 		
@@ -223,7 +220,7 @@
 		
 		//advance the position to draw the next letter
 		dx +=  widetext + arrayFonts[charID].offsetx;
-
+		
 	}//end for	
 	
 }
@@ -289,7 +286,7 @@
 			offsetY = arrayFonts[charID].offsety * scale;
 			dy = Y + offsetY + fontlineskip;
 		}
-
+		
 		
 		Quad2f vert = *[fontImg getVerticesForSpriteAtrect:CGRectMake(dx, dy, arrayFonts[charID].w * scale, arrayFonts[charID].h * scale) Vertices:vertices Flip:1];
 		
@@ -301,13 +298,14 @@
 		[fontImg _addVertex:vert.tr_x  Y:vert.tr_y  UVX:cachedTexture[charID].tr_x  UVY:cachedTexture[charID].tr_y  Color:_color];
 		[fontImg _addVertex:vert.bl_x  Y:vert.bl_y  UVX:cachedTexture[charID].bl_x  UVY:cachedTexture[charID].bl_y  Color:_color];
 		[fontImg _addVertex:vert.br_x  Y:vert.br_y  UVX:cachedTexture[charID].br_x  UVY:cachedTexture[charID].br_y  Color:_color];
-
 		
 		//calculate the size to advance, based on its scale
-		widetext = (arrayFonts[charID].offsetx * scale);// xadvance  * scale);
+		widetext = (arrayFonts[charID].xadvance  * scale);
 		
 		//advance the position to draw the next letter
-		dx +=  widetext + arrayFonts[charID].xadvance;// offsetx;
+		dx +=  widetext + arrayFonts[charID].offsetx;
+		
+		
 		
 	}//end for	
 	
@@ -381,7 +379,7 @@
 	while(line = [nse nextObject]) {
 		// Check to see if the start of the line is something we are interested in
 		if([line hasPrefix:@"char"]) {
-
+			
 			[self parseCharacterDefinition:line ];
 		}
 	}
@@ -410,7 +408,7 @@
 	// Character ID
 	propertyValue = [nse nextObject];
 	idNum = [propertyValue intValue];
-
+	
 	// Character x
 	propertyValue = [nse nextObject];
 	arrayFonts[idNum].posX = [propertyValue intValue];
@@ -426,7 +424,7 @@
 	// Character height
 	propertyValue = [nse nextObject];
 	arrayFonts[idNum].h = [propertyValue intValue];
-
+	
 	// Character xoffset
 	propertyValue = [nse nextObject];
 	arrayFonts[idNum].offsetx =[propertyValue intValue];
@@ -438,17 +436,17 @@
 	// Character xadvance
 	propertyValue = [nse nextObject];
 	arrayFonts[idNum].xadvance = [propertyValue intValue];
-
+	
 	
 	//call the cache function to fill the array with the positions of this letter
 	//when we end parsing the file, we have a full array with cached quad texture coordinates
 	[fontImg cacheTexCoords:arrayFonts[idNum].w
-			  SubTextureHeight:arrayFonts[idNum].h  
-			 CachedCoordinates:textureCoordinates 
-				CachedTextures:cachedTexture
-					   Counter:idNum
-						  PosX:arrayFonts[idNum].posX
-						  PosY:arrayFonts[idNum].posY];
+		   SubTextureHeight:arrayFonts[idNum].h  
+		  CachedCoordinates:textureCoordinates 
+			 CachedTextures:cachedTexture
+					Counter:idNum
+					   PosX:arrayFonts[idNum].posX
+					   PosY:arrayFonts[idNum].posY];
 	
 }
 
@@ -457,4 +455,3 @@
 
 
 @end
-

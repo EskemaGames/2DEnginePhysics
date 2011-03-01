@@ -8,12 +8,13 @@
 //
 
 #import <Foundation/Foundation.h>
-
+@class StateManager;
 
 
 @interface Camera : NSObject {
 	float CameraX;
 	float CameraY;
+	StateManager *states;
 }
 
 

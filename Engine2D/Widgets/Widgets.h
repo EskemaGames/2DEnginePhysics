@@ -8,23 +8,23 @@
 
 #import <Foundation/Foundation.h>
 
-#import "Common.h"
-@class Image;
+#import "CommonEngine.h"
+#import "SpriteBase.h"
+
+//@class Image;
 @class Fonts;
 
 
 
 //class to handle widgets
 //a widget is usually a button with or without a text
-@interface Widgets : NSObject
+@interface Widgets : SpriteBase
 {
-	Vector2f size;
-	Vector2f position;
+
 	Vector2f locAtlas;
 	Color4f color;
 	Vector2f scale;
 	CGRect touch;
-	float rotation;
 	Image *widgetImage;
 	Fonts *widgetFont;
 	bool active;
@@ -33,13 +33,10 @@
 
 
 @property (readwrite) bool active;
-@property (readwrite) Vector2f size;
-@property (readwrite) Vector2f position;
 @property (readwrite) Vector2f locAtlas;
 @property (readwrite) Color4f color;
 @property (readwrite) Vector2f scale;
 @property (readwrite) CGRect touch;
-@property (readwrite) float rotation;
 @property (readwrite) float scaleText;
 
 

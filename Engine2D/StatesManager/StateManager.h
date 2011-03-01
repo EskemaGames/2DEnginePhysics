@@ -14,6 +14,7 @@
 //touchs and sound manager
 #import "InputManager.h"
 #import "SoundManager.h"
+#import "JoystickManager.h"
 
 //common defines
 #import "defines.h"
@@ -36,7 +37,9 @@
 	//for transitions fade in/out
 	Image *blanktexture;
 	
-
+	//change coordinates and everything is the game is running on ipad
+	bool isIpad;
+	
 	//sounds
 	float TotalVolume; //our game and sounds volume
 	int VolumeGlobal; //our volume and sounds display
@@ -65,6 +68,7 @@
 
 	//touches
 	InputManager *input;
+	JoystickManager *joystick;
 	
 	//game screens
 	MenuScreen *MainMenu;
@@ -74,9 +78,11 @@
 	
 }
 
+@property (readwrite) bool isIpad;
 @property (nonatomic, retain) SoundManager *sharedSoundManager;
 @property (nonatomic, readwrite) Vector2f screenBounds;
 @property (nonatomic, retain) InputManager *input;
+@property (nonatomic, retain) JoystickManager *joystick;
 @property (nonatomic, retain) Image *blanktexture;
 @property (readwrite) bool menuinitialised, gameinitialised, gamenophysics;
 

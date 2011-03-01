@@ -160,6 +160,26 @@
 		name = [TBXML valueOfAttributeNamed:@"value" forElement:object];
 		havePhysics = [name boolValue];
 		
+		// next element
+		object = [TBXML childElementNamed:@"AutoScrollX" parentElement:property];
+		name = [TBXML valueOfAttributeNamed:@"value" forElement:object];
+		ScrollX = [name boolValue];
+		
+		// next element
+		object = [TBXML childElementNamed:@"AutoScrollY" parentElement:property];
+		name = [TBXML valueOfAttributeNamed:@"value" forElement:object];
+		ScrollY = [name boolValue];
+		
+		// next element
+		object = [TBXML childElementNamed:@"ScrollXForward" parentElement:property];
+		name = [TBXML valueOfAttributeNamed:@"value" forElement:object];
+		ScrollXForward = [name boolValue];
+		
+		// next element
+		object = [TBXML childElementNamed:@"ScrollYForward" parentElement:property];
+		name = [TBXML valueOfAttributeNamed:@"value" forElement:object];
+		ScrollYForward = [name boolValue];
+		
 		
 		//parse the tile properties like rotation, name, walkable,etc,etc
 		TBXMLElement * TileProperties = [TBXML childElementNamed:@"TileProperties" parentElement:property];
@@ -235,7 +255,9 @@
 	//speed for automatic scrolling maps
 	speedScroll = 1;
 	
+	//camera values for automatic scroll
 	CameraY = 0;
+	CameraX = 0;
 	indiceScroll = 0;
 	
 
@@ -563,39 +585,73 @@
 
 
 //=============================================================================
--(void) UpdateScroll:(float)GameSpeed PauseGame:(bool)pauseGame;
+-(void) UpdateScroll:(float)GameSpeed
 {
 
-	//the game is not paused, go ahead with the scroll
-	if (!pauseGame)
+	//calculate speed for scroll here, higher number means more slower scroll
+	if(speedScroll >= 60)
 	{
-		//calculate speed for scroll here, higher number means more slower scroll
-		if(speedScroll >= 60)
+		speedScroll = 1;
+		indiceScroll +=0.5f;
+	}
+	else
+		speedScroll += speedScroll * 2 * GameSpeed;
+	
+	
+	//if we are at the end of the level
+	//start again the map
+	
+	//update the camera position for scroll
+	//128 and 120 it's just some values that fits my needs
+	//feel free to change this value to modify the scrolling speed
+	//higher number means slow speed
+	if (ScrollY)
+	{
+		if (ScrollYForward)
 		{
-			speedScroll = 1;
-			indiceScroll +=0.5f;
+			CameraY -= (indiceScroll - 128) / 120; 
+			
+			//check camera boundaries
+			if (CameraY >= HeighTotalMap - statesManager.screenBounds.y){
+				CameraY = 0;
+				indiceScroll = 0;
+			}
 		}
-		else
-			speedScroll += speedScroll * 2 * GameSpeed;
-
-	
-		//if we are at the end of the level
-		//start again the map
-
-		//update the camera position for scroll
-		//128 and 120 it's just some values that fits my needs
-		//feel free to change this value to modify the scrolling speed
-		//higher number means slow speed
-		CameraY += (indiceScroll - 128) / 120; 
-	
-	
-		//check camera boundaries
-		if (CameraY <= 0){
-			CameraY = HeighTotalMap - statesManager.screenBounds.y;
-			indiceScroll = 0;
-		}		
+		else {
+			CameraY += (indiceScroll - 128) / 120; 
+			//check camera boundaries
+			if (CameraY <= 0){
+				CameraY = HeighTotalMap - statesManager.screenBounds.y;
+				indiceScroll = 0;
+			}
+		}
 	}
 	
+	
+	if (ScrollX)
+	{
+		if (ScrollXForward)
+		{
+			CameraX -= (indiceScroll - 64) / 512;
+			
+			//check camera boundaries
+			if (CameraX >= WideTotalMap - statesManager.screenBounds.x){
+				CameraX = 0;
+				indiceScroll = 0;
+			}
+		}
+		else 
+		{
+			CameraX += (indiceScroll - 64) /  512;
+			
+			//check camera boundaries
+			if (CameraX <= 0){
+				CameraX = WideTotalMap - statesManager.screenBounds.x;
+				indiceScroll = 0;
+			}
+			
+		}
+	}//end scrollX
 
 }
 
@@ -606,16 +662,17 @@
 
 //scrolled maps DON'T have physics
 //=============================================================================
--(void) DrawLevelWithScrollY:(bool)ScrollY Layer:(int)Layer  Colors:(Color4f)_colors GameSpeed:(float)gameSpeed PauseGame:(bool)pauseGame;
+-(void) DrawLevelWithScrollLayer:(int)Layer  Colors:(Color4f)_colors 
 {
 	
-	[self UpdateScroll:gameSpeed PauseGame:pauseGame];
 	int index = 0;
     int x,y;
 
 	
 	int ytile = CameraY / TileSize;
 	int ypos = (int)CameraY & TileSize-1;
+	int xtile = CameraX / TileSize;
+	int xpos = (int)CameraX & TileSize-1;
 
 	
 	unsigned char red = _colors.red * 1.0f;
@@ -630,15 +687,17 @@
 
 	// if map its more bigger than the screen resolution, that extra tile its 
 	//for smooth scroll, so we only scan the screen resolution
+	//tilesY +1
+	//tilesX +1
 	for (int i = 0; i < tilesY; i++)
 	{
 		for(int j=0; j < tilesX; j++){
 
-			if (level[Layer][i+ytile][j].visible) 
+			if (level[Layer][i+ytile][j+xtile].visible) 
 			{
 				//loop through the map
-				index = [self getSpriteIndeX:j  Y:i+ytile  Layer:Layer];
-		
+				index = [self getSpriteIndeX:j+xtile  Y:i+ytile  Layer:Layer];
+				
 				if (ScrollY)
 				{
 					//convert map coords into pixels coords
@@ -646,7 +705,7 @@
 					y=(i*TileSize) - ypos;
 				}
 				else {
-					x=(j*TileSize) - ypos;
+					x=(j*TileSize) - xpos;
 					y=(i*TileSize);
 				}
 

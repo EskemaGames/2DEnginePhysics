@@ -75,7 +75,7 @@
 		AC9122AA113E6090009B7C27 /* Image.m in Sources */ = {isa = PBXBuildFile; fileRef = AC912298113E6090009B7C27 /* Image.m */; };
 		AC9122AB113E6090009B7C27 /* Texture2D.m in Sources */ = {isa = PBXBuildFile; fileRef = AC91229A113E6090009B7C27 /* Texture2D.m */; };
 		AC9122C5113E627C009B7C27 /* MainGameScreen.mm in Sources */ = {isa = PBXBuildFile; fileRef = AC9122C0113E627C009B7C27 /* MainGameScreen.mm */; };
-		AC9122C6113E627C009B7C27 /* MenuScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = AC9122C2113E627C009B7C27 /* MenuScreen.m */; };
+		AC9122C6113E627C009B7C27 /* MenuScreen.mm in Sources */ = {isa = PBXBuildFile; fileRef = AC9122C2113E627C009B7C27 /* MenuScreen.mm */; };
 		AC9122DD113E630E009B7C27 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC9122DC113E630E009B7C27 /* AVFoundation.framework */; };
 		AC9122DF113E630E009B7C27 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC9122DE113E630E009B7C27 /* OpenAL.framework */; };
 		AC9122E8113E631C009B7C27 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC9122E7113E631C009B7C27 /* AudioToolbox.framework */; };
@@ -89,8 +89,9 @@
 		ACC1161A113ED01500CC7DF1 /* Blank.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC11619113ED01500CC7DF1 /* Blank.png */; };
 		ACC11626113ED08F00CC7DF1 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC11625113ED08F00CC7DF1 /* Default.png */; };
 		ACC11628113ED09F00CC7DF1 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC11627113ED09F00CC7DF1 /* Icon.png */; };
-		ACC116AB113EE26A00CC7DF1 /* Widgets.m in Sources */ = {isa = PBXBuildFile; fileRef = ACC116AA113EE26A00CC7DF1 /* Widgets.m */; };
+		ACC116AB113EE26A00CC7DF1 /* Widgets.mm in Sources */ = {isa = PBXBuildFile; fileRef = ACC116AA113EE26A00CC7DF1 /* Widgets.mm */; };
 		ACC779CB13168E2F00920347 /* MainWindow@2x.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACC779CA13168E2F00920347 /* MainWindow@2x.xib */; };
+		ACCA6E42131D7133004E1028 /* JoystickManager.m in Sources */ = {isa = PBXBuildFile; fileRef = ACCA6E41131D7133004E1028 /* JoystickManager.m */; };
 		ACD7BDFC12EDE27D00C69963 /* MainGameWithoutPhysics.mm in Sources */ = {isa = PBXBuildFile; fileRef = ACD7BDFB12EDE27D00C69963 /* MainGameWithoutPhysics.mm */; };
 		ACD7BEE912EDEDC400C69963 /* gunexported.fnt in Resources */ = {isa = PBXBuildFile; fileRef = ACD7BEDE12EDEDC400C69963 /* gunexported.fnt */; };
 		ACD7BEEA12EDEDC400C69963 /* Level.xml in Resources */ = {isa = PBXBuildFile; fileRef = ACD7BEDF12EDEDC400C69963 /* Level.xml */; };
@@ -238,7 +239,7 @@
 		AC9122BF113E627C009B7C27 /* MainGamescreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainGamescreen.h; sourceTree = "<group>"; };
 		AC9122C0113E627C009B7C27 /* MainGameScreen.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MainGameScreen.mm; sourceTree = "<group>"; };
 		AC9122C1113E627C009B7C27 /* MenuScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuScreen.h; sourceTree = "<group>"; };
-		AC9122C2113E627C009B7C27 /* MenuScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuScreen.m; sourceTree = "<group>"; };
+		AC9122C2113E627C009B7C27 /* MenuScreen.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MenuScreen.mm; sourceTree = "<group>"; };
 		AC9122DC113E630E009B7C27 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		AC9122DE113E630E009B7C27 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		AC9122E7113E631C009B7C27 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -256,10 +257,12 @@
 		ACC11619113ED01500CC7DF1 /* Blank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Blank.png; sourceTree = "<group>"; };
 		ACC11625113ED08F00CC7DF1 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		ACC11627113ED09F00CC7DF1 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
-		ACC116A8113EE26000CC7DF1 /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
+		ACC116A8113EE26000CC7DF1 /* CommonEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonEngine.h; sourceTree = "<group>"; };
 		ACC116A9113EE26A00CC7DF1 /* Widgets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Widgets.h; sourceTree = "<group>"; };
-		ACC116AA113EE26A00CC7DF1 /* Widgets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Widgets.m; sourceTree = "<group>"; };
+		ACC116AA113EE26A00CC7DF1 /* Widgets.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Widgets.mm; sourceTree = "<group>"; };
 		ACC779CA13168E2F00920347 /* MainWindow@2x.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = "MainWindow@2x.xib"; sourceTree = "<group>"; };
+		ACCA6E40131D7133004E1028 /* JoystickManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JoystickManager.h; sourceTree = "<group>"; };
+		ACCA6E41131D7133004E1028 /* JoystickManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JoystickManager.m; sourceTree = "<group>"; };
 		ACD7BDFA12EDE27D00C69963 /* MainGameWithoutPhysics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainGameWithoutPhysics.h; sourceTree = "<group>"; };
 		ACD7BDFB12EDE27D00C69963 /* MainGameWithoutPhysics.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MainGameWithoutPhysics.mm; sourceTree = "<group>"; };
 		ACD7BEDE12EDEDC400C69963 /* gunexported.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gunexported.fnt; sourceTree = "<group>"; };
@@ -538,7 +541,7 @@
 		AC912274113E6090009B7C27 /* Engine2D */ = {
 			isa = PBXGroup;
 			children = (
-				ACC116A8113EE26000CC7DF1 /* Common.h */,
+				ACC116A8113EE26000CC7DF1 /* CommonEngine.h */,
 				AC3AA22C12EA72C100255B5A /* Box2D */,
 				ACB9056E1294A6F800AC35AF /* TileMaps */,
 				ACC11695113EE22900CC7DF1 /* Widgets */,
@@ -595,6 +598,8 @@
 		AC912280113E6090009B7C27 /* Input */ = {
 			isa = PBXGroup;
 			children = (
+				ACCA6E40131D7133004E1028 /* JoystickManager.h */,
+				ACCA6E41131D7133004E1028 /* JoystickManager.m */,
 				AC912281113E6090009B7C27 /* InputManager.h */,
 				AC912282113E6090009B7C27 /* InputManager.m */,
 				AC912283113E6090009B7C27 /* InputState.h */,
@@ -659,7 +664,7 @@
 				AC9122BF113E627C009B7C27 /* MainGamescreen.h */,
 				AC9122C0113E627C009B7C27 /* MainGameScreen.mm */,
 				AC9122C1113E627C009B7C27 /* MenuScreen.h */,
-				AC9122C2113E627C009B7C27 /* MenuScreen.m */,
+				AC9122C2113E627C009B7C27 /* MenuScreen.mm */,
 				ACD7BDFA12EDE27D00C69963 /* MainGameWithoutPhysics.h */,
 				ACD7BDFB12EDE27D00C69963 /* MainGameWithoutPhysics.mm */,
 			);
@@ -691,7 +696,7 @@
 			isa = PBXGroup;
 			children = (
 				ACC116A9113EE26A00CC7DF1 /* Widgets.h */,
-				ACC116AA113EE26A00CC7DF1 /* Widgets.m */,
+				ACC116AA113EE26A00CC7DF1 /* Widgets.mm */,
 			);
 			path = Widgets;
 			sourceTree = "<group>";
@@ -816,8 +821,8 @@
 				AC9122AA113E6090009B7C27 /* Image.m in Sources */,
 				AC9122AB113E6090009B7C27 /* Texture2D.m in Sources */,
 				AC9122C5113E627C009B7C27 /* MainGameScreen.mm in Sources */,
-				AC9122C6113E627C009B7C27 /* MenuScreen.m in Sources */,
-				ACC116AB113EE26A00CC7DF1 /* Widgets.m in Sources */,
+				AC9122C6113E627C009B7C27 /* MenuScreen.mm in Sources */,
+				ACC116AB113EE26A00CC7DF1 /* Widgets.mm in Sources */,
 				AC4DA01D1292ABF4002E566A /* NSDataAdditions.m in Sources */,
 				AC4DA01E1292ABF4002E566A /* TBXML.m in Sources */,
 				ACB905711294A6F800AC35AF /* TileMaps.mm in Sources */,
@@ -864,6 +869,7 @@
 				AC04E05612EC78180019594D /* PhysicBodyBase.mm in Sources */,
 				AC04E05912EC79060019594D /* SpriteBase.mm in Sources */,
 				ACD7BDFC12EDE27D00C69963 /* MainGameWithoutPhysics.mm in Sources */,
+				ACCA6E42131D7133004E1028 /* JoystickManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -15,12 +15,13 @@
 
 
 @synthesize Animation;
-@synthesize baseImg;
+@synthesize _typeActor;
 
 - (id) init
 {
 	self = [super init];
 	if (self != nil) {
+		m_states = [StateManager sharedStateManager];
 	}
 	return self;
 }
@@ -31,7 +32,6 @@
 // release resources when they are no longer needed.
 - (void)dealloc
 {
-	baseImg = nil;
 	[Animation release];
 	[super dealloc];
 }
@@ -51,14 +51,13 @@
 	flip = 1;
 	
 	//assign the image
-	baseImg = Spriteimage;
+	sprtImg = Spriteimage;
 	
 	//init animations
 	Animation = [[Animations alloc] init];
 	
 	//pointer to use XML files
 	TBXML *tbxml;
-	
 	tbxml = [[TBXML alloc] initWithXMLFile:_filename fileExtension:nil];
 	
 	
@@ -104,7 +103,6 @@
 	mvertex = (Quad2f*)calloc( 1, sizeof( Quad2f ) );
 	cachedTexture = (Quad2f*)calloc(TotalFramesAnimation, sizeof(Quad2f));
 	
-	
 }
 
 
@@ -129,8 +127,8 @@
 	unsigned _color = (shortAlpha << 24) | (blue << 16) | (green << 8) | (red << 0);
 	
 	//call the image class to get the vertices
-	Quad2f vert = *[baseImg getVerticesForSpriteAtrect:CGRectMake(position.x, 
-																  position.y,
+	Quad2f vert = *[sprtImg getVerticesForSpriteAtrect:CGRectMake(position.x + [Animation GetFrameOffsetX], 
+																  position.y + [Animation GetFrameOffsetY],
 																  [Animation GetFrameSizeWidth], 
 																  [Animation GetFrameSizeHeight])
 											  Vertices:mvertex Flip:flip];
@@ -138,14 +136,14 @@
 	//the textures are cached on a quad array, simply retrieve the correct texture coordinate from the array
 	//call the Image class to add vertex to the array
 	// Triangle #1
-	[baseImg _addVertex:vert.tl_x  Y:vert.tl_y  UVX:cachedTexture[[Animation GetActualFrame]].tl_x  UVY:cachedTexture[[Animation GetActualFrame]].tl_y  Color:_color];
-	[baseImg _addVertex:vert.tr_x  Y:vert.tr_y  UVX:cachedTexture[[Animation GetActualFrame]].tr_x  UVY:cachedTexture[[Animation GetActualFrame]].tr_y  Color:_color];
-	[baseImg _addVertex:vert.bl_x  Y:vert.bl_y  UVX:cachedTexture[[Animation GetActualFrame]].bl_x  UVY:cachedTexture[[Animation GetActualFrame]].bl_y  Color:_color];
+	[sprtImg _addVertex:vert.tl_x  Y:vert.tl_y  UVX:cachedTexture[[Animation GetActualFrame]].tl_x  UVY:cachedTexture[[Animation GetActualFrame]].tl_y  Color:_color];
+	[sprtImg _addVertex:vert.tr_x  Y:vert.tr_y  UVX:cachedTexture[[Animation GetActualFrame]].tr_x  UVY:cachedTexture[[Animation GetActualFrame]].tr_y  Color:_color];
+	[sprtImg _addVertex:vert.bl_x  Y:vert.bl_y  UVX:cachedTexture[[Animation GetActualFrame]].bl_x  UVY:cachedTexture[[Animation GetActualFrame]].bl_y  Color:_color];
 	
 	// Triangle #2
-	[baseImg _addVertex:vert.tr_x  Y:vert.tr_y  UVX:cachedTexture[[Animation GetActualFrame]].tr_x  UVY:cachedTexture[[Animation GetActualFrame]].tr_y  Color:_color];
-	[baseImg _addVertex:vert.bl_x  Y:vert.bl_y  UVX:cachedTexture[[Animation GetActualFrame]].bl_x  UVY:cachedTexture[[Animation GetActualFrame]].bl_y  Color:_color];
-	[baseImg _addVertex:vert.br_x  Y:vert.br_y  UVX:cachedTexture[[Animation GetActualFrame]].br_x  UVY:cachedTexture[[Animation GetActualFrame]].br_y  Color:_color];
+	[sprtImg _addVertex:vert.tr_x  Y:vert.tr_y  UVX:cachedTexture[[Animation GetActualFrame]].tr_x  UVY:cachedTexture[[Animation GetActualFrame]].tr_y  Color:_color];
+	[sprtImg _addVertex:vert.bl_x  Y:vert.bl_y  UVX:cachedTexture[[Animation GetActualFrame]].bl_x  UVY:cachedTexture[[Animation GetActualFrame]].bl_y  Color:_color];
+	[sprtImg _addVertex:vert.br_x  Y:vert.br_y  UVX:cachedTexture[[Animation GetActualFrame]].br_x  UVY:cachedTexture[[Animation GetActualFrame]].br_y  Color:_color];
 	
 	 
 }

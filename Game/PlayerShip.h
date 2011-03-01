@@ -16,6 +16,7 @@
 @interface PlayerShip : BaseActor {
 
 	bool MoveLeft, MoveRight, MoveUp, MoveDown;
+	state EntityState; 
 }
 
 
@@ -29,7 +30,10 @@
 -(void) Update:(float)deltaTime Touchlocation:(CGPoint)Touchlocation;
 -(void) Draw:(Color4f)_colors;
 
--(void) StateStopped;
--(void) StateWalking;
+-(state) GetState;
+-(void) ChangeState:(state) EntityStatus;
+-(void) Control:(float)GameSpeed;
+-(void) Move:(float)GameSpeed;
+
 
 @end

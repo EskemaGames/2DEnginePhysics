@@ -53,6 +53,7 @@
 				NSString *name = [TBXML valueOfAttributeNamed:@"name" forElement:animation];
 				NSString *frame = [TBXML valueOfAttributeNamed:@"frame" forElement:animation];
 				NSString *_speed = [TBXML valueOfAttributeNamed:@"speed" forElement:animation];
+				NSString *_loop = [TBXML valueOfAttributeNamed:@"Loop" forElement:animation];
 				
 
 				//each animation have it's own array
@@ -105,60 +106,67 @@
 					NSString *Y = [TBXML valueOfAttributeNamed:@"LocY" forElement:props];
 					NSString *Width = [TBXML valueOfAttributeNamed:@"Width" forElement:props];
 					NSString *Height = [TBXML valueOfAttributeNamed:@"Height" forElement:props];
+					NSString *_OffsetX = [TBXML valueOfAttributeNamed:@"OffsetX" forElement:props];
+					NSString *_OffsetY = [TBXML valueOfAttributeNamed:@"OffsetY" forElement:props];
+
 					
 					if([name isEqualToString:@"Stopped"])
 					{
 						[Animation LoadAnimation:STOPPED   
 								 AnimationValues:CGRectMake([X intValue] , [Y intValue], [Width intValue], [Height intValue]) 
-										   Speed:[_speed intValue] frames_number:[Num intValue] EndAnimation:[End intValue] CachedNum:i];
+										   Speed:[_speed intValue] frames_number:[Num intValue] EndAnimation:[End intValue] CachedNum:i OffsetX:[_OffsetX intValue]
+										 OffsetY:[_OffsetY intValue] LoopAnimation:[_loop boolValue]];
 					}
 					
 					if([name isEqualToString:@"MoveLeft"])
 					{
 						[Animation LoadAnimation:MOVELEFT   
 								 AnimationValues:CGRectMake([X intValue] , [Y intValue], [Width intValue], [Height intValue]) 
-										   Speed:[_speed intValue] frames_number:[Num intValue] EndAnimation:[End intValue] CachedNum:i];
+										   Speed:[_speed intValue] frames_number:[Num intValue] EndAnimation:[End intValue] CachedNum:i OffsetX:[_OffsetX intValue]
+										 OffsetY:[_OffsetY intValue] LoopAnimation:[_loop boolValue]];
 					}
-					
 					if([name isEqualToString:@"MoveRight"])
 					{
 						[Animation LoadAnimation:MOVERIGHT   
 								 AnimationValues:CGRectMake([X intValue] , [Y intValue], [Width intValue], [Height intValue]) 
-										   Speed:[_speed intValue] frames_number:[Num intValue] EndAnimation:[End intValue] CachedNum:i];
+										   Speed:[_speed intValue] frames_number:[Num intValue] EndAnimation:[End intValue] CachedNum:i OffsetX:[_OffsetX intValue]
+										 OffsetY:[_OffsetY intValue] LoopAnimation:[_loop boolValue]];
 					}
-					
-					if([name isEqualToString:@"MoveDown"])
-					{
-						[Animation LoadAnimation:MOVEDOWN   
-								 AnimationValues:CGRectMake([X intValue] , [Y intValue], [Width intValue], [Height intValue]) 
-										   Speed:[_speed intValue] frames_number:[Num intValue] EndAnimation:[End intValue] CachedNum:i];
-					}
-					
 					if([name isEqualToString:@"MoveUp"])
 					{
 						[Animation LoadAnimation:MOVEUP   
 								 AnimationValues:CGRectMake([X intValue] , [Y intValue], [Width intValue], [Height intValue]) 
-										   Speed:[_speed intValue] frames_number:[Num intValue] EndAnimation:[End intValue] CachedNum:i];
+										   Speed:[_speed intValue] frames_number:[Num intValue] EndAnimation:[End intValue] CachedNum:i OffsetX:[_OffsetX intValue]
+										 OffsetY:[_OffsetY intValue] LoopAnimation:[_loop boolValue]];
+					}
+					if([name isEqualToString:@"MoveDown"])
+					{
+						[Animation LoadAnimation:MOVEDOWN   
+								 AnimationValues:CGRectMake([X intValue] , [Y intValue], [Width intValue], [Height intValue]) 
+										   Speed:[_speed intValue] frames_number:[Num intValue] EndAnimation:[End intValue] CachedNum:i OffsetX:[_OffsetX intValue]
+										 OffsetY:[_OffsetY intValue] LoopAnimation:[_loop boolValue]];
 					}
 					
 					if([name isEqualToString:@"Dead"])
 					{
 						[Animation LoadAnimation:DEAD   
 								 AnimationValues:CGRectMake([X intValue] , [Y intValue], [Width intValue], [Height intValue]) 
-										   Speed:[_speed intValue] frames_number:[Num intValue] EndAnimation:[End intValue] CachedNum:i];
+										   Speed:[_speed intValue] frames_number:[Num intValue] EndAnimation:[End intValue] CachedNum:i OffsetX:[_OffsetX intValue]
+										 OffsetY:[_OffsetY intValue] LoopAnimation:[_loop boolValue]];
 					}
 					
 					if([name isEqualToString:@"Dying"])
 					{
 						[Animation LoadAnimation:DYING   
 								 AnimationValues:CGRectMake([X intValue] , [Y intValue], [Width intValue], [Height intValue]) 
-										   Speed:[_speed intValue] frames_number:[Num intValue] EndAnimation:[End intValue] CachedNum:i];
+										   Speed:[_speed intValue] frames_number:[Num intValue] EndAnimation:[End intValue] CachedNum:i OffsetX:[_OffsetX intValue]
+										 OffsetY:[_OffsetY intValue] LoopAnimation:[_loop boolValue]];
 					}
 					
 
 					//cache this sprite frame, this improves the perfomance a lot
 					//precalculate here all the frames coordinates will help framerate
-					[baseImg cacheTexCoords:[Width intValue]
+					[sprtImg cacheTexCoords:[Width intValue]
 						   SubTextureHeight:[Height intValue]  
 						  CachedCoordinates:textureCoordinates 
 							 CachedTextures:cachedTexture
@@ -183,9 +191,16 @@
 		[tbxml release];
 			
 	
+		//set the actor type
+		_typeActor = TYPEPLAYER;
+		
+		//start the enemy animation and state
+		EntityState = STOPPED;
 		
 		//put a default animation state
 		[Animation ChangeStatesAndResetAnim:STOPPED];
+		
+
 		
 		
 
@@ -212,12 +227,29 @@
 
 - (void) dealloc
 {
+	Animation.AnimationActive = NO;
 	[super dealloc];
 }
 
 
 
+//
+//
+//	STATES
+//
+//==============================================================================
+-(state) GetState
+{
+	return EntityState;
+}
 
+
+
+//==============================================================================
+-(void) ChangeState:(state) EntityStatus
+{
+	EntityState = EntityStatus;
+}
 
 //==============================================================================
 -(void) Update:(float)deltaTime  Touchlocation:(CGPoint)Touchlocation
@@ -251,36 +283,88 @@
 
 
 
+
+
 //
 //
-// STATES FOR ANIMATIONS AND BEHAVIOUR OF THE PLAYER
-//
+// STATES FOR ANIMATIONS AND BEHAVIOUR OF THE ENEMY
 //
 //=============================================================================
--(void) StateStopped
+
+-(void) Control:(float)GameSpeed 
+{
+	switch (EntityState) 
+	{
+		case DYING:
+			break;
+			
+		case DEAD:
+			break;
+			
+		case STOPPED:
+			break;
+			
+		case MOVELEFT:
+			[Animation ChangeStates:MOVELEFT];
+			break;
+			
+		case MOVERIGHT:
+			[Animation ChangeStates:MOVERIGHT];
+			break;
+			
+		case MOVEUP:
+			[Animation ChangeStates:MOVEUP];
+			break;
+			
+		case MOVEDOWN:
+			[Animation ChangeStates:MOVEDOWN];
+			break;
+
+			
+		case EMPTY:
+			//empty state useful to move from one state to another
+			break;
+			
+		case GAMEOVER:
+			//empty state to handle the gameover, we post a notification
+			//and we will use that notification in the maingame screen
+			//this is only an empty state
+			break;
+	}
+	
+	//the enemy is not dead, dying or gameover, so we can move it
+    if ( EntityState != DYING && EntityState != DEAD && EntityState != STOPPED && EntityState != EMPTY && EntityState != GAMEOVER ) 
+	{
+		[self Move:GameSpeed]; // move enemy		
+	}
+	
+}
+
+
+
+-(void) Move:(float)GameSpeed 
 {
 	
-	//when we are stopped check if we can move
-	//in that case change the animations to move
-    if ( MoveLeft == true )
-    {
-		[Animation ChangeStates:MOVELEFT];
-    }
-    else if ( MoveRight == true )
-    {
-		[Animation ChangeStates:MOVERIGHT];
-    }
-    else if ( MoveUp == true )
-    {
-		[Animation ChangeStates:MOVEUP];
-		
-	}
-    else if ( MoveDown == true )
-    {
-		[Animation ChangeStates:MOVEDOWN];
-	}
-	
-	
+	switch (EntityState)
+	{
+		case MOVELEFT:
+				[super MoveXSpeed:GameSpeed];
+			break;
+			
+		case MOVERIGHT:
+				[super MoveXSpeed:GameSpeed];
+			break;
+			
+		case MOVEUP:
+				[super MoveYSpeed:GameSpeed];
+			break;
+			
+		case MOVEDOWN:
+				[super MoveYSpeed:GameSpeed];
+			break;
+			
+			//end case moveleft
+	};
 }
 
 
@@ -288,42 +372,11 @@
 
 
 
-//==============================================================================
--(void) StateWalking
-{
-	
-	//now we are in move, so change again the animation to move
-	//and increase the move function, adding the speed in the direction needed
-    if ( MoveLeft == true )
-    {
-		[Animation ChangeStates:MOVERIGHT];
-		//[self Move:x-speed Y:y];
-    }
-	else if ( MoveRight == true )
-    {
-		[Animation ChangeStates:MOVERIGHT];
-		//[self Move:x+speed Y:y];
-	}
-    else if ( MoveUp == true )
-    {
-		[Animation ChangeStates:MOVEUP];
-		//[self Move:x Y:y-speed];
-	}
-    else if ( MoveDown == true )
-    {
-		[Animation ChangeStates:MOVEDOWN];
-		//[self Move:x Y:y+speed];
-	}
-	
-	
-	//if the player stops, stop its animation
-	if ((MoveLeft == false) && (MoveRight == false) && (MoveUp == false) && (MoveDown == false))
-    {
-        [Animation ChangeStatesAndResetAnim:STOPPED];
-	}
-	
-}
-
+//
+//
+// DRAW
+//
+//
 
 
 //==============================================================================

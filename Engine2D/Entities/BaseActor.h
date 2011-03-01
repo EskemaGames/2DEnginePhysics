@@ -11,17 +11,18 @@
 #import <Foundation/Foundation.h> 
 
 
-#import "Image.h"
+#import "StateManager.h"
 #import "Animations.h"
 #import "SpriteBase.h"
 
 @interface BaseActor : SpriteBase  
 {  
+	//access the statemanager for all actors derived from this class
+	StateManager *m_states;
+	
 	//pointers to classes
 	Animations *Animation; //create a animation for our actor	
 
-	//pointer to image and caches
-	Image *baseImg;
 
 	//vector to hold the direction for movement
 	Vector2f m_direction;
@@ -34,13 +35,17 @@
 	//we don't want our player rotating when he falls from a ledge
 	bool FixedRotation;
 	
+	//define the type of this actor (player, enemy, boss,etc,etc)
+	TypeActor _typeActor;
+	
 }
 
 
 
 
 @property (nonatomic, retain) Animations *Animation;
-@property (nonatomic, retain) Image *baseImg;
+@property (readwrite) TypeActor _typeActor;
+
 
 
 

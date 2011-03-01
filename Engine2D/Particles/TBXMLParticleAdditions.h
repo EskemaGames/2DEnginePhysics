@@ -7,7 +7,7 @@
 //
 
 #import "TBXML.h"
-#import "Common.h"
+#import "CommonEngine.h"
 
 // This is a category that has been added to the TBML class.  Reading specific attributes from a
 // particle emitter XML config file is not something the TBXML class should be altered for.  This

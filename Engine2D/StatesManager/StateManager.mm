@@ -21,8 +21,10 @@
 
 @implementation StateManager
 
+@synthesize isIpad;
 @synthesize sharedSoundManager;
 @synthesize input;
+@synthesize joystick;
 @synthesize screenBounds;
 @synthesize menuinitialised, gameinitialised, gamenophysics;
 @synthesize fadecompleted, fadeOut, alpha, alphaOut, TimeAlpha, TimeAlphaOut, counteralpha, counteralphaOut;
@@ -48,6 +50,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(StateManager);
 
 	StateOption = MENU;
 
+	isIpad = NO;
+	
 	menuinitialised = NO;
 	gameinitialised = NO;
 	gamenophysics = NO;

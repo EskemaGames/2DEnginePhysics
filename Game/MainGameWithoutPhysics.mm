@@ -71,7 +71,7 @@
 
 	
 	//tilemaps class init
-	testMap = [[TileMaps alloc] init:gameState];
+	testMap = [[TileMaps alloc] init];
 	
 	//tilemap with automatic scroll
 	[testMap LoadLevel:SpriteGame ConfigFile:@"LevelScroll.xml" Physic:nil];
@@ -188,6 +188,7 @@
 		}
 		else{
 			[gameState ChangeStates:MENU];
+			pausedgame = YES;
 			gameState.alphaOut = 0.0f;
 			gameState.fadeOut = NO;
 			gameState.gamenophysics = NO;
@@ -200,6 +201,9 @@
 	//game is not paused? then update player and camera position/animation
 	if (!pausedgame)
 	{
+		//update map scroll
+		[testMap UpdateScroll:deltaTime];
+		
 		//update our player animations and movements
 		[Mainplayer Update:deltaTime Touchlocation:touchLocation];
 		
@@ -248,7 +252,8 @@
 {
 
 	//background map
-	[testMap DrawLevelWithScrollY:YES Layer:0 Colors:Color4fInit GameSpeed:gameState.SpeedFactor PauseGame:pausedgame];
+	[testMap DrawLevelWithScrollLayer:0 Colors:Color4fInit];
+
 
 
 	//a placeholder for the bottom of the screen

@@ -39,9 +39,20 @@ typedef enum {
 	DEAD,
 	DYING,
 	CREATING,
+	EMPTY,
+	GAMEOVER,
 	_TOTALSTATES
 }state;
 
+
+
+
+//Actor types
+typedef enum {
+	TYPEPLAYER,
+	TYPEENEMIES,
+	TYPESURVIVORS,
+}TypeActor;
 
 
 

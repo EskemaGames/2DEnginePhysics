@@ -123,7 +123,8 @@
 	//states
 	States = [[StateManager alloc] initStates:LANDSCAPE];
 	States.screenBounds = Vector2fMake(viewport.size.width, viewport.size.height);
-
+	States.isIpad = isIpad;
+	
 	//default values are loaded, so mark it
 	GameInit = YES;
 	
@@ -414,22 +415,25 @@
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event  
 {  
     [States.input touchesBegan:touches withEvent:event InView:self];  
+	[States.joystick touchesBegan:touches withEvent:event view:self];  
 }  
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event  
 {  
-    [States.input touchesMoved:touches withEvent:event InView:self];  
+    [States.input touchesMoved:touches withEvent:event InView:self]; 
+	[States.joystick touchesMoved:touches withEvent:event view:self]; 
 }  
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event  
 {  
-    [States.input touchesEnded:touches withEvent:event InView:self];  
+    [States.input touchesEnded:touches withEvent:event InView:self]; 
+	[States.joystick touchesEnded:touches withEvent:event view:self]; 
 }  
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event  
 {  
-    [States.input touchesCancelled:touches withEvent:event InView:self];  
+    [States.input touchesCancelled:touches withEvent:event InView:self]; 
+	
 }
-
 
 @end
