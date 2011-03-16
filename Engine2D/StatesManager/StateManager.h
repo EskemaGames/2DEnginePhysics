@@ -31,6 +31,8 @@
 @interface StateManager : NSObject 
 {
 
+	UIInterfaceOrientation interfaceOrientation;
+	
 	//enum for states
     options StateOption;
 	
@@ -39,6 +41,9 @@
 	
 	//change coordinates and everything is the game is running on ipad
 	bool isIpad;
+	
+	//check retina display
+	bool isRetinaDisplay;
 	
 	//sounds
 	float TotalVolume; //our game and sounds volume
@@ -80,13 +85,14 @@
 
 @property (readwrite) bool isIpad;
 @property (nonatomic, retain) SoundManager *sharedSoundManager;
+@property (nonatomic, assign) UIInterfaceOrientation interfaceOrientation;
 @property (nonatomic, readwrite) Vector2f screenBounds;
 @property (nonatomic, retain) InputManager *input;
 @property (nonatomic, retain) JoystickManager *joystick;
 @property (nonatomic, retain) Image *blanktexture;
 @property (readwrite) bool menuinitialised, gameinitialised, gamenophysics;
 
-@property (readwrite) bool fadecompleted, fadeOut;
+@property (readwrite) bool fadecompleted, fadeOut, isRetinaDisplay;
 @property (readwrite) float alpha, alphaOut, _FPS, SpeedFactor, TotalVolume;
 @property (readwrite) int counteralpha, counteralphaOut, TimeAlpha, TimeAlphaOut, VolumeGlobal;
 

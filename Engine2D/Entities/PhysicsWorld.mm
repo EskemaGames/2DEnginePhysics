@@ -13,8 +13,8 @@
 
 @implementation PhysicsWorld
 
-@synthesize world;
-@synthesize collisions;
+@synthesize _world;
+@synthesize _collisions;
 
 
 - (id) initSleepBodies:(bool)SleepBodies
@@ -27,16 +27,23 @@
 		//opengl have coordinates 0,0 from bottom left corner, I'm using 0,0 in top left corner
 		//so gravity must be inverted, 10 means down, -10 means up
 		b2Vec2 gravity = b2Vec2(0.0f, 10.0f);
-
-		world = new b2World(gravity, SleepBodies);
+		
+		_world = new b2World(gravity, SleepBodies);
+		
+		_debugDraw = new GLESDebugDraw( PTM_RATIO );
+        _world->SetDebugDraw(_debugDraw);
+		
+		uint32 flags = 0;
+        flags += b2DebugDraw::e_shapeBit;
+        _debugDraw->SetFlags(flags);
 		
 		//set the collisions callback
-		collisions = new BoxCollisionCallback(); 
-		world->SetContactListener(collisions);
+		_collisions = new BoxCollisionCallback(); 
+		_world->SetContactListener(_collisions);
 		
 		// Define the static container body, which will provide the collisions at screen borders.
 		b2BodyDef containerBodyDef;
-		b2Body* containerBody = world->CreateBody(&containerBodyDef);
+		b2Body* containerBody = _world->CreateBody(&containerBodyDef);
 		
 		// for the ground body we'll need these values
 		float widthInMeters = gameState.screenBounds.x / PTM_RATIO;
@@ -78,12 +85,12 @@
 	float timeStep = 0.03f;
 	int32 velocityIterations = 8;
 	int32 positionIterations = 1;
-	world->Step(timeStep, velocityIterations, positionIterations);
+	_world->Step(timeStep, velocityIterations, positionIterations);
 	
 	// for each body, get its assigned sprite and update the sprite's position
-	for (b2Body* body = world->GetBodyList(); body != nil; body = body->GetNext())
+	for (b2Body* body = _world->GetBodyList(); body != nil; body = body->GetNext())
 	{
-
+		
 		SpriteBase *actor = (SpriteBase*)body->GetUserData();
 		if (actor != NULL)
 		{
@@ -94,7 +101,23 @@
 			actor.rotation = RADIANS_TO_DEGREES(angle) * -1;
 		}	
 	}
+	
 }
+
+
+-(void) draw
+{
+	glDisable(GL_TEXTURE_2D);
+	glDisableClientState(GL_COLOR_ARRAY);
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	
+	_world->DrawDebugData();
+	
+	glEnable(GL_TEXTURE_2D);
+	glEnableClientState(GL_COLOR_ARRAY);
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);	
+}
+
 
 // convenience method to convert a CGPoint to a b2Vec2
 -(b2Vec2) toMeters:(CGPoint)point
@@ -113,8 +136,9 @@
 
 - (void) dealloc
 {
-	delete collisions;
-	delete world;
+	delete _debugDraw;
+	delete _collisions;
+	delete _world;
 	[super dealloc];
 }
 

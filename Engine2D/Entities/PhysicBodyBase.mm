@@ -46,7 +46,7 @@
 		bodyDef.fixedRotation = fixedrotation;
 		
 		//assign the body to the world
-		body = world.world->CreateBody(&bodyDef);
+		body = world._world->CreateBody(&bodyDef);
 		
 		float tileInMetersX = 0;
 		float tileInMetersY = 0;

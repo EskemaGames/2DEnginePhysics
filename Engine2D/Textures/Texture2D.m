@@ -42,12 +42,11 @@
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, filter);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, filter);
 		
-		
 		if (use32bits)
 		{
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data); //32 bit texture alpha
 		}else{
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_SHORT_5_5_5_1, data); //16 bits texture alpha
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_SHORT_4_4_4_4, data); //16 bits texture alpha
 		}
 		
 		glBindTexture(GL_TEXTURE_2D, saveName);
@@ -99,7 +98,7 @@
 		NSLog(@"Image is Null");
 		return nil;
 	}
-
+	
 	imageSize = CGSizeMake(CGImageGetWidth(image), CGImageGetHeight(image));
 	transform = CGAffineTransformIdentity;
 	
@@ -148,24 +147,35 @@
 	//with the context created it's time to decide if the image will be 16 bits or not
 	if (!use32bits)
 	{
-		//Convert "RRRRRRRRRGGGGGGGGBBBBBBBBAAAAAAAA" to "RRRRRGGGGGBBBBBA"  RGB5A1
+		//Convert "RRRRRRRRRGGGGGGGGBBBBBBBBAAAAAAAA" to "RRRRGGGGBBBBAAAA"  RGBA4444
 		tempData = malloc(height * width * 2);
 		unsigned int* inPixel32 = (unsigned int*)data;
 		unsigned short* outPixel16 = (unsigned short*)tempData;
 		for(int i = 0; i < width * height; ++i, ++inPixel32)
-			*outPixel16++ =  
-			((((*inPixel32 >> 0) & 0xFF) >> 3) << 11) | // R
-			((((*inPixel32 >> 8) & 0xFF) >> 3) << 6) | // G
-			((((*inPixel32 >> 16) & 0xFF) >> 3) << 1) | // B
-			((((*inPixel32 >> 24) & 0xFF) >> 7) << 0); // A
-		
+			*outPixel16++ = 
+			((((*inPixel32 >> 0) & 0xFF) >> 4) << 12) | // R
+			((((*inPixel32 >> 8) & 0xFF) >> 4) << 8) | // G
+			((((*inPixel32 >> 16) & 0xFF) >> 4) << 4) | // B
+			((((*inPixel32 >> 24) & 0xFF) >> 4) << 0); // A
 		
 		free(data);
 		data = tempData;
-
-		
+		/*
+		 //Convert "RRRRRRRRRGGGGGGGGBBBBBBBBAAAAAAAA" to "RRRRRGGGGGBBBBBA"  RGB5A1
+		 tempData = malloc(height * width * 2);
+		 unsigned int* inPixel32 = (unsigned int*)data;
+		 unsigned short* outPixel16 = (unsigned short*)tempData;
+		 for(int i = 0; i < width * height; ++i, ++inPixel32)
+		 *outPixel16++ =  
+		 ((((*inPixel32 >> 0) & 0xFF) >> 3) << 11) | // R
+		 ((((*inPixel32 >> 8) & 0xFF) >> 3) << 6) | // G
+		 ((((*inPixel32 >> 16) & 0xFF) >> 3) << 1) | // B
+		 ((((*inPixel32 >> 24) & 0xFF) >> 7) << 0); // A
+		 
+		 free(data);
+		 data = tempData;
+		 */
 	}
-	
 	
 	
 	self = [self initWithData:data  pixelsWide:width pixelsHigh:height contentSize:imageSize  filter:filter  Use32bits:use32bits];
@@ -233,7 +243,7 @@
 			glCompressedTexImage2D(GL_TEXTURE_2D, 0, GL_COMPRESSED_RGB_PVRTC_4BPPV1_IMG, length, length, 0, size, data);
 		}
 		
-
+		
 		glBindTexture(GL_TEXTURE_2D, saveName);
 		
 		_size = CGSizeMake(length, length);

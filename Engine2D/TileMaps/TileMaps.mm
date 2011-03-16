@@ -18,13 +18,12 @@
 
 
 
-
 @implementation TileMaps
 
 - (id) init
 {  
     self = [super init];
-	statesManager = [StateManager sharedStateManager];
+	states = [StateManager sharedStateManager];
 	WideTotalMap = HeighTotalMap = MaxColumns = MaxRows  = Layers = TileSize = indiceScroll = speedScroll = 0;
 	havePhysics = NO;
 	return self;  
@@ -54,7 +53,7 @@
 		free(level[a]);
 	}
 	free(level);
-
+	
 	
 	//free image
 	mapImg = nil;
@@ -62,6 +61,38 @@
 	[mapName release];
 	
 	[super dealloc];
+}
+
+
+
+-(int)GetWideMap
+{
+	return WideTotalMap;
+}
+
+-(int)GetHeightMap
+{
+	return HeighTotalMap;
+}
+
+-(int)GetTileSize
+{
+	return TileSize;
+}
+
+-(int)GetLayerTiles
+{
+	return LayerTiles;
+}
+
+-(int)GetLayerCollision
+{
+	return LayerCollision;
+}
+
+-(int)GetLayerObjects
+{
+	return LayerObjects;
 }
 
 
@@ -77,9 +108,9 @@
 //=============================================================================
 -(void) LoadLevel:(Image *)ImageDraw  ConfigFile:(NSString *)filename Physic:(PhysicsWorld*)world
 {
-
+	
 	if (world != nil)
-	myworld = world;
+		myworld = world;
 	
 	mapImg = ImageDraw;
 	
@@ -114,7 +145,7 @@
 		object = [TBXML childElementNamed:@"TileSize" parentElement:property];
 		name = [TBXML valueOfAttributeNamed:@"value" forElement:object];
 		TileSize = [name intValue];
-
+		
 		
 		// next element
 		object = [TBXML childElementNamed:@"MaxRows" parentElement:property];
@@ -135,7 +166,7 @@
 		object = [TBXML childElementNamed:@"TotalTiles" parentElement:property];
 		name = [TBXML valueOfAttributeNamed:@"value" forElement:object];
 		tmpLevel = (Tile_Struct *)calloc([name intValue], sizeof(Tile_Struct));
-
+		
 		// next element
 		object = [TBXML childElementNamed:@"MapName" parentElement:property];
 		name = [TBXML valueOfAttributeNamed:@"value" forElement:object];
@@ -214,7 +245,7 @@
 			tmpLevel[i].delaySpeed = [value intValue];
 			tmpLevel[i].delay = 0;
 			tmpLevel[i].nextframe = 0;
-
+			
 			
 			// search the animation's child elements for this animation state
 			TBXMLElement * props = [TBXML childElementNamed:@"propertiesAnimation" parentElement:TileProperties];
@@ -225,7 +256,7 @@
 				
 				NSString *Num = [TBXML valueOfAttributeNamed:@"TileNum" forElement:props];
 				tmpLevel[i].animated[a] = [Num intValue];
-	
+				
 				//increase counter
 				++a;
 				
@@ -245,13 +276,14 @@
 	[tbxml release];
 	
 	
-	WideTotalMap = MaxColumns*TileSize; //we can take minus 1 to "fake" the limits off map
-	HeighTotalMap = MaxRows*TileSize; //we can take minus 1 to "fake the limits off map
+	//we need to remove those 1 columns and rows for the smooth scroll
+	WideTotalMap = (MaxColumns-1)*TileSize; //we can take minus 1 columns to "fake" the limits off map
+	HeighTotalMap = (MaxRows-1)*TileSize; //we can take minus 1 columns to "fake the limits off map
 	
 	//init the physics array if we need it
 	if (havePhysics)
-	TilesWithPhysic = [[NSMutableArray alloc] initWithCapacity:(MaxColumns*MaxRows)];
-
+		TilesWithPhysic = [[NSMutableArray alloc] initWithCapacity:(MaxColumns*MaxRows)];
+	
 	//speed for automatic scrolling maps
 	speedScroll = 1;
 	
@@ -260,7 +292,7 @@
 	CameraX = 0;
 	indiceScroll = 0;
 	
-
+	
 	
 	//create memory to hold the map with all layers
 	//init the dinamic array level
@@ -275,8 +307,8 @@
 	
 	
 	//screen size map in tiles
-	tilesX = statesManager.screenBounds.x/TileSize;
-	tilesY = statesManager.screenBounds.y/TileSize;
+	tilesX = states.screenBounds.x  /TileSize;
+	tilesY = states.screenBounds.y  /TileSize;
 	
 	//calculate image coords size, basically how many rows and columns are in that image
 	ImageSizeTileX = (ImageSizeX / TileSize);
@@ -307,7 +339,6 @@
 	
 }
 
-
 //=============================================================================
 -(void) ProcessTiles
 {
@@ -328,7 +359,7 @@
 		
 		//now copy the new short string without the "0.CSV"
 		NSString *tempName = [tempstr substringWithRange:range];
-
+		
 		NSMutableString *configString = [[NSMutableString alloc] initWithString:tempName];
 		[configString appendFormat: @"%i",countLayers];
 		[configString appendString:@".CSV"];
@@ -341,11 +372,11 @@
 		[configString release];
 	}
 	
-
+	
 	
 	//index for tiles
     int index = 0;
-
+	
 	//now go through each layer and all map width and height
 	//and add the properties we want for each tile
 	//doors, walls, water, etc,etc
@@ -354,7 +385,7 @@
 			for(int j = 0; j < MaxColumns; j++){
 				//get the tilenum
 				index = level[l][y][j].Tilenum;
-
+				
 				//now copy the properties to each tile of the map
 				level[l][y][j].visible				= tmpLevel[index].visible;
 				level[l][y][j].nowalkable			= tmpLevel[index].nowalkable;
@@ -383,25 +414,25 @@
 						[TilesWithPhysic addObject:tmp];
 						[tmp release];
 					}
-				
+					
 					//this one is a real tile, add a static physic body 
 					if (index != 0 && level[l][y][j].physicsTile)
 					{
 						Tiles *tmp = [[Tiles alloc] init];
 						tmp.tilesWithPhysics = [[PhysicBodyBase alloc] init:b2_staticBody
-															  TypeShape:BOX 
-														  FixedRotation:YES 
-														 BodySizeAndPos:CGRectMake(j * TileSize, y * TileSize, TileSize, TileSize) 
-														   HandlerClass:tmp
-																 Physic:myworld];
+																  TypeShape:BOX 
+															  FixedRotation:YES 
+															 BodySizeAndPos:CGRectMake(j * TileSize, y * TileSize, TileSize, TileSize) 
+															   HandlerClass:tmp
+																	 Physic:myworld];
 						tmp.position.x = j*TileSize;
 						tmp.position.y = y*TileSize;
 						[TilesWithPhysic addObject:tmp];
 						[tmp release];		 
 					}
 				}
-
-				 
+				
+				
 			}
 		}
 	}
@@ -458,11 +489,11 @@
 	NSString * path = [[NSBundle mainBundle] pathForResource:filemap ofType:nil];
 	FILE *f = fopen([path cStringUsingEncoding:1],"r");
 	if (f == NULL)
-	NSLog(@"map file not found");
-
+		NSLog(@"map file not found");
+	
 	for ( int row=0; row < MaxRows; row++) {
 		for ( int column=0; column < MaxColumns; column++) {
-            fscanf(f, "%d ,", &level[Layer][row][column].Tilenum);
+            fscanf(f, "%d, ", &level[Layer][row][column].Tilenum);
         }
     }
     fclose(f);
@@ -497,8 +528,8 @@
 		}
 		else level[Layer][Y][X].delay --;
 	}
-	 
-		
+	
+	
 	return level[Layer][Y][X].Tilenum;
 	
 }
@@ -537,9 +568,9 @@
 	//we only want to render the visible screen plus 1 tile in each direcction
 	// if map its more bigger than the screen resolution, that extra tile its 
 	//for smooth scroll, so we only scan the screen resolution
-	for (int i = 0; i < tilesY; i ++)
+	for (int i = 0; i < tilesY+1; i ++)
 	{
-		for (int j = 0; j < tilesX; j++)
+		for (int j = 0; j < tilesX+1; j++)
 		{
 			//only draw visible tiles
 			if (level[Layer][i+ytile][j+xtile].visible) 
@@ -547,7 +578,7 @@
 				//loop through the map
 				index = [self getSpriteIndeX:j+xtile  Y:i+ytile  Layer:Layer];
 				
-	
+				
 				//convert map coords into pixels coords
 				x=(j*TileSize) - xpos;
 				y=(i*TileSize) - ypos;
@@ -587,7 +618,7 @@
 //=============================================================================
 -(void) UpdateScroll:(float)GameSpeed
 {
-
+	
 	//calculate speed for scroll here, higher number means more slower scroll
 	if(speedScroll >= 60)
 	{
@@ -604,7 +635,7 @@
 	//update the camera position for scroll
 	//128 and 120 it's just some values that fits my needs
 	//feel free to change this value to modify the scrolling speed
-	//higher number means slow speed
+	//higher number in division means slow speed
 	if (ScrollY)
 	{
 		if (ScrollYForward)
@@ -612,7 +643,7 @@
 			CameraY -= (indiceScroll - 128) / 120; 
 			
 			//check camera boundaries
-			if (CameraY >= HeighTotalMap - statesManager.screenBounds.y){
+			if (CameraY >= HeighTotalMap - states.screenBounds.y){
 				CameraY = 0;
 				indiceScroll = 0;
 			}
@@ -621,7 +652,7 @@
 			CameraY += (indiceScroll - 128) / 120; 
 			//check camera boundaries
 			if (CameraY <= 0){
-				CameraY = HeighTotalMap - statesManager.screenBounds.y;
+				CameraY = HeighTotalMap - states.screenBounds.y;
 				indiceScroll = 0;
 			}
 		}
@@ -635,7 +666,7 @@
 			CameraX -= (indiceScroll - 64) / 512;
 			
 			//check camera boundaries
-			if (CameraX >= WideTotalMap - statesManager.screenBounds.x){
+			if (CameraX >= WideTotalMap - states.screenBounds.x){
 				CameraX = 0;
 				indiceScroll = 0;
 			}
@@ -646,13 +677,12 @@
 			
 			//check camera boundaries
 			if (CameraX <= 0){
-				CameraX = WideTotalMap - statesManager.screenBounds.x;
+				CameraX = WideTotalMap - states.screenBounds.x;
 				indiceScroll = 0;
 			}
 			
 		}
 	}//end scrollX
-
 }
 
 
@@ -667,13 +697,13 @@
 	
 	int index = 0;
     int x,y;
-
+	
 	
 	int ytile = CameraY / TileSize;
 	int ypos = (int)CameraY & TileSize-1;
 	int xtile = CameraX / TileSize;
 	int xpos = (int)CameraX & TileSize-1;
-
+	
 	
 	unsigned char red = _colors.red * 1.0f;
 	unsigned char green = _colors.green * 1.0f;
@@ -684,15 +714,13 @@
 	unsigned _color = (shortAlpha << 24) | (blue << 16) | (green << 8) | (red << 0);
 	
 	
-
-	// if map its more bigger than the screen resolution, that extra tile its 
+	
+	//if map its more bigger than the screen resolution, that extra tile its 
 	//for smooth scroll, so we only scan the screen resolution
-	//tilesY +1
-	//tilesX +1
 	for (int i = 0; i < tilesY; i++)
 	{
 		for(int j=0; j < tilesX; j++){
-
+			
 			if (level[Layer][i+ytile][j+xtile].visible) 
 			{
 				//loop through the map
@@ -708,7 +736,7 @@
 					x=(j*TileSize) - xpos;
 					y=(i*TileSize);
 				}
-
+				
 				Quad2f vert = *[mapImg getVerticesForSpriteAtrect:CGRectMake(x, y, TileSize, TileSize) Vertices:mvertex Flip:1];
 				
 				//the textures are cached on a quad array, simply retrieve the correct texture coordinate from the array
@@ -725,7 +753,8 @@
 			}
 		}
 	}
-
+	
+	
 }
 
 
@@ -761,8 +790,7 @@
 -(bool) CollisionTile:(int)x  y:(int)y  Layer:(int)l
 {
 	//first convert pixel coords into map coords    
-     return level[l][y / TileSize] [x /  TileSize].nowalkable;
-
+	return level[l][y / TileSize] [x /  TileSize].nowalkable;
 }
 
 //=============================================================================

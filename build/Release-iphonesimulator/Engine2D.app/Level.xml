@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<Properties>
+	<Values>
+		 
+	 <!-- configure here your map values and the image size of the spritesheet used -->
+	<ImagesizeX value="256"/>
+	<ImagesizeY value="256"/>
+	<TileSize value="32"/>
+   	<MaxRows value="10"/>
+   	<MaxColumns value="15"/>
+   	<Layers value="1"/>
+   	<TotalTiles value="10"/>
+   	<MapName value="platform_layer0.CSV"/>
+	<LayerTiles value="0"/>
+	<LayerCollision value="1"/>
+	<LayerObjects value="2"/>
+	<HavePhysics value="true"/>
+	<AutoScrollX value="false"/>
+	<AutoScrollY value="false"/>
+	<ScrollXForward value="false"/>
+	<ScrollYForward value="false"/>
+	
+	<!-- tiles properties -->
+    <TileProperties value="0" Visible="false" PhysicsTile="false" Nowalkable="false" TileAnimated="false" AnimatedFrames="0" Object="false" DelaySpeed="0"/>
+	<TileProperties value="1" Visible="false" PhysicsTile="false" Nowalkable="false" TileAnimated="true" AnimatedFrames="4" Object="false" DelaySpeed="5">
+	<propertiesAnimation TileNum="6">
+	</propertiesAnimation>
+	<propertiesAnimation TileNum="6">
+	</propertiesAnimation>
+	<propertiesAnimation TileNum="6">
+	</propertiesAnimation>
+	<propertiesAnimation TileNum="6">
+	</propertiesAnimation>
+	</TileProperties>
+	<TileProperties value="2" Visible="false" PhysicsTile="false" Nowalkable="false" TileAnimated="false" AnimatedFrames="0" Object="false" DelaySpeed="0"/>
+	<TileProperties value="3" Visible="false" PhysicsTile="false" Nowalkable="false" TileAnimated="false" AnimatedFrames="0" Object="false" DelaySpeed="0"/>
+	<TileProperties value="4" Visible="false" PhysicsTile="false" Nowalkable="false" TileAnimated="false" AnimatedFrames="0" Object="false" DelaySpeed="0"/>
+	<TileProperties value="5" Visible="false" PhysicsTile="false" Nowalkable="false" TileAnimated="false" AnimatedFrames="0" Object="false" DelaySpeed="0"/>
+	<TileProperties value="6" Visible="true" PhysicsTile="true" Nowalkable="false" TileAnimated="false" AnimatedFrames="0" Object="false" DelaySpeed="0"/>
+	<TileProperties value="7" Visible="false" PhysicsTile="false" Nowalkable="false" TileAnimated="false" AnimatedFrames="0" Object="false" DelaySpeed="0"/>
+	<TileProperties value="8" Visible="false" PhysicsTile="false" Nowalkable="false" TileAnimated="false" AnimatedFrames="0" Object="false" DelaySpeed="0"/>
+	<TileProperties value="9" Visible="false" PhysicsTile="false" Nowalkable="false" TileAnimated="false" AnimatedFrames="0" Object="false" DelaySpeed="0"/>
+	</Values>
+</Properties>

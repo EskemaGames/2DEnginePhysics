@@ -32,20 +32,22 @@
 	StateManager *touchStateManager;
 @private  
     bool isLandscape;  
+	bool upsideDown;
     InputState *currentState;  
     InputState *previousState;  
     InputState *queryState;  
-
+	
 }  
 
 
 @property (nonatomic, readwrite) bool isLandscape;  
+@property (nonatomic, readwrite) bool upsideDown; 
 @property (nonatomic, readonly) InputState *currentState;  
 @property (nonatomic, readonly) InputState *previousState;  
 
 
 
-- (id) init:(StateManager *)states_;
+
 //  
 //  Touch events  
 //  
@@ -62,7 +64,7 @@
 - (bool) isButtonPressed:(CGRect)rect Active:(bool)active; 
 - (bool) isButtonHeld:(CGRect)rect Active:(bool)active;
 - (void) convertCoordinatesToLandscape;  
-
+- (void) convertCoordinatesToPortraitUpsideDown;
 //  
 //  Class methods  
 //  

@@ -309,7 +309,7 @@
 	//draw all the sprites with alpha blend active, needed for transparency
 	[SpriteGame RenderToScreenActiveBlend:YES];
 	
-	
+	[physicWorld draw];
 	
 	//if we are exiting to main menu draw the transition screen
 	if(exitScreen)

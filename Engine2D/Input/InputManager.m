@@ -33,6 +33,7 @@
 //  Getters / Setters  
 //  
 @synthesize isLandscape;  
+@synthesize upsideDown;
 @synthesize currentState;  
 @synthesize previousState;  
 
@@ -40,12 +41,15 @@
 //  
 //  Initialization  
 //  
-- (id) init:(StateManager *)states_ 
+- (id) init 
 {  
     self = [super init];  
     if (self != nil)  
     {
-		touchStateManager = states_;
+		//portrait mode for start
+		upsideDown = NO;
+		
+		touchStateManager = [StateManager sharedStateManager];
 		
         //  
         //  Allocate memory for all of the possible states  
@@ -91,7 +95,8 @@
     currentState.touchLocation = queryState.touchLocation;  
 	
     //  converts the coordinate system if the game is in landscape mode  
-    [self convertCoordinatesToLandscape];  
+    //[self convertCoordinatesToLandscape];
+	[self convertCoordinatesToPortraitUpsideDown];
 }  
 
 
@@ -116,7 +121,7 @@
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event InView:(UIView *)view
 {
-
+	
 	queryState.isBeingTouched = YES;  
     queryState.touchLocation = [[touches anyObject] locationInView:view];
 }
@@ -141,11 +146,31 @@
 
 
 //  
-//  When in landscape mode, the touch screen still records input  
-//  as if it were in portrait mode. To get around this, if we  
-//  are writing a game in landscape we need to adjust the coordinate  
+//  When in portrait upside down, the touch screen still records input  
+//  as if it were in portrait mode. To get around this,
+//	we need to adjust the coordinate  
 //  system on the touchscreen to match that of our world.  
 //  
+- (void) convertCoordinatesToPortraitUpsideDown  
+{  
+    //  If we are not in landscape mode, don't convert anything  
+    if ( !upsideDown )  
+		return;  
+	
+    //  Otherwise, we will need to take the current touch location  
+    //  swap the x and y values (since in landscape, the portrait  
+    //  coordinate system means x will point up / down instead of  
+    //  left / right) and move the y position to match our origin  
+    //  point of (0,0) in the upper left corner.  
+    int x = touchStateManager.screenBounds.x - currentState.touchLocation.x;  
+    int y = touchStateManager.screenBounds.y - currentState.touchLocation.y;  
+	
+    //  Since we were converting the current state, we need to update  
+    //  the current touch location  
+    currentState.touchLocation = CGPointMake( x, y );  
+}  
+
+
 - (void) convertCoordinatesToLandscape  
 {  
     //  If we are not in landscape mode, don't convert anything  
@@ -167,7 +192,9 @@
     //  Since we were converting the current state, we need to update  
     //  the current touch location  
     currentState.touchLocation = CGPointMake( x, y );  
-}  
+} 
+
+
 
 //  
 //  Looks at the previous state, and the current state to determine  

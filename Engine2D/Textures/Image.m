@@ -254,20 +254,8 @@
 			texCoordBR_x = (texWidthRatio * Width) + cx;
 			texCoordBR_y = cy;
 		}
-		//flip 2 invert vertical
-		if (_flip == 0) {
-			texCoordTL_x = cx;
-			texCoordTL_y = cy;
-			texCoordTR_x = (texWidthRatio * Width) + cx;
-			texCoordTR_y = cy;
-			texCoordBL_x = cx;
-			texCoordBL_y = (texHeightRatio * Height) + cy;
-			texCoordBR_x = (texWidthRatio * Width) + cx;
-			texCoordBR_y = (texHeightRatio * Height) + cy;
-		}
-		
-		//flip 3 horizontal
-		if (_flip == 3) {
+		//flip 2 horizontal
+		if (_flip == 2) {
 			texCoordTL_x = (texWidthRatio * Width) + cx;
 			texCoordTL_y = (texHeightRatio * Height) + cy;
 			texCoordTR_x = cx;
@@ -276,6 +264,18 @@
 			texCoordBL_y = cy;
 			texCoordBR_x = cx;
 			texCoordBR_y = cy;
+		}
+		
+		//flip 3 invert vertical
+		if (_flip == 3) {
+			texCoordTL_x = cx;
+			texCoordTL_y = cy;
+			texCoordTR_x = (texWidthRatio * Width) + cx;
+			texCoordTR_y = cy;
+			texCoordBL_x = cx;
+			texCoordBL_y = (texHeightRatio * Height) + cy;
+			texCoordBR_x = (texWidthRatio * Width) + cx;
+			texCoordBR_y = (texHeightRatio * Height) + cy;
 		}
 		
 		//flip 4 vertical and horizontal
@@ -293,12 +293,13 @@
 		
 		//rotate the quad using coregraphics functions
 		CGPoint topleft = CGPointMake(rect.origin.x, rect.origin.y);
-		CGPoint topright = CGPointMake(rect.origin.x + rect.size.width, rect.origin.y);
-		CGPoint bottomleft = CGPointMake(rect.origin.x, rect.origin.y + rect.size.height);
-		CGPoint bottomright = CGPointMake(rect.origin.x + rect.size.width, rect.origin.y + rect.size.height);
+		CGPoint topright = CGPointMake(rect.origin.x + Width, rect.origin.y);
+		CGPoint bottomleft = CGPointMake(rect.origin.x, rect.origin.y + Height);
+		CGPoint bottomright = CGPointMake(rect.origin.x + Width, rect.origin.y + Height);
 		
-		CGAffineTransform translateTransform = CGAffineTransformMakeTranslation(rect.origin.x+(rect.size.width/2), rect.origin.y+(rect.size.height/2));
-		CGAffineTransform rotationTransform = CGAffineTransformMakeRotation(Rotation);
+		CGAffineTransform translateTransform = CGAffineTransformMakeTranslation(rect.origin.x+(Width*0.5f), rect.origin.y+(Height*0.5f));
+		float degrees = DEGREES_TO_RADIANS(Rotation);
+		CGAffineTransform rotationTransform = CGAffineTransformMakeRotation(degrees);
 		CGAffineTransform customRotation = CGAffineTransformConcat(CGAffineTransformConcat( CGAffineTransformInvert(translateTransform), rotationTransform), translateTransform);
 		
 		CGPoint rotatedtl = CGPointApplyAffineTransform(topleft, customRotation);
@@ -326,8 +327,6 @@
 		[self _addVertex:rotatedtr.x  Y:rotatedtr.y  UVX:texCoordTR_x  UVY:texCoordTR_y  Color:_color];
 		[self _addVertex:rotatedbl.x  Y:rotatedbl.y  UVX:texCoordBL_x  UVY:texCoordBL_y  Color:_color];
 		[self _addVertex:rotatedbr.x  Y:rotatedbr.y  UVX:texCoordBR_x  UVY:texCoordBR_y  Color:_color];
-		
-		
 	}
 	//the image don't have rotation, draw normally
 	else{
@@ -341,6 +340,7 @@
 		texCoordBL_y = (texHeightRatio * Height) + cy;
 		texCoordBR_x = (texWidthRatio * Width) + cx;
 		texCoordBR_y = (texHeightRatio * Height) + cy;
+		
 		
 		//normal
 		if (_flip == 1)
@@ -358,25 +358,8 @@
 			vertexBR_y = rect.origin.y + rect.size.height;
 			
 		}
-		//vertical inverted
-		if (_flip == 0){
-			
-			vertexTL_x =  rect.origin.x;
-			vertexTL_y =  rect.origin.y + rect.size.height;
-			
-			vertexTR_x =  rect.origin.x + rect.size.width;
-			vertexTR_y =  rect.origin.y + rect.size.height;
-			
-			vertexBL_x =  rect.origin.x;
-			vertexBL_y =  rect.origin.y;
-			
-			vertexBR_x = rect.origin.x + rect.size.width;
-			vertexBR_y = rect.origin.y;
-			
-		}
-		
 		//horizontal inverted
-		if (_flip == 3){
+		if (_flip == 2){
 			
 			vertexTL_x =  rect.origin.x + rect.size.width;
 			vertexTL_y =  rect.origin.y;
@@ -392,7 +375,25 @@
 			
 		}
 		
-		//vertical inverted
+		
+		//vertical up
+		if (_flip == 3){
+			
+			vertexTL_x =  rect.origin.x;
+			vertexTL_y =  rect.origin.y + rect.size.height;
+			
+			vertexTR_x =  rect.origin.x + rect.size.width;
+			vertexTR_y =  rect.origin.y + rect.size.height;
+			
+			vertexBL_x =  rect.origin.x;
+			vertexBL_y =  rect.origin.y;
+			
+			vertexBR_x = rect.origin.x + rect.size.width;
+			vertexBR_y = rect.origin.y;
+			
+		}
+		
+		//vertical down
 		if (_flip == 4){
 			
 			vertexTL_x =  rect.origin.x + rect.size.width;
@@ -429,7 +430,6 @@
 		[self _addVertex:vertexTR_x  Y:vertexTR_y  UVX:texCoordTR_x  UVY:texCoordTR_y  Color:_color];
 		[self _addVertex:vertexBL_x  Y:vertexBL_y  UVX:texCoordBL_x  UVY:texCoordBL_y  Color:_color];
 		[self _addVertex:vertexBR_x  Y:vertexBR_y  UVX:texCoordBR_x  UVY:texCoordBR_y  Color:_color];
-
 	}
 	
 	
@@ -449,7 +449,6 @@
 //==============================================================================	
 -(void) RenderToScreenActiveBlend:(BOOL)ActiveBlend
 {
-	
 	//	Texture Blending fuctions
 	if (ActiveBlend)
 		glEnable(GL_BLEND);
@@ -493,8 +492,6 @@
 		0,		0,
 		texture.maxS,	0  };
 	
-	
-	
 	GLfloat	vertices1[] = {	rect.origin.x,		rect.origin.y + rect.size.height,							
 		rect.origin.x + rect.size.width,		rect.origin.y + rect.size.height,							
 		rect.origin.x,							rect.origin.y ,		
@@ -522,9 +519,6 @@
 	glEnableClientState(GL_COLOR_ARRAY);
 	// Now we are done drawing disable blending
 	glDisable(GL_BLEND);
-	
-	
-	
 }
 
 
@@ -540,7 +534,6 @@
 
 
 ///for use with fonts functions
-
 - (Quad2f*)getVerticesForSpriteAtrect:(CGRect)aRect Vertices:(Quad2f *)Vertices Flip:(int)flip {
 	[self calculateVerticesAtRect:aRect Vertices:Vertices  Flip:flip];
 	return Vertices;
@@ -565,31 +558,10 @@
 		
 		Vertices[0].br_x = rect.origin.x + rect.size.width;
 		Vertices[0].br_y = rect.origin.y + rect.size.height;
-		
 	}
-	
-	//vertical inverted
-	if (flip == 0){
-		Vertices[0].tl_x =  rect.origin.x;
-		Vertices[0].tl_y =  rect.origin.y + rect.size.height;
-		
-		Vertices[0].tr_x =  rect.origin.x + rect.size.width;
-		Vertices[0].tr_y =  rect.origin.y + rect.size.height;
-		
-		
-		Vertices[0].bl_x =  rect.origin.x;
-		Vertices[0].bl_y =  rect.origin.y;
-		
-		
-		Vertices[0].br_x = rect.origin.x + rect.size.width;
-		Vertices[0].br_y = rect.origin.y;
-		
-	}
-	
-	
 	
 	//horizontal inverted
-	if (flip == 3){
+	if (flip == 2){
 		
 		Vertices[0].tl_x =  rect.origin.x + rect.size.width;
 		Vertices[0].tl_y =  rect.origin.y;
@@ -604,7 +576,24 @@
 		
 		Vertices[0].br_x = rect.origin.x;
 		Vertices[0].br_y = rect.origin.y + rect.size.height;
+	}
+	
+	
+	//vertical inverted
+	if (flip == 3){
+		Vertices[0].tl_x =  rect.origin.x;
+		Vertices[0].tl_y =  rect.origin.y + rect.size.height;
 		
+		Vertices[0].tr_x =  rect.origin.x + rect.size.width;
+		Vertices[0].tr_y =  rect.origin.y + rect.size.height;
+		
+		
+		Vertices[0].bl_x =  rect.origin.x;
+		Vertices[0].bl_y =  rect.origin.y;
+		
+		
+		Vertices[0].br_x = rect.origin.x + rect.size.width;
+		Vertices[0].br_y = rect.origin.y;
 	}
 	
 	//vertical inverted
@@ -623,10 +612,7 @@
 		
 		Vertices[0].br_x = rect.origin.x;
 		Vertices[0].br_y = rect.origin.y;
-		
 	}
-	
-	
 }
 
 
@@ -656,11 +642,8 @@
 	texCoords[0].br_y = (texHeightRatio * SubTextureHeight) + cy;
 	
 	
-	
-	
-	
-	
 }
+
 
 
 
@@ -687,7 +670,7 @@
 	[self calculateTexCoordsAtOffset:spritePoint TexCoords:cachedCoordinates SubTextureWidth:SubTextureWidth SubTextureHeight:SubTextureHeight];
 	Quad2f t = *cachedCoordinates;
 	cached[counter] = t;
-  
+	
 }
 
 

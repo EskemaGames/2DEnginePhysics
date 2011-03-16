@@ -3,7 +3,7 @@
 #define END_ANIMATION -1
 
 //set the game in landscape or not
-#define LANDSCAPE 1
+#define ISLANDSCAPE 1
 
 //to display fps if we want
 #define FPS 1

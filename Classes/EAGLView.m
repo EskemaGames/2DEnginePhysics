@@ -72,6 +72,8 @@
 			isIpad = NO;
 		}
 		
+		//start with no retina, we'll detect it later
+		isRetinaDisplay = NO;
 		
 		// Get the bounds of the main screen
 		//by default the screen is always in portrait
@@ -100,9 +102,6 @@
 		glBindFramebufferOES(GL_FRAMEBUFFER_OES, defaultFramebuffer);
 		glBindRenderbufferOES(GL_RENDERBUFFER_OES, colorRenderbuffer);
 		glFramebufferRenderbufferOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_RENDERBUFFER_OES, colorRenderbuffer);
-		glGetRenderbufferParameterivOES(GL_RENDERBUFFER_OES, GL_RENDERBUFFER_WIDTH_OES, &backingWidth);
-		glGetRenderbufferParameterivOES(GL_RENDERBUFFER_OES, GL_RENDERBUFFER_HEIGHT_OES, &backingHeight);
-
 	}
 	return self;
 }
@@ -121,9 +120,10 @@
 		[self initOpenGL];
 	}
 	//states
-	States = [[StateManager alloc] initStates:LANDSCAPE];
+	States = [[StateManager alloc] initStates:ISLANDSCAPE];
 	States.screenBounds = Vector2fMake(viewport.size.width, viewport.size.height);
 	States.isIpad = isIpad;
+	States.isRetinaDisplay = isRetinaDisplay;
 	
 	//default values are loaded, so mark it
 	GameInit = YES;
@@ -200,7 +200,7 @@
 
 
 - (void)initOpenGL {
-
+	
     //  Modify the Projection matrix  
     glMatrixMode(GL_PROJECTION);  
     glLoadIdentity();  
@@ -214,17 +214,32 @@
     //  
     //  If the game is going to be played in landscape mode, enable  
     //  it via the bool switch in the touches manager file.  
-	if(	LANDSCAPE)
+	if(	ISLANDSCAPE)
     {  
 		if (isIpad)
 			viewport = CGRectMake(0, 0, 1024, 768);
 		else {
-			viewport = CGRectMake(0, 0, 480, 320);
+			viewport = CGRectMake(0, 0,  480, 320);
 		}
 		
-        glViewport(0, 0, viewport.size.height, viewport.size.width);  
-        glRotatef(-90, 0, 0, 1);  
-        glOrthof(0, viewport.size.width, viewport.size.height, 0, -1.0, 1.0);    
+		if ([UIScreen instancesRespondToSelector:@selector(scale)]) {
+			CGFloat scale = [[UIScreen mainScreen] scale];
+			if (scale > 1.0) {
+				glViewport(0, 0, viewport.size.height * scale, viewport.size.width * scale);  
+				glRotatef(-90, 0, 0, 1);  
+				glOrthof(0, viewport.size.width * scale, viewport.size.height * scale, 0, -1.0, 1.0);
+				isRetinaDisplay = YES;
+				screenScale = scale;
+			}
+			else {
+				screenScale = scale;
+				isRetinaDisplay = NO;
+				glViewport(0, 0, viewport.size.height, viewport.size.width);  
+				glRotatef(-90, 0, 0, 1);  
+				glOrthof(0, viewport.size.width, viewport.size.height, 0, -1.0, 1.0);
+			}
+			
+		}  
     }  
     else    //  Game is to be played in portrait  
     {  
@@ -233,11 +248,26 @@
 		else {
 			viewport = CGRectMake(0, 0, 320, 480);
 		}
-        glViewport(0, 0, viewport.size.width, viewport.size.height);  
-        glOrthof(0.0, viewport.size.width, viewport.size.height, 0.0, -1.0, 1.0); 
-    }  
+		
+		if ([UIScreen instancesRespondToSelector:@selector(scale)]) {
+			CGFloat scale = [[UIScreen mainScreen] scale];
+			if (scale > 1.0) {
+				glViewport(0, 0, viewport.size.width * scale, viewport.size.height * scale);  
+				glOrthof(0.0, viewport.size.width * scale, viewport.size.height * scale, 0.0, -1.0, 1.0); 
+				isRetinaDisplay = YES;
+				screenScale = scale;
+			}
+			else {
+				isRetinaDisplay = NO;
+				screenScale = scale;
+				glViewport(0, 0, viewport.size.width, viewport.size.height);  
+				glOrthof(0.0, viewport.size.width, viewport.size.height, 0.0, -1.0, 1.0);
+			}
+			
+		}
+    }    
 	
-
+	
     //  
     //  Setup Model view matrix  
     //  Load graphics settings  
@@ -247,7 +277,6 @@
 	
 	
     //  needed to draw textures using Texture2D
-	 
 	glEnable(GL_TEXTURE_2D);  
     glEnableClientState(GL_TEXTURE_COORD_ARRAY);  
     glEnableClientState(GL_VERTEX_ARRAY);  
@@ -257,7 +286,7 @@
     glLoadIdentity();  
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f); 
 	
-
+	
 	// Mark OGL as initialised
 	glInitialised = YES;
 }
@@ -269,21 +298,21 @@
 	// Allocate color buffer backing based on the current layer size
     glBindRenderbufferOES(GL_RENDERBUFFER_OES, colorRenderbuffer);
     [context renderbufferStorage:GL_RENDERBUFFER_OES fromDrawable:layer];
-	glGetRenderbufferParameterivOES(GL_RENDERBUFFER_OES, GL_RENDERBUFFER_WIDTH_OES, &backingWidth);
-    glGetRenderbufferParameterivOES(GL_RENDERBUFFER_OES, GL_RENDERBUFFER_HEIGHT_OES, &backingHeight);
 	
     if (glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES) != GL_FRAMEBUFFER_COMPLETE_OES)
 	{
 		NSLog(@"Failed to make complete framebuffer object %x", glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES));
         return NO;
     }
-
+	
 	
     return YES;
 }
 
 
 - (void) layoutSubviews
+
+
 {
 	[EAGLContext setCurrentContext:context];
 	[self resizeFromLayer:(CAEAGLLayer*)self.layer];
@@ -386,24 +415,133 @@
 - (void) orientationChanged:(NSNotification *)notification {
 	
 	UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
+	
 	if (orientation == UIDeviceOrientationLandscapeRight) {
+		States.interfaceOrientation = UIInterfaceOrientationLandscapeRight;
+		States.input.isLandscape = YES;
+		States.input.upsideDown = NO;
 		glMatrixMode(GL_PROJECTION);  
 		glLoadIdentity();  
-        viewport = CGRectMake(0, 0, States.screenBounds.x, States.screenBounds.y);  
-        glViewport(0, 0, viewport.size.height, viewport.size.width);  
-        glRotatef(90, 0, 0, 1);  
-        glOrthof(0, viewport.size.width, viewport.size.height, 0, -1.0, 1.0);    
+		if (isIpad)
+			viewport = CGRectMake(0, 0, 1024, 768);
+		else {
+			viewport = CGRectMake(0, 0, 480, 320);
+		}
+		
+        if (isRetinaDisplay)
+		{
+			if (States)
+				States.screenBounds = Vector2fMake(viewport.size.width, viewport.size.height);
+			glViewport(0, 0, viewport.size.height * screenScale, viewport.size.width * screenScale);  
+			glRotatef(90, 0, 0, 1);  
+			glOrthof(0, viewport.size.width * screenScale, viewport.size.height * screenScale, 0, -1.0, 1.0);    
+		}
+		else {
+			if (States)
+				States.screenBounds = Vector2fMake(viewport.size.width, viewport.size.height);
+			glViewport(0, 0, viewport.size.height, viewport.size.width);  
+			glRotatef(90, 0, 0, 1);  
+			glOrthof(0, viewport.size.width, viewport.size.height, 0, -1.0, 1.0);
+		}
+		
 		glMatrixMode(GL_MODELVIEW);  
 		glLoadIdentity(); 
 	}
 	
 	if (orientation == UIDeviceOrientationLandscapeLeft) {
+		States.interfaceOrientation = UIInterfaceOrientationLandscapeLeft;
+		States.input.isLandscape = YES;
+		States.input.upsideDown = NO;
 		glMatrixMode(GL_PROJECTION);  
 		glLoadIdentity();  
-        viewport = CGRectMake(0, 0, States.screenBounds.x, States.screenBounds.y);  
-        glViewport(0, 0, viewport.size.height, viewport.size.width);  
-        glRotatef(-90, 0, 0, 1);  
-        glOrthof(0, viewport.size.width, viewport.size.height, 0, -1.0, 1.0);    
+		if (isIpad)
+			viewport = CGRectMake(0, 0, 1024, 768);
+		else {
+			viewport = CGRectMake(0, 0, 480, 320);
+		}
+		
+		if (isRetinaDisplay)
+        {
+			if (States)
+				States.screenBounds = Vector2fMake(viewport.size.width, viewport.size.height);
+			glViewport(0, 0, viewport.size.height * screenScale, viewport.size.width * screenScale);  
+			glRotatef(-90, 0, 0, 1);  
+			glOrthof(0, viewport.size.width * screenScale, viewport.size.height * screenScale, 0, -1.0, 1.0);    
+		}
+		else {
+			if (States)
+				States.screenBounds = Vector2fMake(viewport.size.width, viewport.size.height);
+			glViewport(0, 0, viewport.size.height, viewport.size.width);  
+			glRotatef(-90, 0, 0, 1);  
+			glOrthof(0, viewport.size.width, viewport.size.height, 0, -1.0, 1.0); 
+		}
+		
+		glMatrixMode(GL_MODELVIEW);  
+		glLoadIdentity(); 
+		
+	}
+	
+	
+	
+	
+	if (orientation == UIDeviceOrientationPortrait) {
+		States.interfaceOrientation = UIInterfaceOrientationPortrait;
+		States.input.isLandscape = NO;
+		States.input.upsideDown = NO;
+		glMatrixMode(GL_PROJECTION);  
+		glLoadIdentity(); 
+		if (isIpad)
+			viewport = CGRectMake(0, 0, 768, 1024);
+		else {
+			viewport = CGRectMake(0, 0, 320, 480);
+		}
+		
+		if (isRetinaDisplay)
+		{
+			if (States)
+				States.screenBounds = Vector2fMake(viewport.size.width, viewport.size.height);
+			glViewport(0, 0, viewport.size.width * screenScale, viewport.size.height * screenScale);  
+			glOrthof(0.0, viewport.size.width * screenScale, viewport.size.height * screenScale, 0.0, -1.0, 1.0); 
+		}
+		else {
+			if (States)
+				States.screenBounds = Vector2fMake(viewport.size.width, viewport.size.height);
+			glViewport(0, 0, viewport.size.width, viewport.size.height ); 
+			glOrthof(0.0, viewport.size.width, viewport.size.height , 0.0, -1.0, 1.0); 
+		}
+		
+		glMatrixMode(GL_MODELVIEW);  
+		glLoadIdentity(); 
+	}
+	
+	if (orientation == UIDeviceOrientationPortraitUpsideDown) {
+		States.interfaceOrientation = UIInterfaceOrientationPortraitUpsideDown;
+		States.input.isLandscape = NO;
+		States.input.upsideDown = YES;
+		glMatrixMode(GL_PROJECTION);  
+		glLoadIdentity(); 
+		if (isIpad)
+			viewport = CGRectMake(0, 0, 768, 1024);
+		else {
+			viewport = CGRectMake(0, 0, 320, 480);
+		}
+		
+		if (isRetinaDisplay)
+		{
+			if (States)
+				States.screenBounds = Vector2fMake(viewport.size.width, viewport.size.height);
+			glViewport(0, 0, viewport.size.width * screenScale, viewport.size.height * screenScale);  
+			glRotatef(-180, 0, 0, 1);  
+			glOrthof(0, viewport.size.width * screenScale, viewport.size.height * screenScale, 0.0,  -1.0, 1.0); 
+		}
+		else {
+			if (States)
+				States.screenBounds = Vector2fMake(viewport.size.width, viewport.size.height);
+			glViewport(0, 0, viewport.size.width, viewport.size.height);  
+			glRotatef(-180, 0, 0, 1);  
+			glOrthof(0, viewport.size.width, viewport.size.height, 0.0,  -1.0, 1.0);
+		}
+		
 		glMatrixMode(GL_MODELVIEW);  
 		glLoadIdentity(); 
 		

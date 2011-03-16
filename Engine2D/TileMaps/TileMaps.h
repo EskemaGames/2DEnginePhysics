@@ -66,6 +66,9 @@ typedef struct Tiles2 {
 //==============================================================================
 @interface TileMaps : NSObject  
 {  
+	//used to get the screen size
+	StateManager *states;
+	
 	//array to add all the tiles with physics applied
 	NSMutableArray *TilesWithPhysic;
 	
@@ -75,8 +78,6 @@ typedef struct Tiles2 {
 	//simply pointer to get the actual physics world, needed to store a reference
 	PhysicsWorld *myworld;
 	
-	//used to get the screen size
-	StateManager *statesManager;
 	
 	//widht and height map in PIXELS = wide*TILESIZE
 	int WideTotalMap;
@@ -115,7 +116,7 @@ typedef struct Tiles2 {
 	
 	//the map .CSV name, we store a reference here to parse it during the init process
 	NSString *mapName;
-
+	
 	
 	//tiles X,Y
 	int tilesX, tilesY;
@@ -131,8 +132,8 @@ typedef struct Tiles2 {
 	Quad2f *textureCoordinates;
 	Quad2f *mvertex;
 }
-	
-	
+
+
 
 
 
@@ -144,6 +145,13 @@ typedef struct Tiles2 {
 //==============================================================================
 //==============================================================================
 
+//gettes for map size
+-(int)GetWideMap;
+-(int)GetHeightMap;
+-(int)GetTileSize;
+-(int)GetLayerTiles;
+-(int)GetLayerCollision;
+-(int)GetLayerObjects;
 
 
 //reset all values to 0
@@ -186,8 +194,9 @@ typedef struct Tiles2 {
 -(void) GetObjects:(int)x y:(int) y  Layer:(int)l;
 -(void) RemoveObject:(int) x y:(int) y  Layer:(int)l;
 
+
 @end
-	
+
 
 
 

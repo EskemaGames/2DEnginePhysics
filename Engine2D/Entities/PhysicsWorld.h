@@ -10,23 +10,27 @@
 #import "StateManager.h"
 #import "Box2D.h"
 #import "BoxCollisionCallback.h"
+#import "GLES-Render.h"
 
 
 @interface PhysicsWorld : NSObject {
-
+	
+	GLESDebugDraw *_debugDraw;
+	
+	
 	//game states needed to get screen resolution
 	StateManager *gameState;
 	
 	//physics world
-	b2World* world;
+	b2World* _world;
 	
 	//collisions
-	BoxCollisionCallback *collisions;
+	BoxCollisionCallback *_collisions;
 }
 
 
-@property (readwrite) b2World *world;
-@property (readwrite) BoxCollisionCallback *collisions;
+@property (readwrite) b2World *_world;
+@property (readwrite) BoxCollisionCallback *_collisions;
 
 
 //==============================================================================
@@ -36,6 +40,7 @@
 //==============================================================================
 -(id) initSleepBodies:(bool)SleepBodies;
 -(void)Update;
+-(void) draw;
 -(b2Vec2) toMeters:(CGPoint)point;
 -(CGPoint) toPixels:(b2Vec2)vec;
 

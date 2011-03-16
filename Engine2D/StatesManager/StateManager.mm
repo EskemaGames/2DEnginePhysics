@@ -22,7 +22,9 @@
 @implementation StateManager
 
 @synthesize isIpad;
+@synthesize isRetinaDisplay;
 @synthesize sharedSoundManager;
+@synthesize interfaceOrientation;
 @synthesize input;
 @synthesize joystick;
 @synthesize screenBounds;
@@ -51,6 +53,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(StateManager);
 	StateOption = MENU;
 
 	isIpad = NO;
+	isRetinaDisplay = NO;
 	
 	menuinitialised = NO;
 	gameinitialised = NO;
@@ -79,7 +82,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(StateManager);
 	SpeedFactor = 0;
 	
 	//texture for transitions between screens
-	blanktexture  = [[Image alloc] initWithTexture:@"Blank.png"  filter:GL_NEAREST Use32bits:NO TotalVertex:12];
+	blanktexture  = [[Image alloc] initWithTexture:@"Blank.png"  filter:GL_LINEAR Use32bits:YES TotalVertex:12];
 	
 
 	// Init sound and load a sound
@@ -87,9 +90,12 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(StateManager);
 	//[sharedSoundManager loadSoundWithKey:@"soundtest" fileName:@"click" fileExt:@"wav" ];
 
 	
+	// Set the orientation of the device
+	interfaceOrientation = UIInterfaceOrientationPortrait;
+	
 	//init the touches system
 	//and set the property to the screen orientation
-	input = [[InputManager alloc] init:self];
+	input = [[InputManager alloc] init];
 	if (landscapeView)
     input.isLandscape = YES;
 	else input.isLandscape = NO;
