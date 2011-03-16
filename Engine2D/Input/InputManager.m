@@ -95,8 +95,8 @@
     currentState.touchLocation = queryState.touchLocation;  
 	
     //  converts the coordinate system if the game is in landscape mode  
-    //[self convertCoordinatesToLandscape];
-	[self convertCoordinatesToPortraitUpsideDown];
+    [self convertCoordinatesToLandscape];
+	//[self convertCoordinatesToPortraitUpsideDown];
 }  
 
 

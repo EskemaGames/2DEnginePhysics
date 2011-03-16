@@ -17,7 +17,7 @@
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
     
 	[[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
-	//[UIApplication sharedApplication].statusBarOrientation = UIInterfaceOrientationLandscapeRight;
+	[UIApplication sharedApplication].statusBarOrientation = UIInterfaceOrientationLandscapeRight;
 	
 	[glView startAnimation];
 }

@@ -14,7 +14,7 @@
 #import "Fonts.h"
 #import "LenguageManager.h"
 #import "ParticleEmitter.h"
-#import "TileMaps.h"
+#import "TileMaps_Mappy.h"
 #import "PlayerShip.h"
 #import "Widgets.h"
 #import "Image.h"
@@ -71,7 +71,7 @@
 
 	
 	//tilemaps class init
-	testMap = [[TileMaps alloc] init];
+	testMap = [[TileMaps_Mappy alloc] init];
 	
 	//tilemap with automatic scroll
 	[testMap LoadLevel:SpriteGame ConfigFile:@"LevelScroll.xml" Physic:nil];

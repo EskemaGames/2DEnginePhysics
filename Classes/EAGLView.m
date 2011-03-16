@@ -484,7 +484,7 @@
 	
 	
 	
-	if (orientation == UIDeviceOrientationPortrait) {
+	/*if (orientation == UIDeviceOrientationPortrait) {
 		States.interfaceOrientation = UIInterfaceOrientationPortrait;
 		States.input.isLandscape = NO;
 		States.input.upsideDown = NO;
@@ -546,6 +546,7 @@
 		glLoadIdentity(); 
 		
 	}
+	 */
 }
 
 

@@ -62,6 +62,12 @@
 		AC4DA0501292AE89002E566A /* menuES.xml in Resources */ = {isa = PBXBuildFile; fileRef = AC4DA04E1292AE89002E566A /* menuES.xml */; };
 		AC4DA0781292AEFE002E566A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AC4DA0771292AEFE002E566A /* libz.dylib */; };
 		AC59285C132C16B5005515F4 /* GLES-Render.mm in Sources */ = {isa = PBXBuildFile; fileRef = AC59285B132C16B5005515F4 /* GLES-Render.mm */; };
+		AC59375E133104AC005515F4 /* TiledMap.m in Sources */ = {isa = PBXBuildFile; fileRef = AC593759133104AC005515F4 /* TiledMap.m */; };
+		AC59375F133104AC005515F4 /* Layer.m in Sources */ = {isa = PBXBuildFile; fileRef = AC59375B133104AC005515F4 /* Layer.m */; };
+		AC593760133104AC005515F4 /* TileSet.m in Sources */ = {isa = PBXBuildFile; fileRef = AC59375D133104AC005515F4 /* TileSet.m */; };
+		AC5937EE13311BDD005515F4 /* tmw_desert_spacing.png in Resources */ = {isa = PBXBuildFile; fileRef = AC5937ED13311BDD005515F4 /* tmw_desert_spacing.png */; };
+		AC59397F13313B9D005515F4 /* desert_test2gzip.tmx in Resources */ = {isa = PBXBuildFile; fileRef = AC59397E13313B9D005515F4 /* desert_test2gzip.tmx */; };
+		AC593A6E13314519005515F4 /* MainGameTiledMap.mm in Sources */ = {isa = PBXBuildFile; fileRef = AC593A6D13314519005515F4 /* MainGameTiledMap.mm */; };
 		AC91229E113E6090009B7C27 /* Camera.m in Sources */ = {isa = PBXBuildFile; fileRef = AC912277113E6090009B7C27 /* Camera.m */; };
 		AC91229F113E6090009B7C27 /* BaseActor.mm in Sources */ = {isa = PBXBuildFile; fileRef = AC91227A113E6090009B7C27 /* BaseActor.mm */; };
 		AC9122A0113E6090009B7C27 /* Animations.m in Sources */ = {isa = PBXBuildFile; fileRef = AC91227C113E6090009B7C27 /* Animations.m */; };
@@ -86,7 +92,7 @@
 		ACB327C312E5EA9300B83C1D /* TBXMLParticleAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = ACB327C012E5EA9300B83C1D /* TBXMLParticleAdditions.m */; };
 		ACB327C412E5EA9300B83C1D /* ParticleEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = ACB327C212E5EA9300B83C1D /* ParticleEmitter.m */; };
 		ACB32C3812E6303900B83C1D /* explosion.png in Resources */ = {isa = PBXBuildFile; fileRef = ACB32C3712E6303900B83C1D /* explosion.png */; };
-		ACB905711294A6F800AC35AF /* TileMaps.mm in Sources */ = {isa = PBXBuildFile; fileRef = ACB905701294A6F800AC35AF /* TileMaps.mm */; };
+		ACB905711294A6F800AC35AF /* TileMaps_Mappy.mm in Sources */ = {isa = PBXBuildFile; fileRef = ACB905701294A6F800AC35AF /* TileMaps_Mappy.mm */; };
 		ACC1161A113ED01500CC7DF1 /* Blank.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC11619113ED01500CC7DF1 /* Blank.png */; };
 		ACC11626113ED08F00CC7DF1 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC11625113ED08F00CC7DF1 /* Default.png */; };
 		ACC11628113ED09F00CC7DF1 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC11627113ED09F00CC7DF1 /* Icon.png */; };
@@ -211,6 +217,16 @@
 		AC4DA0771292AEFE002E566A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		AC59285A132C16B5005515F4 /* GLES-Render.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GLES-Render.h"; sourceTree = "<group>"; };
 		AC59285B132C16B5005515F4 /* GLES-Render.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "GLES-Render.mm"; sourceTree = "<group>"; };
+		AC593758133104AC005515F4 /* TiledMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TiledMap.h; sourceTree = "<group>"; };
+		AC593759133104AC005515F4 /* TiledMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TiledMap.m; sourceTree = "<group>"; };
+		AC59375A133104AC005515F4 /* Layer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Layer.h; sourceTree = "<group>"; };
+		AC59375B133104AC005515F4 /* Layer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Layer.m; sourceTree = "<group>"; };
+		AC59375C133104AC005515F4 /* TileSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TileSet.h; sourceTree = "<group>"; };
+		AC59375D133104AC005515F4 /* TileSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TileSet.m; sourceTree = "<group>"; };
+		AC5937ED13311BDD005515F4 /* tmw_desert_spacing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tmw_desert_spacing.png; sourceTree = "<group>"; };
+		AC59397E13313B9D005515F4 /* desert_test2gzip.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = desert_test2gzip.tmx; sourceTree = "<group>"; };
+		AC593A6C13314519005515F4 /* MainGameTiledMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainGameTiledMap.h; sourceTree = "<group>"; };
+		AC593A6D13314519005515F4 /* MainGameTiledMap.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MainGameTiledMap.mm; sourceTree = "<group>"; };
 		AC912276113E6090009B7C27 /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
 		AC912277113E6090009B7C27 /* Camera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Camera.m; sourceTree = "<group>"; };
 		AC912279113E6090009B7C27 /* BaseActor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseActor.h; sourceTree = "<group>"; };
@@ -255,8 +271,8 @@
 		ACB327C112E5EA9300B83C1D /* ParticleEmitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticleEmitter.h; sourceTree = "<group>"; };
 		ACB327C212E5EA9300B83C1D /* ParticleEmitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParticleEmitter.m; sourceTree = "<group>"; };
 		ACB32C3712E6303900B83C1D /* explosion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = explosion.png; sourceTree = "<group>"; };
-		ACB9056F1294A6F800AC35AF /* TileMaps.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TileMaps.h; sourceTree = "<group>"; };
-		ACB905701294A6F800AC35AF /* TileMaps.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TileMaps.mm; sourceTree = "<group>"; };
+		ACB9056F1294A6F800AC35AF /* TileMaps_Mappy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TileMaps_Mappy.h; sourceTree = "<group>"; };
+		ACB905701294A6F800AC35AF /* TileMaps_Mappy.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TileMaps_Mappy.mm; sourceTree = "<group>"; };
 		ACC11619113ED01500CC7DF1 /* Blank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Blank.png; sourceTree = "<group>"; };
 		ACC11625113ED08F00CC7DF1 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		ACC11627113ED09F00CC7DF1 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
@@ -530,6 +546,7 @@
 		AC912271113E602C009B7C27 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				AC5937ED13311BDD005515F4 /* tmw_desert_spacing.png */,
 				AC04DF7312EC57770019594D /* tileset.png */,
 				ACB32C3712E6303900B83C1D /* explosion.png */,
 				AC3AA68812EB5CA900255B5A /* mainmenu.png */,
@@ -668,6 +685,8 @@
 				ACB3260712E5B1A900B83C1D /* PlayerShip.mm */,
 				AC9122BF113E627C009B7C27 /* MainGamescreen.h */,
 				AC9122C0113E627C009B7C27 /* MainGameScreen.mm */,
+				AC593A6C13314519005515F4 /* MainGameTiledMap.h */,
+				AC593A6D13314519005515F4 /* MainGameTiledMap.mm */,
 				AC9122C1113E627C009B7C27 /* MenuScreen.h */,
 				AC9122C2113E627C009B7C27 /* MenuScreen.mm */,
 				ACD7BDFA12EDE27D00C69963 /* MainGameWithoutPhysics.h */,
@@ -679,8 +698,14 @@
 		ACB9056E1294A6F800AC35AF /* TileMaps */ = {
 			isa = PBXGroup;
 			children = (
-				ACB9056F1294A6F800AC35AF /* TileMaps.h */,
-				ACB905701294A6F800AC35AF /* TileMaps.mm */,
+				AC593758133104AC005515F4 /* TiledMap.h */,
+				AC593759133104AC005515F4 /* TiledMap.m */,
+				AC59375A133104AC005515F4 /* Layer.h */,
+				AC59375B133104AC005515F4 /* Layer.m */,
+				AC59375C133104AC005515F4 /* TileSet.h */,
+				AC59375D133104AC005515F4 /* TileSet.m */,
+				ACB9056F1294A6F800AC35AF /* TileMaps_Mappy.h */,
+				ACB905701294A6F800AC35AF /* TileMaps_Mappy.mm */,
 			);
 			path = TileMaps;
 			sourceTree = "<group>";
@@ -723,6 +748,7 @@
 		ACD7BEE012EDEDC400C69963 /* LevelMaps */ = {
 			isa = PBXGroup;
 			children = (
+				AC59397E13313B9D005515F4 /* desert_test2gzip.tmx */,
 				ACD7BF0412EDEE1300C69963 /* platform_layer0.CSV */,
 				ACD7BF0512EDEE1300C69963 /* spacemap_layer0.CSV */,
 			);
@@ -799,6 +825,8 @@
 				ACD7BF3A12EDEE7F00C69963 /* gameEN.xml in Resources */,
 				ACD7BF3B12EDEE7F00C69963 /* gameES.xml in Resources */,
 				ACC779CB13168E2F00920347 /* MainWindow@2x.xib in Resources */,
+				AC5937EE13311BDD005515F4 /* tmw_desert_spacing.png in Resources */,
+				AC59397F13313B9D005515F4 /* desert_test2gzip.tmx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -830,7 +858,7 @@
 				ACC116AB113EE26A00CC7DF1 /* Widgets.mm in Sources */,
 				AC4DA01D1292ABF4002E566A /* NSDataAdditions.m in Sources */,
 				AC4DA01E1292ABF4002E566A /* TBXML.m in Sources */,
-				ACB905711294A6F800AC35AF /* TileMaps.mm in Sources */,
+				ACB905711294A6F800AC35AF /* TileMaps_Mappy.mm in Sources */,
 				ACB3260912E5B1A900B83C1D /* PlayerShip.mm in Sources */,
 				ACB327C312E5EA9300B83C1D /* TBXMLParticleAdditions.m in Sources */,
 				ACB327C412E5EA9300B83C1D /* ParticleEmitter.m in Sources */,
@@ -876,6 +904,10 @@
 				ACD7BDFC12EDE27D00C69963 /* MainGameWithoutPhysics.mm in Sources */,
 				ACCA6E42131D7133004E1028 /* JoystickManager.m in Sources */,
 				AC59285C132C16B5005515F4 /* GLES-Render.mm in Sources */,
+				AC59375E133104AC005515F4 /* TiledMap.m in Sources */,
+				AC59375F133104AC005515F4 /* Layer.m in Sources */,
+				AC593760133104AC005515F4 /* TileSet.m in Sources */,
+				AC593A6E13314519005515F4 /* MainGameTiledMap.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

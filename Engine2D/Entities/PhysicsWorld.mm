@@ -30,12 +30,14 @@
 		
 		_world = new b2World(gravity, SleepBodies);
 		
-		_debugDraw = new GLESDebugDraw( PTM_RATIO );
+		//uncomment this to draw debug data
+		/*_debugDraw = new GLESDebugDraw( PTM_RATIO );
         _world->SetDebugDraw(_debugDraw);
 		
 		uint32 flags = 0;
         flags += b2DebugDraw::e_shapeBit;
         _debugDraw->SetFlags(flags);
+		*/
 		
 		//set the collisions callback
 		_collisions = new BoxCollisionCallback(); 

@@ -1,5 +1,5 @@
 //
-//  MainGameWithoutPhysics.h
+//  MainGameTiledMap.h
 //  Engine2D
 //
 //  Created by Alejandro Perez Perez on 24/01/11.
@@ -14,13 +14,12 @@
 @class LenguageManager;
 @class Camera;
 @class ParticleEmitter;
-@class TileMaps_Mappy;
 @class PlayerShip;
 @class Widgets;
 @class Image;
+@class TiledMap;
 
-
-@interface MainGameWithoutPhysics : NSObject {
+@interface MainGameTiledMap : NSObject {
 
 	//lenguage manager
 	LenguageManager *MainGameText;
@@ -28,7 +27,8 @@
 	
 	//game sprites
 	Image *SpriteGame;
-
+	Image *tilesImage;
+	
 	
 	//game states
 	StateManager *gameState;
@@ -46,10 +46,10 @@
 	//fonts
 	Fonts *font1;
 	
+	TiledMap *testMap;
 	//player, enemies, particles, etc,etc
 	ParticleEmitter *particles;
 	ParticleEmitter *shiptrail;
-	TileMaps_Mappy *testMap;
 	PlayerShip *Mainplayer;
 	
 	

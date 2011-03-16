@@ -17,12 +17,11 @@
 @class LenguageManager;
 @class Camera;
 @class ParticleEmitter;
-@class TileMaps;
+@class TileMaps_Mappy;
 @class PlayerShip;
 @class Widgets;
 @class PhysicsWorld;
 @class Image;
-
 
 @interface MainGameScreen : NSObject 
 {
@@ -55,7 +54,7 @@
 	Fonts *font1;
 
 	//player, enemies, etc,etc
-	TileMaps *testMap;
+	TileMaps_Mappy *testMap;
 	PlayerShip *Mainplayer;
 	PlayerShip *Mainplayer2;
 	

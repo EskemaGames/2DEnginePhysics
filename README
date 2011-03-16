@@ -1,7 +1,7 @@
 16/03/2011
 -Added support for retina displays, check the new boolean value in statemanager, now you can select which assets load with this boolean value
 -Added support for the 4 rotations available, comment the unneeded ones in EAGLVIEW.m
-
+-Added support for Tiled maps, now you can choose between mappy or tiled
 
 
 2D engine to create iPhone/iPod games. Created by Alejandro Perez 2011, licensed for free to anyone, copy, use it or do whatever with it, no need for credits if you don't want to.
