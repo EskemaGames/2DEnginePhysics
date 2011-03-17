@@ -3,6 +3,18 @@
 -Added support for the 4 rotations available, comment the unneeded ones in EAGLVIEW.m
 -Added support for Tiled maps, now you can choose between mappy or tiled
 
+17/03/2011
+-Added collisions method to the tiled maps, now you are enforced to create a layer called "Collisions" to get your collisions ready. Also you need to define a map property called "CollisionValue" and give the value you want, then in the tileset add a property for the "blocking tile" called block and give the same value as the map property "CollisionValue". Just make sure you put both values the same for the collision to be enabled.
+example:
+Map property = CollisionValue, 1;
+tile property = block, 1;
+
+
+
+
+
+
+
 
 2D engine to create iPhone/iPod games. Created by Alejandro Perez 2011, licensed for free to anyone, copy, use it or do whatever with it, no need for credits if you don't want to.
 

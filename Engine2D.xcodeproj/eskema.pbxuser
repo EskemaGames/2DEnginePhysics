@@ -110,8 +110,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 322066143;
-			PBXWorkspaceStateSaveDate = 322066143;
+			PBXPerProjectTemplateStateSaveDate = 322066267;
+			PBXWorkspaceStateSaveDate = 322066267;
 		};
 		perUserProjectItems = {
 			AC04DFE012EC5FCB0019594D /* PBXTextBookmark */ = AC04DFE012EC5FCB0019594D /* PBXTextBookmark */;
@@ -199,8 +199,8 @@
 			ACC117A0113EF9AE00CC7DF1 /* PBXTextBookmark */ = ACC117A0113EF9AE00CC7DF1 /* PBXTextBookmark */;
 			ACC2011F13325735004CA48C /* PBXTextBookmark */ = ACC2011F13325735004CA48C /* PBXTextBookmark */;
 			ACC2012013325735004CA48C /* PBXTextBookmark */ = ACC2012013325735004CA48C /* PBXTextBookmark */;
-			ACC2012113325735004CA48C /* XCBuildMessageTextBookmark */ = ACC2012113325735004CA48C /* XCBuildMessageTextBookmark */;
 			ACC2012213325735004CA48C /* PBXTextBookmark */ = ACC2012213325735004CA48C /* PBXTextBookmark */;
+			ACC2012B1332575E004CA48C /* PBXTextBookmark */ = ACC2012B1332575E004CA48C /* PBXTextBookmark */;
 			ACC2FF30133184E4004CA48C /* PBXTextBookmark */ = ACC2FF30133184E4004CA48C /* PBXTextBookmark */;
 			ACC2FF31133184E4004CA48C /* PBXTextBookmark */ = ACC2FF31133184E4004CA48C /* PBXTextBookmark */;
 			ACC9BD57132953E80002C5C3 /* PBXTextBookmark */ = ACC9BD57132953E80002C5C3 /* PBXTextBookmark */;
@@ -933,9 +933,9 @@
 	};
 	AC593759133104AC005515F4 /* TiledMap.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1057, 8385}}";
-			sepNavSelRange = "{14634, 0}";
-			sepNavVisRange = "{13723, 2674}";
+			sepNavIntBoundsRect = "{{0, 0}, {1146, 8710}}";
+			sepNavSelRange = "{14620, 0}";
+			sepNavVisRange = "{12922, 4621}";
 		};
 	};
 	AC59375A133104AC005515F4 /* Layer.h */ = {
@@ -1756,16 +1756,17 @@
 		vrLen = 3077;
 		vrLoc = 920;
 	};
-	ACC2012113325735004CA48C /* XCBuildMessageTextBookmark */ = {
-		isa = PBXTextBookmark;
-		comments = "Unused variable 'source'";
-		fRef = AC593759133104AC005515F4 /* TiledMap.m */;
-		fallbackIsa = XCBuildMessageTextBookmark;
-		rLen = 1;
-		rLoc = 398;
-		rType = 1;
-	};
 	ACC2012213325735004CA48C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = AC593759133104AC005515F4 /* TiledMap.m */;
+		name = "TiledMap.m: 399";
+		rLen = 0;
+		rLoc = 14620;
+		rType = 0;
+		vrLen = 4621;
+		vrLoc = 12922;
+	};
+	ACC2012B1332575E004CA48C /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = AC593759133104AC005515F4 /* TiledMap.m */;
 		name = "TiledMap.m: 399";
