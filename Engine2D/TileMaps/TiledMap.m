@@ -25,7 +25,7 @@
 
 // Using the parsed tilemap data, generate a VBO that contains information on each tile
 // that is present in that layer.  These VBOs are then used to render layers as requested
-- (void)createLayerTileImages;
+- (void)createCollisionLayer;
 
 // Parse the objects that have been defined on the map
 - (void)parseMapObjects:(TBXML*)aTmxXML;
@@ -53,6 +53,16 @@
         [tileSetProperties release];
     [tileSets release];
     [layers release];
+	
+	//free the collisions array
+	if (mapCollisions)
+	{
+		for (int i = 0; i < mapHeight; i++) {
+			free(mapCollisions[i]);
+		}
+		free(mapCollisions);
+	}
+	
     [super dealloc];
 }
 
@@ -63,7 +73,7 @@
         
         // Grab a reference to the game controller
         _states = [StateManager sharedStateManager];
-	
+		
         
         // Set up the arrays and default values for layers and tilesets
         tileSets = [[NSMutableArray alloc] init];
@@ -81,15 +91,14 @@
         [self parseMapObjects:tmxXML];
         
         NSLog(@"INFO - Tiled: Finishing parsing tilemap XML");
-
+		
         [tmxXML release];
     }
-
 	
-    // Create tile images for each layer in the tilemap.  These will then be used when we render
-    // a layer.
-    [self createLayerTileImages];
-   
+	
+    // Create the collision Layer to be used in the game
+    [self createCollisionLayer];
+	
 	//default color
     colorFilter = Color4fInit;
     
@@ -106,9 +115,6 @@
 	//index for the tile to render
 	int index = 0;
 	
-   
-	
-	
 	//pack the color to render this layer
 	unsigned char red = colorFilter.red * 1.0f;
 	unsigned char green = colorFilter.green * 1.0f;
@@ -116,8 +122,6 @@
 	unsigned char shortAlpha = colorFilter.alpha * 255.0f;
 	//	pack all of the color data bytes into an unsigned int
 	unsigned _color = (shortAlpha << 24) | (blue << 16) | (green << 8) | (red << 0);
-	
-	
 	
     // Grab the layer specified
 	Layer *layer = [layers objectAtIndex:aLayerIndex];
@@ -140,7 +144,7 @@
 				
 				//loop through the map
 				index = [layer tileIDAtTile:CGPointMake(x + xtile, y + ytile )];
-		
+				
 				//convert map coords into pixels coords
 				int xx=(x * tileSet.tileWidth) - xpos;
 				int yy=(y * tileSet.tileHeight) - ypos;
@@ -168,7 +172,7 @@
 
 
 - (void)renderLayer:(int)aLayerIndex mapx:(int)aMapx mapy:(int)aMapy width:(int)aWidth height:(int)aHeight  {
-
+	
 	//index for the tile to render
 	int index = 0;
 	
@@ -200,10 +204,10 @@
 	
     // There is only ever one tileset so grab it and get the name of the texture it uses
     TileSet *tileSet = [tileSets objectAtIndex:0];
-
+	
 	int maxWidth = aMapx + aWidth;
     int maxHeight = aMapy + aHeight;	
-
+	
 	
 	// Only loop images for this layer is it is marked as visible
 	if ([self layerPropertyForKey:@"visible" layerID:aLayerIndex defaultValue:@"0"]) 
@@ -214,18 +218,18 @@
 				
 				//loop through the map
 				index = [layer tileIDAtTile:CGPointMake(x, y )];
-
+				
 				//if the tile has properties we render it
 				if (index > -1) {
 					Quad2f vert = *[tileSet.tiles getVerticesForSpriteAtrect:CGRectMake(x * tileSet.tileWidth, y * tileSet.tileHeight, tileSet.tileWidth, tileSet.tileHeight) Vertices:tileSet.mvertex Flip:1];
-
+					
 					
 					//the textures are cached on a quad array, simply retrieve the correct texture coordinate from the array
 					// Triangle #1
 					[tileSet.tiles _addVertex:vert.tl_x  Y:vert.tl_y  UVX:tileSet.cachedTexture[index].tl_x  UVY:tileSet.cachedTexture[index].tl_y  Color:_color];
 					[tileSet.tiles _addVertex:vert.tr_x  Y:vert.tr_y  UVX:tileSet.cachedTexture[index].tr_x  UVY:tileSet.cachedTexture[index].tr_y  Color:_color];
 					[tileSet.tiles _addVertex:vert.bl_x  Y:vert.bl_y  UVX:tileSet.cachedTexture[index].bl_x  UVY:tileSet.cachedTexture[index].bl_y  Color:_color];
-				
+					
 					// Triangle #2
 					[tileSet.tiles _addVertex:vert.tr_x  Y:vert.tr_y  UVX:tileSet.cachedTexture[index].tr_x  UVY:tileSet.cachedTexture[index].tr_y  Color:_color];
 					[tileSet.tiles _addVertex:vert.bl_x  Y:vert.bl_y  UVX:tileSet.cachedTexture[index].bl_x  UVY:tileSet.cachedTexture[index].bl_y  Color:_color];
@@ -298,47 +302,46 @@
 
 @implementation TiledMap (Private)
 
-- (void)createLayerTileImages {
+- (void)createCollisionLayer {
     
-   /* int x = 0;
-    int y = 0;
-
-    // Grab the tileset for the tile map
-    TileSet *tileSet = [tileSets objectAtIndex:0];
-    */
-    // Loop through all the layers in the map and create a VBO for each
-   /* for(int layerIndex=0; layerIndex < [layers count]; layerIndex++) {
-        
-        Layer *layer = [layers objectAtIndex:layerIndex];
-        
-        // Only create images for this layer is it is marked as visible
-        if ([self layerPropertyForKey:@"visible" layerID:layerIndex defaultValue:@"0"]) {
-            for(int mapTileY=0; mapTileY < mapHeight; mapTileY++) {
-                for(int mapTileX=0; mapTileX < mapWidth; mapTileX++) {
-                    
-                    // Get the tileID and tilesetID for the current map location
-                    int tileID = [layer tileIDAtTile:CGPointMake(mapTileX, mapTileY)];
-                    
-                    // We only want to generate information for this tile if the tile is being used
-                    if (tileID > -1) {
-                        // Get the sprite used at this tile locaiton
-                        SpriteSheet *tileSprites = [tileSet tiles];
-                        Image *tileImage = [tileSprites spriteImageAtCoords:CGPointMake([tileSet getTileX:tileID], [tileSet getTileY:tileID])];
-
-                        // Add the tile images ImageDetails to the layer
-                        [layer addTileImageAt:CGPointMake(mapTileX, mapTileY) imageDetails:tileImage.imageDetails];
-                    }
-                    x += tileWidth;
-                }
-                // Now we have finished so move to the next row of tiles and reset x.  y has to be incremented as
-                // we are rendering the rows from the bottom to the top of the screen.
-                y += tileHeight;
-                x = 0;
+	//create memory to hold the solution map
+	//init the dinamic array level
+	mapCollisions = (bool **)malloc(mapHeight * sizeof(bool *));
+	for (int i = 0; i < mapHeight; ++i) {
+		mapCollisions[i] = (bool *)malloc(mapWidth * sizeof(bool));
+	}
+	
+	//get our map property relative to the collision
+	int tileCollider = [[mapProperties objectForKey:@"CollisionValue"] intValue];
+	
+	// Grab the layer index for the layer in the tile map called Collision
+    int collisionLayerIndex = [self layerIndexWithName:@"Collisions"];
+	
+    // Loop through the map tile by tile
+    Layer *collisionLayer = [[self layers] objectAtIndex:collisionLayerIndex];
+	
+	
+	//loop the map layer
+    for(int yy=0; yy < mapHeight; yy++) {
+        for(int xx=0; xx < mapWidth; xx++) {
+            
+            // Grab the global tile id from the tile map for the current location
+            int globalTileID = [collisionLayer globalTileIDAtTile:CGPointMake(xx, yy)];
+			
+			//now get the tile with the block property
+			int idtile = [[self tilePropertyForGlobalTileID:globalTileID key:@"block" defaultValue:@"-1"] intValue];
+			
+            // If this tile is present in the collision layer then we mark that tile as blocked.
+            if(idtile == tileCollider) {
+				mapCollisions[yy][xx] = YES;
             }
-            y = 0;
-        }
-    }
-	*/
+			else {
+				mapCollisions[yy][xx] = NO;
+			}
+			
+		}
+	}
+	
 }
 
 - (void)parseMapFileTBXML:(TBXML*)tbXML TilesetImage:(Image *)tilesetImage{
@@ -358,8 +361,8 @@
         tileWidth = [[TBXML valueOfAttributeNamed:@"tilewidth" forElement:rootXMLElement] intValue];
         tileHeight = [[TBXML valueOfAttributeNamed:@"tileheight" forElement:rootXMLElement] intValue];
         
-        NSLog(@"INFO - Tiled: Tilemap map dimensions are %dx%d", mapWidth, mapHeight);
-        NSLog(@"INFO - Tiled: Tilemap tile dimensions are %dx%d", tileWidth, tileHeight);
+        //NSLog(@"INFO - Tiled: Tilemap map dimensions are %dx%d", mapWidth, mapHeight);
+        //NSLog(@"INFO - Tiled: Tilemap tile dimensions are %dx%d", tileWidth, tileHeight);
         
         TBXMLElement * properties = [TBXML childElementNamed:@"properties" parentElement:rootXMLElement];
         if (properties) {
@@ -388,17 +391,17 @@
             tileSetSpacing = [[TBXML valueOfAttributeNamed:@"spacing" forElement:tileset] intValue];
             tileSetMargin = [[TBXML valueOfAttributeNamed:@"margin" forElement:tileset] intValue];
             
-            NSLog(@"INFO - Tiled: --> TILESET found named: %@, width=%d, height=%d, firstgid=%d, spacing=%d, id=%d", 
-                               tileSetName, tileSetWidth, tileSetHeight, tileSetFirstGID, tileSetSpacing, currentTileSetID);
+			// NSLog(@"INFO - Tiled: --> TILESET found named: %@, width=%d, height=%d, firstgid=%d, spacing=%d, id=%d", 
+			//                  tileSetName, tileSetWidth, tileSetHeight, tileSetFirstGID, tileSetSpacing, currentTileSetID);
             
             // Retrieve the image element
             TBXMLElement * image = [TBXML childElementNamed:@"image" parentElement:tileset];
-            NSString *source = [TBXML valueOfAttributeNamed:@"source" forElement:image];
-			 NSString *imgwidth = [TBXML valueOfAttributeNamed:@"width" forElement:image];
-			 NSString *imgheight = [TBXML valueOfAttributeNamed:@"height" forElement:image];
-            NSLog(@"INFO - Tiled: ----> Found source for tileset called '%@'.", source);
-			NSLog(@"INFO - Tiled: ----> Found width for tileset called '%@'.", imgwidth);
-			NSLog(@"INFO - Tiled: ----> Found height for tileset called '%@'.", imgheight);
+            //NSString *source = [TBXML valueOfAttributeNamed:@"source" forElement:image];
+			NSString *imgwidth = [TBXML valueOfAttributeNamed:@"width" forElement:image];
+			NSString *imgheight = [TBXML valueOfAttributeNamed:@"height" forElement:image];
+			//NSLog(@"INFO - Tiled: ----> Found source for tileset called '%@'.", source);
+			//NSLog(@"INFO - Tiled: ----> Found width for tileset called '%@'.", imgwidth);
+			//NSLog(@"INFO - Tiled: ----> Found height for tileset called '%@'.", imgheight);
             
 			
 			
@@ -413,7 +416,7 @@
                 TBXMLElement * tstp_property = [TBXML childElementNamed:@"property" parentElement:tstp];
                 while (tstp_property) {
                     
-                    //NSLog(@"INFO - Tiled: ----> Property '%@' found with value '%@' for global tile id '%@'", name, value, tileIDKey);
+                    //NSLog(@"INFO - Tiled: ----> Property found with value '%i' ", tileID);
                     [tileProperties setObject:[TBXML valueOfAttributeNamed:@"value" forElement:tstp_property] 
                                        forKey:[TBXML valueOfAttributeNamed:@"name" forElement:tstp_property]];
                     
@@ -459,7 +462,7 @@
             layerHeight = [[TBXML valueOfAttributeNamed:@"height" forElement:layer] intValue];
             
             currentLayer = [[Layer alloc] initWithName:layerName layerID:currentLayerID layerWidth:layerWidth layerHeight:layerHeight];
-            NSLog(@"INFO - Tiled: --> LAYER found called: %@, width=%d, height=%d", layerName, layerWidth, layerHeight);
+            //NSLog(@"INFO - Tiled: --> LAYER found called: %@, width=%d, height=%d", layerName, layerWidth, layerHeight);
             
             
             // Process any layer properties
@@ -498,22 +501,19 @@
                         for (tile_x=0;tile_x<layerWidth;tile_x++) {
                             int globalID = bytes[y+tile_x];
                             if(globalID == 0) {
-                                // So that the tile coordinate y axis is reversed, we perform the layerHeight - tileY
-                                // calculation below
+                                // we add each tile, all the 0 tiles are empty
                                 [currentLayer addTileAt:CGPointMake(tile_x,  tile_y) tileSetID:-1 tileID:-1 globalID:-1 value:-1];
                             } else {
                                 TileSet *tileSet = [self tileSetWithGlobalID:globalID];
-                                // So that the tile coordinate y axis is reversed, we perform the layerHeight - tileY
-                                // calculation below
+                                // map always start in top left screen 0,0
                                 [currentLayer addTileAt:CGPointMake(tile_x,  tile_y) 
-                                               tileSetID:[tileSet tileSetID] 
-                                                  tileID:globalID - [tileSet firstGID] 
-                                                globalID:globalID
-                                                   value:-1];
+											  tileSetID:[tileSet tileSetID] 
+												 tileID:globalID - [tileSet firstGID] 
+											   globalID:globalID
+												  value:-1];
                             }
 							
-							//NSLog(@"global ID %i", globalID);
-			
+							
                         }                   
                     }
                 } else {
@@ -532,16 +532,16 @@
                         // If the globalID is 0 then this is an empty tile else populate the tile array with the 
                         // retrieved tile information
                         if(globalID == 0) {
-                            [currentLayer addTileAt:CGPointMake(tile_x, (layerHeight - 1) - tile_y) tileSetID:-1 tileID:-1 globalID:-1 value:-1];
+                            [currentLayer addTileAt:CGPointMake(tile_x, tile_y) tileSetID:-1 tileID:-1 globalID:-1 value:-1];
                         } else {
                             TileSet *tileSet = [self tileSetWithGlobalID:globalID];
-                            [currentLayer addTileAt:CGPointMake(tile_x, (layerHeight - 1) - tile_y) 
-                                              tileSetID:[tileSet tileSetID] 
-                                                 tileID:globalID - [tileSet firstGID] 
-                                               globalID:globalID
-                                                  value:-1];
+                            [currentLayer addTileAt:CGPointMake(tile_x,  tile_y) 
+										  tileSetID:[tileSet tileSetID] 
+											 tileID:globalID - [tileSet firstGID] 
+										   globalID:globalID
+											  value:-1];
                         }
-                 
+						
                         // Calculate the next coord within the tiledata array
                         tile_x++;
                         if(tile_x > layerWidth - 1) {
@@ -587,7 +587,7 @@
         [objectGroupAttribs setObject:objectGroupHeight forKey:@"height"];
         [objectGroupDetails setObject:objectGroupAttribs forKey:@"Attributes"];
         
-        NSLog(@"INFO - Tiled: --> OBJECT LAYER found called '%@', width:'%@', height:'%@'", objectGroupName, objectGroupWidth, objectGroupHeight);
+        //NSLog(@"INFO - Tiled: --> OBJECT LAYER found called '%@', width:'%@', height:'%@'", objectGroupName, objectGroupWidth, objectGroupHeight);
         
         // Grab the first object within this object group
         TBXMLElement *object = [TBXML childElementNamed:@"object" parentElement:objectGroup];

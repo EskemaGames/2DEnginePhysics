@@ -43,8 +43,10 @@
 	NSMutableDictionary *mapProperties;			// Map properties
 	NSMutableDictionary *tileSetProperties;		// Tile set properties
 	NSMutableDictionary *objectGroups;			// Object groups
-
-
+	
+	//2d array used for collisions in tile maps
+	bool **mapCollisions;
+	
 	///////////////////// Tileset ivars	
 	NSString *tileSetName;
 	int tileSetID;
@@ -62,7 +64,7 @@
 	int tile_x;
 	int tile_y;
 	
-
+	
 }
 
 @property (nonatomic, readonly) NSMutableArray *tileSets;
