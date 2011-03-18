@@ -110,8 +110,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 322141567;
-			PBXWorkspaceStateSaveDate = 322141567;
+			PBXPerProjectTemplateStateSaveDate = 322171927;
+			PBXWorkspaceStateSaveDate = 322171927;
 		};
 		perUserProjectItems = {
 			AC04DFE012EC5FCB0019594D /* PBXTextBookmark */ = AC04DFE012EC5FCB0019594D /* PBXTextBookmark */;
@@ -166,10 +166,10 @@
 			AC40418B13339A0500DE57C5 /* PBXTextBookmark */ = AC40418B13339A0500DE57C5 /* PBXTextBookmark */;
 			AC40418C13339A0500DE57C5 /* PBXTextBookmark */ = AC40418C13339A0500DE57C5 /* PBXTextBookmark */;
 			AC40418D13339A0500DE57C5 /* PBXTextBookmark */ = AC40418D13339A0500DE57C5 /* PBXTextBookmark */;
-			AC40418E13339A0500DE57C5 /* PBXTextBookmark */ = AC40418E13339A0500DE57C5 /* PBXTextBookmark */;
 			AC40419413339A2200DE57C5 /* PBXTextBookmark */ = AC40419413339A2200DE57C5 /* PBXTextBookmark */;
-			AC40419513339A2200DE57C5 /* PBXTextBookmark */ = AC40419513339A2200DE57C5 /* PBXTextBookmark */;
-			AC40419813339A3900DE57C5 /* PBXTextBookmark */ = AC40419813339A3900DE57C5 /* PBXTextBookmark */;
+			AC4C698B1333F42D00B6DE44 /* PBXTextBookmark */ = AC4C698B1333F42D00B6DE44 /* PBXTextBookmark */;
+			AC4C698C1333F42D00B6DE44 /* PBXBookmark */ = AC4C698C1333F42D00B6DE44 /* PBXBookmark */;
+			AC4C698D1333F42D00B6DE44 /* PBXTextBookmark */ = AC4C698D1333F42D00B6DE44 /* PBXTextBookmark */;
 			AC58FC06129544FC00C3B792 /* PBXTextBookmark */ = AC58FC06129544FC00C3B792 /* PBXTextBookmark */;
 			AC59287F132C1728005515F4 /* PBXTextBookmark */ = AC59287F132C1728005515F4 /* PBXTextBookmark */;
 			AC592881132C1728005515F4 /* PBXTextBookmark */ = AC592881132C1728005515F4 /* PBXTextBookmark */;
@@ -659,13 +659,6 @@
 		vrLen = 1488;
 		vrLoc = 0;
 	};
-	AC403F4113337E6A00DE57C5 /* desert_test2gzip.tmx */ = {
-		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {3197, 940}}";
-			sepNavSelRange = "{193, 0}";
-			sepNavVisRange = "{0, 1666}";
-		};
-	};
 	AC403F691333857900DE57C5 /* PBXBookmark */ = {
 		isa = PBXBookmark;
 		fRef = AC5937ED13311BDD005515F4 /* tmw_desert_spacing.png */;
@@ -851,9 +844,9 @@
 	};
 	AC4040C21333922E00DE57C5 /* TiledMap.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1367, 10920}}";
-			sepNavSelRange = "{13238, 0}";
-			sepNavVisRange = "{13817, 1107}";
+			sepNavIntBoundsRect = "{{0, 0}, {1286, 11284}}";
+			sepNavSelRange = "{2804, 0}";
+			sepNavVisRange = "{1338, 1761}";
 		};
 	};
 	AC4040C41333922E00DE57C5 /* TileSet.m */ = {
@@ -953,16 +946,6 @@
 		vrLen = 2799;
 		vrLoc = 1370;
 	};
-	AC40418E13339A0500DE57C5 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = AC4040C21333922E00DE57C5 /* TiledMap.m */;
-		name = "TiledMap.m: 103";
-		rLen = 0;
-		rLoc = 2793;
-		rType = 0;
-		vrLen = 1894;
-		vrLoc = 2261;
-	};
 	AC40419413339A2200DE57C5 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = AC40400B13338B7C00DE57C5 /* TiledSceneGame.mm */;
@@ -973,22 +956,33 @@
 		vrLen = 1739;
 		vrLoc = 528;
 	};
-	AC40419513339A2200DE57C5 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = AC403F4113337E6A00DE57C5 /* desert_test2gzip.tmx */;
-		name = "desert_test2gzip.tmx: 40";
-		rLen = 0;
-		rLoc = 1666;
-		rType = 0;
-		vrLen = 1667;
-		vrLoc = 0;
+	AC4C69891333F42B00B6DE44 /* desert_test2gzip.tmx */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {3197, 940}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 1666}";
+		};
 	};
-	AC40419813339A3900DE57C5 /* PBXTextBookmark */ = {
+	AC4C698B1333F42D00B6DE44 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
-		fRef = AC403F4113337E6A00DE57C5 /* desert_test2gzip.tmx */;
-		name = "desert_test2gzip.tmx: 4";
+		fRef = AC4040C21333922E00DE57C5 /* TiledMap.m */;
+		name = "TiledMap.m: 104";
 		rLen = 0;
-		rLoc = 193;
+		rLoc = 2804;
+		rType = 0;
+		vrLen = 1761;
+		vrLoc = 1338;
+	};
+	AC4C698C1333F42D00B6DE44 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = AC4C69891333F42B00B6DE44 /* desert_test2gzip.tmx */;
+	};
+	AC4C698D1333F42D00B6DE44 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = AC4C69891333F42B00B6DE44 /* desert_test2gzip.tmx */;
+		name = "desert_test2gzip.tmx: 1";
+		rLen = 0;
+		rLoc = 0;
 		rType = 0;
 		vrLen = 1666;
 		vrLoc = 0;
@@ -1197,11 +1191,6 @@
 		name = TileSet.h;
 		path = /Users/eskema/2DEnginePhysics/Engine2D/TileMaps/TileSet.h;
 		sourceTree = "<absolute>";
-		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {737, 988}}";
-			sepNavSelRange = "{1515, 0}";
-			sepNavVisRange = "{17, 2430}";
-		};
 	};
 	AC59384013312439005515F4 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;

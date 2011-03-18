@@ -56,11 +56,11 @@
 		AC3AA42412EAF83200255B5A /* PhysicsWorld.mm in Sources */ = {isa = PBXBuildFile; fileRef = AC3AA42312EAF83200255B5A /* PhysicsWorld.mm */; };
 		AC3AA68912EB5CA900255B5A /* mainmenu.png in Resources */ = {isa = PBXBuildFile; fileRef = AC3AA68812EB5CA900255B5A /* mainmenu.png */; };
 		AC3AA73A12EB69C300255B5A /* BoxCollisionCallback.mm in Sources */ = {isa = PBXBuildFile; fileRef = AC3AA73912EB69C300255B5A /* BoxCollisionCallback.mm */; };
-		AC403F4213337E6A00DE57C5 /* desert_test2gzip.tmx in Resources */ = {isa = PBXBuildFile; fileRef = AC403F4113337E6A00DE57C5 /* desert_test2gzip.tmx */; };
 		AC40400C13338B7C00DE57C5 /* TiledSceneGame.mm in Sources */ = {isa = PBXBuildFile; fileRef = AC40400B13338B7C00DE57C5 /* TiledSceneGame.mm */; };
 		AC4040C51333922E00DE57C5 /* Layer.m in Sources */ = {isa = PBXBuildFile; fileRef = AC4040C01333922E00DE57C5 /* Layer.m */; };
 		AC4040C61333922E00DE57C5 /* TiledMap.m in Sources */ = {isa = PBXBuildFile; fileRef = AC4040C21333922E00DE57C5 /* TiledMap.m */; };
 		AC4040C71333922E00DE57C5 /* TileSet.m in Sources */ = {isa = PBXBuildFile; fileRef = AC4040C41333922E00DE57C5 /* TileSet.m */; };
+		AC4C698A1333F42B00B6DE44 /* desert_test2gzip.tmx in Resources */ = {isa = PBXBuildFile; fileRef = AC4C69891333F42B00B6DE44 /* desert_test2gzip.tmx */; };
 		AC4DA01D1292ABF4002E566A /* NSDataAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = AC4DA01A1292ABF4002E566A /* NSDataAdditions.m */; };
 		AC4DA01E1292ABF4002E566A /* TBXML.m in Sources */ = {isa = PBXBuildFile; fileRef = AC4DA01C1292ABF4002E566A /* TBXML.m */; };
 		AC4DA04F1292AE89002E566A /* menuEN.xml in Resources */ = {isa = PBXBuildFile; fileRef = AC4DA04D1292AE89002E566A /* menuEN.xml */; };
@@ -208,7 +208,6 @@
 		AC3AA68812EB5CA900255B5A /* mainmenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mainmenu.png; sourceTree = "<group>"; };
 		AC3AA73812EB69C300255B5A /* BoxCollisionCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoxCollisionCallback.h; sourceTree = "<group>"; };
 		AC3AA73912EB69C300255B5A /* BoxCollisionCallback.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BoxCollisionCallback.mm; sourceTree = "<group>"; };
-		AC403F4113337E6A00DE57C5 /* desert_test2gzip.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = desert_test2gzip.tmx; path = ../Programming/examples_tiled/desert_test2gzip.tmx; sourceTree = SOURCE_ROOT; };
 		AC40400A13338B7C00DE57C5 /* TiledSceneGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TiledSceneGame.h; sourceTree = "<group>"; };
 		AC40400B13338B7C00DE57C5 /* TiledSceneGame.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TiledSceneGame.mm; sourceTree = "<group>"; };
 		AC4040BF1333922E00DE57C5 /* Layer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Layer.h; sourceTree = "<group>"; };
@@ -217,6 +216,7 @@
 		AC4040C21333922E00DE57C5 /* TiledMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TiledMap.m; sourceTree = "<group>"; };
 		AC4040C31333922E00DE57C5 /* TileSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TileSet.h; sourceTree = "<group>"; };
 		AC4040C41333922E00DE57C5 /* TileSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TileSet.m; sourceTree = "<group>"; };
+		AC4C69891333F42B00B6DE44 /* desert_test2gzip.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = desert_test2gzip.tmx; sourceTree = "<group>"; };
 		AC4DA0191292ABF4002E566A /* NSDataAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDataAdditions.h; sourceTree = "<group>"; };
 		AC4DA01A1292ABF4002E566A /* NSDataAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDataAdditions.m; sourceTree = "<group>"; };
 		AC4DA01B1292ABF4002E566A /* TBXML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBXML.h; sourceTree = "<group>"; };
@@ -748,7 +748,7 @@
 		ACD7BEE012EDEDC400C69963 /* LevelMaps */ = {
 			isa = PBXGroup;
 			children = (
-				AC403F4113337E6A00DE57C5 /* desert_test2gzip.tmx */,
+				AC4C69891333F42B00B6DE44 /* desert_test2gzip.tmx */,
 				ACD7BF0412EDEE1300C69963 /* platform_layer0.CSV */,
 				ACD7BF0512EDEE1300C69963 /* spacemap_layer0.CSV */,
 			);
@@ -826,7 +826,7 @@
 				ACD7BF3B12EDEE7F00C69963 /* gameES.xml in Resources */,
 				ACC779CB13168E2F00920347 /* MainWindow@2x.xib in Resources */,
 				AC5937EE13311BDD005515F4 /* tmw_desert_spacing.png in Resources */,
-				AC403F4213337E6A00DE57C5 /* desert_test2gzip.tmx in Resources */,
+				AC4C698A1333F42B00B6DE44 /* desert_test2gzip.tmx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
