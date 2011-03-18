@@ -11,7 +11,7 @@ tile property = block, 1;
 
 
 18/03/2011
--Refactored Tiled class, no more 3 dimensions arey, hold the layers with a single 2d array which is created dynamically to save some memory
+-Refactored Tiled class, no more 3 dimensions array, hold the layers with a single 2d array which is created dynamically to save some memory
 -Added method for display animated tiles automatically, just create a new layer and add the animated tiles here. And then just create the properties in Tiled for the animated tile, 
 example:
 Tile number 6 within tile will be animated, so button right and add properties for this tile.
