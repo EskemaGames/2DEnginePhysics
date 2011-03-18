@@ -10,6 +10,20 @@ Map property = CollisionValue, 1;
 tile property = block, 1;
 
 
+18/03/2011
+-Refactored Tiled class, no more 3 dimensions arey, hold the layers with a single 2d array which is created dynamically to save some memory
+-Added method for display animated tiles automatically, just create a new layer and add the animated tiles here. And then just create the properties in Tiled for the animated tile, 
+example:
+Tile number 6 within tile will be animated, so button right and add properties for this tile.
+Add the properties for example with the name frame1, frame2, etc (the name is irrelevant), the important here is the value, the value will be the number of the frame to animate.
+Imagine your tileset, from tile 1 to 5 they are part from an animation, so the properties will start with:
+frame1 = 1;
+frame2 = 2;
+frame3 = 3;
+frame4 = 4;
+frame5 = 5;
+
+Just doing this the Tiled class will recognize this as an animated tile and will "play" the animation as soon as the tiles will become visible.
 
 
 

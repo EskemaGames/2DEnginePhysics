@@ -281,9 +281,8 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>7</integer>
-									<integer>6</integer>
-									<integer>3</integer>
+									<integer>44</integer>
+									<integer>38</integer>
 									<integer>0</integer>
 								</array>
 							</array>
@@ -307,7 +306,7 @@
 							<real>246</real>
 						</array>
 						<key>RubberWindowFrame</key>
-						<string>711 160 1066 1018 0 0 1920 1178 </string>
+						<string>24 160 1066 1018 0 0 1920 1178 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXSmartGroupTreeModule</string>
@@ -325,7 +324,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>TiledMap.m</string>
+								<string>MainGameTiledMap.mm</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -333,11 +332,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>TiledMap.m</string>
+										<string>MainGameTiledMap.mm</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>ACC2012B1332575E004CA48C</string>
+										<string>AC3BDD301332EF4600B1FBA2</string>
 										<key>history</key>
 										<array>
 											<string>ACC1167E113ED90700CC7DF1</string>
@@ -427,24 +426,19 @@
 											<string>AC5937331330FD2F005515F4</string>
 											<string>AC5937341330FD2F005515F4</string>
 											<string>AC59377C13310878005515F4</string>
-											<string>AC59377F13310878005515F4</string>
 											<string>AC5937F513311C2E005515F4</string>
 											<string>AC59383E13312439005515F4</string>
 											<string>AC59383F13312439005515F4</string>
 											<string>AC59384013312439005515F4</string>
-											<string>AC5938501331251B005515F4</string>
 											<string>AC593961133139CC005515F4</string>
 											<string>AC593962133139CC005515F4</string>
 											<string>AC59396C13313ADB005515F4</string>
-											<string>AC59398513313BB4005515F4</string>
-											<string>AC593A0713314001005515F4</string>
 											<string>AC593A2213314181005515F4</string>
 											<string>AC593A5C133144BF005515F4</string>
 											<string>AC28BF591331471900446DF8</string>
 											<string>AC28BF5A1331471900446DF8</string>
 											<string>AC304CF5133147AE00A6CD92</string>
 											<string>AC304CFD133147F400A6CD92</string>
-											<string>AC304CFE133147F400A6CD92</string>
 											<string>AC304D151331493700A6CD92</string>
 											<string>AC304D161331493700A6CD92</string>
 											<string>AC304D181331493700A6CD92</string>
@@ -454,8 +448,13 @@
 											<string>ACC2FF30133184E4004CA48C</string>
 											<string>ACC2FF31133184E4004CA48C</string>
 											<string>ACC2011F13325735004CA48C</string>
-											<string>ACC2012013325735004CA48C</string>
-											<string>ACC2012213325735004CA48C</string>
+											<string>AC3BDD291332EF4600B1FBA2</string>
+											<string>AC3BDD2A1332EF4600B1FBA2</string>
+											<string>AC3BDD2B1332EF4600B1FBA2</string>
+											<string>AC3BDD2C1332EF4600B1FBA2</string>
+											<string>AC3BDD2D1332EF4600B1FBA2</string>
+											<string>AC3BDD2E1332EF4600B1FBA2</string>
+											<string>AC3BDD2F1332EF4600B1FBA2</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -469,7 +468,7 @@
 								<key>Frame</key>
 								<string>{{0, 0}, {798, 972}}</string>
 								<key>RubberWindowFrame</key>
-								<string>711 160 1066 1018 0 0 1920 1178 </string>
+								<string>24 160 1066 1018 0 0 1920 1178 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
@@ -489,7 +488,7 @@
 								<key>Frame</key>
 								<string>{{0, 977}, {798, 0}}</string>
 								<key>RubberWindowFrame</key>
-								<string>711 160 1066 1018 0 0 1920 1178 </string>
+								<string>24 160 1066 1018 0 0 1920 1178 </string>
 							</dict>
 							<key>Module</key>
 							<string>XCDetailModule</string>
@@ -513,9 +512,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>ACC2012C1332575E004CA48C</string>
+				<string>AC3BDD311332EF4600B1FBA2</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>ACC2012D1332575E004CA48C</string>
+				<string>AC3BDD321332EF4600B1FBA2</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -657,7 +656,7 @@
 		<string>/Users/eskema/2DEnginePhysics/Engine2D.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
-	<string>711 160 1066 1018 0 0 1920 1178 </string>
+	<string>24 160 1066 1018 0 0 1920 1178 </string>
 	<key>WindowToolsV3</key>
 	<array>
 		<dict>
@@ -678,7 +677,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string></string>
+								<string>MainGameTiledMap.mm</string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
@@ -695,6 +694,8 @@
 							<string>529pt</string>
 						</dict>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -734,7 +735,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>ACAB5649113C5F39001ACAAE</string>
-				<string>ACC2012E1332575E004CA48C</string>
+				<string>AC3BDD281332EF4000B1FBA2</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>

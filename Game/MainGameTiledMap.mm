@@ -71,7 +71,7 @@
 	Mainplayer = [[PlayerShip alloc] initImage:SpriteGame FileName:@"PlayershipConfig.xml" Physic:nil TypeShape:BOX];
 
 	//tile map class
-	testMap = [[TiledMap alloc] initWithFileName:@"desert_test2gzip" fileExtension:@"tmx" TilesetImage:tilesImage];
+	testMap = [[TiledMap alloc] initWithFileName:@"desert_test2gzip" fileExtension:@"tmx" LayerName:@"Ground" TilesetImage:tilesImage];
  
 	
 	//touch attack;

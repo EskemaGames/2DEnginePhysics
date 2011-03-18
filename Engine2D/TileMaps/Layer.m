@@ -17,19 +17,21 @@
 @synthesize layerWidth;
 @synthesize layerHeight;
 @synthesize layerProperties;
+@synthesize layerData;
+
 
 - (void)dealloc {
-
-	//free level array
-	for (int a = 0; a < 4; ++a) 
+	
+	//free level array	
+	if (layerData)
 	{
-		for (int b = 0; b < layerHeight; ++b) 
-		{
-			free(layerData[a][b]);
+		for (int i = 0; i < layerHeight; i++) {
+			free(layerData[i]);
 		}
-		free(layerData[a]);
+		free(layerData);
 	}
-	free(layerData);
+	
+	
 	[super dealloc];
 }
 
@@ -40,16 +42,12 @@
 		layerID = aLayerID;
 		layerWidth = aLayerWidth;
 		layerHeight = aLayerHeight;
-
+		
 		//the layerdata array will be created based on the layer size
 		//this will reduce a bit the memory needed
-		int a,b;
-		layerData = (int ***)malloc(4 * sizeof(int **));
-		for (a = 0; a < 4; a++){
-			layerData[a] = (int **)malloc(layerHeight * sizeof(int *));
-			for (b = 0; b < layerHeight; b++)
-				layerData[a][b] =
-				(int *)malloc(layerWidth *sizeof(int));
+		layerData = (_Tiles **)malloc(layerHeight * sizeof(_Tiles *));
+		for (int i = 0; i < layerHeight; ++i) {
+			layerData[i] = (_Tiles *)malloc(layerWidth * sizeof(_Tiles));
 		}
 	}
 	return self;
@@ -58,33 +56,33 @@
 
 
 - (int)tileIDAtTile:(CGPoint)aTileCoord {
-	return layerData[1][(int)aTileCoord.y][(int)aTileCoord.x];
+	return layerData[(int)aTileCoord.y][(int)aTileCoord.x].TileID;
 }
 
 
 - (int)globalTileIDAtTile:(CGPoint)aTileCoord {
-	return layerData[2] [(int)aTileCoord.y][(int)aTileCoord.x];
+	return layerData[(int)aTileCoord.y][(int)aTileCoord.x].GlobalID;
 }
 
 
 - (int)tileSetIDAtTile:(CGPoint)aTileCoord {
-	return layerData[0][(int)aTileCoord.y][(int)aTileCoord.x];
+	return layerData[(int)aTileCoord.y][(int)aTileCoord.x].TilesetID;
 }
 
 
 - (void)addTileAt:(CGPoint)aTileCoord tileSetID:(int)aTileSetID tileID:(int)aTileID globalID:(int)aGlobalID value:(int)aValue {
-	layerData[0][(int)aTileCoord.y][(int)aTileCoord.x] = aTileSetID;
-	layerData[1][(int)aTileCoord.y][(int)aTileCoord.x] = aTileID;
-	layerData[2][(int)aTileCoord.y][(int)aTileCoord.x] = aGlobalID;
-	layerData[3][(int)aTileCoord.y][(int)aTileCoord.x] = aValue;
+	layerData[(int)aTileCoord.y][(int)aTileCoord.x].TilesetID = aTileSetID;
+	layerData[(int)aTileCoord.y][(int)aTileCoord.x].TileID = aTileID;
+	layerData[(int)aTileCoord.y][(int)aTileCoord.x].GlobalID = aGlobalID;
+	layerData[(int)aTileCoord.y][(int)aTileCoord.x].Value = aValue;
 }
 
 - (void)setValueAtTile:(CGPoint)aTileCoord value:(int)aValue {
-	layerData[3][(int)aTileCoord.y][(int)aTileCoord.x] = aValue;
+	layerData[(int)aTileCoord.y][(int)aTileCoord.x].Value = aValue;
 }
 
 - (int)valueAtTile:(CGPoint)aTileCoord {
-	return layerData[3][(int)aTileCoord.y][(int)aTileCoord.x];
+	return layerData[(int)aTileCoord.y][(int)aTileCoord.x].Value;
 }
 
 @end

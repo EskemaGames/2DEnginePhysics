@@ -16,23 +16,19 @@
 // within the defined layer
 //
 
-
 @class Image;
 
 @interface Layer : NSObject {
 	
 	int layerID;							// The layers index
 	NSString *layerName;					// The layers name
-	int ***layerData;
-	//we set the array to be dinamic to save some memory
-	//[4][MAX_MAP_WIDTH][MAX_MAP_HEIGHT];	
-	// Tile data where the 1rd dimension is 
-	// index 0 = tileset, index 1 = tile id, index 2 = global id
+	
+	_Tiles **layerData;						//Array to hold the layer data
 	
 	int layerWidth;							// The width of the layer
 	int layerHeight;						// The height of layer layer
 	NSMutableDictionary *layerProperties;	// Layer properties
-
+	
 }
 
 @property(nonatomic, readonly) int layerID;
@@ -40,6 +36,7 @@
 @property(nonatomic, readonly) int layerWidth;
 @property(nonatomic, readonly) int layerHeight;
 @property(nonatomic, retain) NSMutableDictionary *layerProperties;
+@property(nonatomic, readwrite) _Tiles **layerData;
 
 // Designated selector which creates a new instance of the Layer class.
 - (id)initWithName:(NSString*)aName layerID:(int)aLayerID layerWidth:(int)aLayerWidth layerHeight:(int)aLayerHeight;

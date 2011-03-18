@@ -36,6 +36,18 @@
 
 #pragma mark -
 #pragma mark Types
+typedef struct MyTiles {
+	int		GlobalID;
+	int     TileID;
+	int		TilesetID;
+	int		Value;
+	bool	tileAnimated;
+	int		totalFramesAnimation;
+	int		*animated;
+	int		delay, nextframe;
+	int		delaySpeed;
+} _Tiles;
+
 
 typedef struct MyFonts
 {

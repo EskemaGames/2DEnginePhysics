@@ -66,7 +66,7 @@
     [super dealloc];
 }
 
-- (id)initWithFileName:(NSString*)aTiledFile fileExtension:(NSString*)aFileExtension TilesetImage:(Image *)tilesetImage {
+- (id)initWithFileName:(NSString*)aTiledFile fileExtension:(NSString*)aFileExtension LayerName:(NSString *)layername TilesetImage:(Image *)tilesetImage {
     
     self = [super init];
     if (self != nil) {
@@ -99,6 +99,9 @@
     // Create the collision Layer to be used in the game
     [self createCollisionLayer];
 	
+	//parse animated tiles if any
+	[self ParseAnimationTiles:layername];
+	
 	//default color
     colorFilter = Color4fInit;
     
@@ -107,13 +110,37 @@
 
 
 
+-(int)GetWideMap
+{
+	return mapWidth * tileWidth;
+}
 
+-(int)GetHeightMap
+{
+	return mapHeight * tileHeight;
+}
+
+-(int)GetTileSize
+{
+	return tileWidth;
+}
 
 
 - (void)renderLayerPOW:(int)aLayerIndex mapx:(int)aMapx mapy:(int)aMapy width:(int)aWidth height:(int)aHeight  {
 	
 	//index for the tile to render
 	int index = 0;
+	
+	// Make sure the boundaries of the tiles to be rendered are within the bounds of the layer
+    if (aMapx < 0)
+        aMapx = 0;
+    if (aMapx > (mapWidth * tileWidth))
+        aMapx = (mapWidth * tileWidth);
+    if (aMapy < 0)
+        aMapy = 0;
+    if (aMapy > (mapHeight * tileHeight))
+        aMapy = (mapHeight * tileHeight);
+	
 	
 	//pack the color to render this layer
 	unsigned char red = colorFilter.red * 1.0f;
@@ -143,7 +170,9 @@
 			for (int x=0; x < aWidth; x++) {
 				
 				//loop through the map
-				index = [layer tileIDAtTile:CGPointMake(x + xtile, y + ytile )];
+				//index = [layer tileIDAtTile:CGPointMake(x + xtile, y + ytile )];
+				
+				index = [self getSpriteIndeX:x + xtile Y:y + ytile layer:layer];
 				
 				//convert map coords into pixels coords
 				int xx=(x * tileSet.tileWidth) - xpos;
@@ -295,7 +324,108 @@
     return value;
 }
 
+
+
+//make sure you are passing here a layer with only animated tiles
+-(void)ParseAnimationTiles:(NSString *)layername
+{
+	//get the index for the layer
+	int animationLayerIndex = [self layerIndexWithName:layername];
+	// get the layer to work with
+	Layer *animLayer = [[self layers] objectAtIndex:animationLayerIndex];
+	
+	int a = 0;
+	for(int yy=0; yy < mapHeight; yy++) {
+		for(int xx=0; xx < mapWidth; xx++) {
+			int globalTileID = [animLayer globalTileIDAtTile:CGPointMake(xx, yy)];
+			
+			//skip all the empty tiles
+			if (globalTileID != -1)
+			{
+				//reset to 0 counter for the next animated tile
+				a = 0;
+				
+				NSMutableDictionary *objects = [tileSetProperties objectForKey:[NSString stringWithFormat:@"%d", globalTileID]];
+				int counter = [objects count];
+				
+				//we found more than 2 objects, wich we assume are 2 frames, because we are playing with 
+				//the animation layer, this layer will be only for animated tiles
+				if (counter >= 2)
+				{
+					
+					//set the data for the animated tiles
+					//and calloc space for the animation array
+					animLayer.layerData[yy][xx].totalFramesAnimation = counter;
+					animLayer.layerData[yy][xx].animated = (int *)calloc(animLayer.layerData[yy][xx].totalFramesAnimation, sizeof(int));
+					
+					for (NSString *objectKey in objects) {
+						animLayer.layerData[yy][xx].tileAnimated = YES;
+						animLayer.layerData[yy][xx].delaySpeed = 10;
+						animLayer.layerData[yy][xx].delay = 0;
+						animLayer.layerData[yy][xx].nextframe = 0;
+						
+						//get the frame value for the animation in the dictionary
+						int myvalue = [[objects objectForKey:objectKey] intValue];
+						
+						//set the frame in the animation array
+						animLayer.layerData[yy][xx].animated[a] = myvalue;
+						
+						//increase counter
+						++a;
+						
+					}
+				}
+			}
+		}
+	}
+	
+	
+}
+
+
+
+
+
+- (int) getSpriteIndeX:(int)X Y:(int)Y layer:(Layer *)_layer 
+{	
+	int index = [_layer tileIDAtTile:CGPointMake(X, Y)];
+	
+	if (index != -1)
+	{
+		if (_layer.layerData[Y][X].tileAnimated)
+		{
+			if (_layer.layerData[Y][X].delay < 0) //if delay < 0, change to next frame and reset delay counter
+			{
+				_layer.layerData[Y][X].TileID = _layer.layerData[Y][X].animated[_layer.layerData[Y][X].nextframe];
+				_layer.layerData[Y][X].delay = _layer.layerData[Y][X].delaySpeed; //reset delay counter to value asigned
+				_layer.layerData[Y][X].nextframe ++;
+				
+				//we reach the max frame, so reset to 0 and start over
+				if (_layer.layerData[Y][X].nextframe > _layer.layerData[Y][X].totalFramesAnimation-1)
+				{
+					_layer.layerData[Y][X].nextframe = 0;
+					_layer.layerData[Y][X].TileID = _layer.layerData[Y][X].animated[0];
+					return _layer.layerData[Y][X].TileID;
+				}
+			}
+			else _layer.layerData[Y][X].delay --;
+		}
+	}
+	
+	return _layer.layerData[Y][X].TileID;
+}
+
+
+
+
+
 @end
+
+
+
+
+
+
 
 #pragma mark -
 #pragma mark Private implementation
@@ -416,10 +546,11 @@
                 TBXMLElement * tstp_property = [TBXML childElementNamed:@"property" parentElement:tstp];
                 while (tstp_property) {
                     
-                    //NSLog(@"INFO - Tiled: ----> Property found with value '%i' ", tileID);
+                    NSLog(@"INFO - Tiled: ----> Property found with value '%i' ", tileID);
                     [tileProperties setObject:[TBXML valueOfAttributeNamed:@"value" forElement:tstp_property] 
                                        forKey:[TBXML valueOfAttributeNamed:@"name" forElement:tstp_property]];
                     
+					NSLog(@"INFO - Tiled: value '%@' and name '%@' ", [TBXML valueOfAttributeNamed:@"value" forElement:tstp_property], [TBXML valueOfAttributeNamed:@"name" forElement:tstp_property]);
                     tstp_property = [TBXML nextSiblingNamed:@"property" searchFromElement:tstp_property];
                 }
                 [tileSetProperties setObject:tileProperties forKey:[NSString stringWithFormat:@"%d", tileID]];
