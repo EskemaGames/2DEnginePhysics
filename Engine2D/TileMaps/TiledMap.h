@@ -18,8 +18,7 @@
 
 
 
-// Maximum numbers that can be handled in a single tile map
-#define kMax_Map_Layers 5
+
 
 // This class will parse the tmx file from the tiled tool available on http://mapeditor.org
 //
@@ -47,7 +46,7 @@
 	NSMutableDictionary *mapProperties;			// Map properties
 	NSMutableDictionary *tileSetProperties;		// Tile set properties
 	NSMutableDictionary *objectGroups;			// Object groups
-	
+
 	//2d array used for collisions in tile maps
 	bool **mapCollisions;
 	
@@ -68,7 +67,7 @@
 	int tile_x;
 	int tile_y;
 	
-	
+
 }
 
 @property (nonatomic, readonly) NSMutableArray *tileSets;
@@ -82,7 +81,7 @@
 @property (nonatomic, assign) Color4f colorFilter;
 
 // Designated selector that loads the tile map details from the supplied file name and extension
-- (id)initWithFileName:(NSString*)aTiledFile fileExtension:(NSString*)aFileExtension  LayerName:(NSString *)layername TilesetImage:(Image *)tilesetImage;
+- (id)initWithFileName:(NSString*)aTiledFile fileExtension:(NSString*)aFileExtension Collisions:(bool)_collisions LayerName:(NSString *)layername TilesetImage:(Image *)tilesetImage;
 
 //render a layer with power of two tiles, (16x16, 32x32,etc,etc)
 - (void)renderLayerPOW:(int)aLayerIndex mapx:(int)aMapx mapy:(int)aMapy width:(int)aWidth height:(int)aHeight;
@@ -108,9 +107,8 @@
 // If no match is found for the key then |aDefaultValue| is returned
 - (NSString*)tilePropertyForGlobalTileID:(int)aGlobalTileID key:(NSString*)aKey defaultValue:(NSString*)aDefaultValue;
 
-//custom functions
--(int) getSpriteIndeX:(int)X Y:(int)Y layer:(Layer *)_layer;
--(void)ParseAnimationTiles:(NSString *)layername;
+- (int) getSpriteIndeX:(int)X Y:(int)Y layer:(Layer *)_layer;
+-(void)	ParseAnimationTiles:(NSString *)layername;
 
 //custom functions
 -(int)GetWideMap;

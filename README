@@ -25,7 +25,7 @@ frame5 = 5;
 
 Just doing this the Tiled class will recognize this as an animated tile and will "play" the animation as soon as the tiles will become visible.
 
-
+-Added a new scene with tiled maps to show how to do this, there's a collision layer and some animated tiles in the same scene. For now the player doesn't respond to the collisions, but the collisions exits
 
 
 

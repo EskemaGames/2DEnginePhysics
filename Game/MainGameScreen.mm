@@ -197,10 +197,6 @@
 		}
 		else{
 			[gameState ChangeStates:MENU];
-			gameState.alphaOut = 0.0f;
-			gameState.fadeOut = NO;
-			gameState.gameinitialised = NO;
-			gameState.fadecompleted = NO;
 			[self unloadContent];
 		}
 		

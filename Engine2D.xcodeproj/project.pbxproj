@@ -56,18 +56,18 @@
 		AC3AA42412EAF83200255B5A /* PhysicsWorld.mm in Sources */ = {isa = PBXBuildFile; fileRef = AC3AA42312EAF83200255B5A /* PhysicsWorld.mm */; };
 		AC3AA68912EB5CA900255B5A /* mainmenu.png in Resources */ = {isa = PBXBuildFile; fileRef = AC3AA68812EB5CA900255B5A /* mainmenu.png */; };
 		AC3AA73A12EB69C300255B5A /* BoxCollisionCallback.mm in Sources */ = {isa = PBXBuildFile; fileRef = AC3AA73912EB69C300255B5A /* BoxCollisionCallback.mm */; };
+		AC403F4213337E6A00DE57C5 /* desert_test2gzip.tmx in Resources */ = {isa = PBXBuildFile; fileRef = AC403F4113337E6A00DE57C5 /* desert_test2gzip.tmx */; };
+		AC40400C13338B7C00DE57C5 /* TiledSceneGame.mm in Sources */ = {isa = PBXBuildFile; fileRef = AC40400B13338B7C00DE57C5 /* TiledSceneGame.mm */; };
+		AC4040C51333922E00DE57C5 /* Layer.m in Sources */ = {isa = PBXBuildFile; fileRef = AC4040C01333922E00DE57C5 /* Layer.m */; };
+		AC4040C61333922E00DE57C5 /* TiledMap.m in Sources */ = {isa = PBXBuildFile; fileRef = AC4040C21333922E00DE57C5 /* TiledMap.m */; };
+		AC4040C71333922E00DE57C5 /* TileSet.m in Sources */ = {isa = PBXBuildFile; fileRef = AC4040C41333922E00DE57C5 /* TileSet.m */; };
 		AC4DA01D1292ABF4002E566A /* NSDataAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = AC4DA01A1292ABF4002E566A /* NSDataAdditions.m */; };
 		AC4DA01E1292ABF4002E566A /* TBXML.m in Sources */ = {isa = PBXBuildFile; fileRef = AC4DA01C1292ABF4002E566A /* TBXML.m */; };
 		AC4DA04F1292AE89002E566A /* menuEN.xml in Resources */ = {isa = PBXBuildFile; fileRef = AC4DA04D1292AE89002E566A /* menuEN.xml */; };
 		AC4DA0501292AE89002E566A /* menuES.xml in Resources */ = {isa = PBXBuildFile; fileRef = AC4DA04E1292AE89002E566A /* menuES.xml */; };
 		AC4DA0781292AEFE002E566A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AC4DA0771292AEFE002E566A /* libz.dylib */; };
 		AC59285C132C16B5005515F4 /* GLES-Render.mm in Sources */ = {isa = PBXBuildFile; fileRef = AC59285B132C16B5005515F4 /* GLES-Render.mm */; };
-		AC59375E133104AC005515F4 /* TiledMap.m in Sources */ = {isa = PBXBuildFile; fileRef = AC593759133104AC005515F4 /* TiledMap.m */; };
-		AC59375F133104AC005515F4 /* Layer.m in Sources */ = {isa = PBXBuildFile; fileRef = AC59375B133104AC005515F4 /* Layer.m */; };
-		AC593760133104AC005515F4 /* TileSet.m in Sources */ = {isa = PBXBuildFile; fileRef = AC59375D133104AC005515F4 /* TileSet.m */; };
 		AC5937EE13311BDD005515F4 /* tmw_desert_spacing.png in Resources */ = {isa = PBXBuildFile; fileRef = AC5937ED13311BDD005515F4 /* tmw_desert_spacing.png */; };
-		AC59397F13313B9D005515F4 /* desert_test2gzip.tmx in Resources */ = {isa = PBXBuildFile; fileRef = AC59397E13313B9D005515F4 /* desert_test2gzip.tmx */; };
-		AC593A6E13314519005515F4 /* MainGameTiledMap.mm in Sources */ = {isa = PBXBuildFile; fileRef = AC593A6D13314519005515F4 /* MainGameTiledMap.mm */; };
 		AC91229E113E6090009B7C27 /* Camera.m in Sources */ = {isa = PBXBuildFile; fileRef = AC912277113E6090009B7C27 /* Camera.m */; };
 		AC91229F113E6090009B7C27 /* BaseActor.mm in Sources */ = {isa = PBXBuildFile; fileRef = AC91227A113E6090009B7C27 /* BaseActor.mm */; };
 		AC9122A0113E6090009B7C27 /* Animations.m in Sources */ = {isa = PBXBuildFile; fileRef = AC91227C113E6090009B7C27 /* Animations.m */; };
@@ -208,6 +208,15 @@
 		AC3AA68812EB5CA900255B5A /* mainmenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mainmenu.png; sourceTree = "<group>"; };
 		AC3AA73812EB69C300255B5A /* BoxCollisionCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoxCollisionCallback.h; sourceTree = "<group>"; };
 		AC3AA73912EB69C300255B5A /* BoxCollisionCallback.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BoxCollisionCallback.mm; sourceTree = "<group>"; };
+		AC403F4113337E6A00DE57C5 /* desert_test2gzip.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = desert_test2gzip.tmx; path = ../Programming/examples_tiled/desert_test2gzip.tmx; sourceTree = SOURCE_ROOT; };
+		AC40400A13338B7C00DE57C5 /* TiledSceneGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TiledSceneGame.h; sourceTree = "<group>"; };
+		AC40400B13338B7C00DE57C5 /* TiledSceneGame.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TiledSceneGame.mm; sourceTree = "<group>"; };
+		AC4040BF1333922E00DE57C5 /* Layer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Layer.h; sourceTree = "<group>"; };
+		AC4040C01333922E00DE57C5 /* Layer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Layer.m; sourceTree = "<group>"; };
+		AC4040C11333922E00DE57C5 /* TiledMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TiledMap.h; sourceTree = "<group>"; };
+		AC4040C21333922E00DE57C5 /* TiledMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TiledMap.m; sourceTree = "<group>"; };
+		AC4040C31333922E00DE57C5 /* TileSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TileSet.h; sourceTree = "<group>"; };
+		AC4040C41333922E00DE57C5 /* TileSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TileSet.m; sourceTree = "<group>"; };
 		AC4DA0191292ABF4002E566A /* NSDataAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDataAdditions.h; sourceTree = "<group>"; };
 		AC4DA01A1292ABF4002E566A /* NSDataAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDataAdditions.m; sourceTree = "<group>"; };
 		AC4DA01B1292ABF4002E566A /* TBXML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBXML.h; sourceTree = "<group>"; };
@@ -217,16 +226,7 @@
 		AC4DA0771292AEFE002E566A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		AC59285A132C16B5005515F4 /* GLES-Render.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GLES-Render.h"; sourceTree = "<group>"; };
 		AC59285B132C16B5005515F4 /* GLES-Render.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "GLES-Render.mm"; sourceTree = "<group>"; };
-		AC593758133104AC005515F4 /* TiledMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TiledMap.h; sourceTree = "<group>"; };
-		AC593759133104AC005515F4 /* TiledMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TiledMap.m; sourceTree = "<group>"; };
-		AC59375A133104AC005515F4 /* Layer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Layer.h; sourceTree = "<group>"; };
-		AC59375B133104AC005515F4 /* Layer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Layer.m; sourceTree = "<group>"; };
-		AC59375C133104AC005515F4 /* TileSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TileSet.h; sourceTree = "<group>"; };
-		AC59375D133104AC005515F4 /* TileSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TileSet.m; sourceTree = "<group>"; };
 		AC5937ED13311BDD005515F4 /* tmw_desert_spacing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tmw_desert_spacing.png; sourceTree = "<group>"; };
-		AC59397E13313B9D005515F4 /* desert_test2gzip.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = desert_test2gzip.tmx; sourceTree = "<group>"; };
-		AC593A6C13314519005515F4 /* MainGameTiledMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainGameTiledMap.h; sourceTree = "<group>"; };
-		AC593A6D13314519005515F4 /* MainGameTiledMap.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MainGameTiledMap.mm; sourceTree = "<group>"; };
 		AC912276113E6090009B7C27 /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
 		AC912277113E6090009B7C27 /* Camera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Camera.m; sourceTree = "<group>"; };
 		AC912279113E6090009B7C27 /* BaseActor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseActor.h; sourceTree = "<group>"; };
@@ -685,12 +685,12 @@
 				ACB3260712E5B1A900B83C1D /* PlayerShip.mm */,
 				AC9122BF113E627C009B7C27 /* MainGamescreen.h */,
 				AC9122C0113E627C009B7C27 /* MainGameScreen.mm */,
-				AC593A6C13314519005515F4 /* MainGameTiledMap.h */,
-				AC593A6D13314519005515F4 /* MainGameTiledMap.mm */,
 				AC9122C1113E627C009B7C27 /* MenuScreen.h */,
 				AC9122C2113E627C009B7C27 /* MenuScreen.mm */,
 				ACD7BDFA12EDE27D00C69963 /* MainGameWithoutPhysics.h */,
 				ACD7BDFB12EDE27D00C69963 /* MainGameWithoutPhysics.mm */,
+				AC40400A13338B7C00DE57C5 /* TiledSceneGame.h */,
+				AC40400B13338B7C00DE57C5 /* TiledSceneGame.mm */,
 			);
 			path = Game;
 			sourceTree = "<group>";
@@ -698,12 +698,12 @@
 		ACB9056E1294A6F800AC35AF /* TileMaps */ = {
 			isa = PBXGroup;
 			children = (
-				AC593758133104AC005515F4 /* TiledMap.h */,
-				AC593759133104AC005515F4 /* TiledMap.m */,
-				AC59375A133104AC005515F4 /* Layer.h */,
-				AC59375B133104AC005515F4 /* Layer.m */,
-				AC59375C133104AC005515F4 /* TileSet.h */,
-				AC59375D133104AC005515F4 /* TileSet.m */,
+				AC4040BF1333922E00DE57C5 /* Layer.h */,
+				AC4040C01333922E00DE57C5 /* Layer.m */,
+				AC4040C11333922E00DE57C5 /* TiledMap.h */,
+				AC4040C21333922E00DE57C5 /* TiledMap.m */,
+				AC4040C31333922E00DE57C5 /* TileSet.h */,
+				AC4040C41333922E00DE57C5 /* TileSet.m */,
 				ACB9056F1294A6F800AC35AF /* TileMaps_Mappy.h */,
 				ACB905701294A6F800AC35AF /* TileMaps_Mappy.mm */,
 			);
@@ -748,7 +748,7 @@
 		ACD7BEE012EDEDC400C69963 /* LevelMaps */ = {
 			isa = PBXGroup;
 			children = (
-				AC59397E13313B9D005515F4 /* desert_test2gzip.tmx */,
+				AC403F4113337E6A00DE57C5 /* desert_test2gzip.tmx */,
 				ACD7BF0412EDEE1300C69963 /* platform_layer0.CSV */,
 				ACD7BF0512EDEE1300C69963 /* spacemap_layer0.CSV */,
 			);
@@ -826,7 +826,7 @@
 				ACD7BF3B12EDEE7F00C69963 /* gameES.xml in Resources */,
 				ACC779CB13168E2F00920347 /* MainWindow@2x.xib in Resources */,
 				AC5937EE13311BDD005515F4 /* tmw_desert_spacing.png in Resources */,
-				AC59397F13313B9D005515F4 /* desert_test2gzip.tmx in Resources */,
+				AC403F4213337E6A00DE57C5 /* desert_test2gzip.tmx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -904,10 +904,10 @@
 				ACD7BDFC12EDE27D00C69963 /* MainGameWithoutPhysics.mm in Sources */,
 				ACCA6E42131D7133004E1028 /* JoystickManager.m in Sources */,
 				AC59285C132C16B5005515F4 /* GLES-Render.mm in Sources */,
-				AC59375E133104AC005515F4 /* TiledMap.m in Sources */,
-				AC59375F133104AC005515F4 /* Layer.m in Sources */,
-				AC593760133104AC005515F4 /* TileSet.m in Sources */,
-				AC593A6E13314519005515F4 /* MainGameTiledMap.mm in Sources */,
+				AC40400C13338B7C00DE57C5 /* TiledSceneGame.mm in Sources */,
+				AC4040C51333922E00DE57C5 /* Layer.m in Sources */,
+				AC4040C61333922E00DE57C5 /* TiledMap.m in Sources */,
+				AC4040C71333922E00DE57C5 /* TileSet.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

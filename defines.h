@@ -63,6 +63,8 @@ typedef enum
 {
 	MENU,
 	PLAY,
-	PLAYNOPHYSICS
+	PLAYNOPHYSICS,
+	PLAYTILEDMAP,
+	EMPTYSCENE
 }options;
 

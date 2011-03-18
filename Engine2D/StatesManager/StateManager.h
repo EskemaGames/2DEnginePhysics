@@ -25,7 +25,7 @@
 @class MenuScreen;
 @class MainGameScreen;
 @class MainGameWithoutPhysics;
-
+@class TiledSceneGame;
 
 
 @interface StateManager : NSObject 
@@ -57,7 +57,7 @@
 	
 	
 	//flag for transitions between screeens
-	bool menuinitialised, gameinitialised, gamenophysics;
+	bool sceneInitialised;
 
 	//store FPS
 	float _FPS;
@@ -79,6 +79,7 @@
 	MenuScreen *MainMenu;
 	MainGameScreen *MainGame;
 	MainGameWithoutPhysics *MainGameNoPhysics;
+	TiledSceneGame *_Tiledgame;
 	
 	
 }
@@ -90,7 +91,7 @@
 @property (nonatomic, retain) InputManager *input;
 @property (nonatomic, retain) JoystickManager *joystick;
 @property (nonatomic, retain) Image *blanktexture;
-@property (readwrite) bool menuinitialised, gameinitialised, gamenophysics;
+@property (readwrite) bool sceneInitialised;
 
 @property (readwrite) bool fadecompleted, fadeOut, isRetinaDisplay;
 @property (readwrite) float alpha, alphaOut, _FPS, SpeedFactor, TotalVolume;
@@ -107,8 +108,9 @@
 //====================== FUNCTIONS =============================================
 //==============================================================================
 //==============================================================================
--(id)initStates:(bool)landscapeView;
+- (void)initStates:(bool)landscapeView;
 - (int) GetState;
+- (void)ResetScene;
 - (void) ChangeStates:(options)optionselected;
 - (void) UpdateScreenTransition;
 - (void) UpdateTransitionOut;

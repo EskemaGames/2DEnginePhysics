@@ -1,12 +1,12 @@
 //
-//  MainGameWithoutPhysics.m
+//  TiledSceneGame.m
 //  Engine2D
 //
-//  Created by Alejandro Perez Perez on 24/01/11.
+//  Created by Alejandro Perez Perez on 18/03/11.
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "MainGameWithoutPhysics.h"
+#import "TiledSceneGame.h"
 
 
 //main classes
@@ -14,14 +14,16 @@
 #import "Fonts.h"
 #import "LenguageManager.h"
 #import "ParticleEmitter.h"
-#import "TileMaps_Mappy.h"
+#import "TiledMap.h"
 #import "PlayerShip.h"
 #import "Widgets.h"
 #import "Image.h"
 
 
 
-@implementation MainGameWithoutPhysics
+
+@implementation TiledSceneGame
+
 
 //  
 //  Initialize the ingame screen  
@@ -58,23 +60,22 @@
 	pausedgame = NO;
 	
 	
+	
 	// IMAGE for the whole game
 	SpriteGame		= [[Image alloc] initWithTexture:@"spritesheet.png"  filter:GL_LINEAR Use32bits:NO TotalVertex:4000];
-
+	tilesImage		= [[Image alloc] initWithTexture:@"tmw_desert_spacing.png"  filter:GL_NEAREST Use32bits:NO TotalVertex:12000];
+	
 	
 	//init the font
 	font1 = [[Fonts alloc] LoadFont:SpriteGame FileFont:@"gunexported.fnt"];
 	
+	//tilemaps class init
+	testMap = [[TiledMap alloc] initWithFileName:@"desert_test2gzip" fileExtension:@"tmx" Collisions:YES LayerName:@"Ground" TilesetImage:tilesImage];
+	
+	
 	
 	//player
 	Mainplayer = [[PlayerShip alloc] initImage:SpriteGame FileName:@"PlayershipConfig.xml" Physic:nil TypeShape:BOX];
-
-	
-	//tilemaps class init
-	testMap = [[TileMaps_Mappy alloc] init];
-	
-	//tilemap with automatic scroll
-	[testMap LoadLevel:SpriteGame ConfigFile:@"LevelScroll.xml" Physic:nil];
 	
 	
 	//touch attack;
@@ -106,10 +107,6 @@
 									   Image:SpriteGame];
 	
 	
-	// Init particle emitter with explosion	
-	shiptrail = [[ParticleEmitter alloc] initParticleEmitterWithFile:@"TrailEffect.pex"];
-	[shiptrail setDuration:-1.0f];
-	
 	
 	[self InitGame];
 	
@@ -125,8 +122,6 @@
 	[testMap release];
 	[SpriteGame release];
 	[Mainplayer release];
-	
-	[shiptrail release];
 	[fireButton release];
 	[pauseButton release];
 	[self dealloc];
@@ -188,7 +183,6 @@
 		}
 		else{
 			[gameState ChangeStates:MENU];
-			pausedgame = YES;
 			[self unloadContent];
 		}
 		
@@ -197,16 +191,9 @@
 	//game is not paused? then update player and camera position/animation
 	if (!pausedgame)
 	{
-		//update map scroll
-		[testMap UpdateScroll:deltaTime];
-		
 		//update our player animations and movements
 		[Mainplayer Update:deltaTime Touchlocation:touchLocation];
 		
-
-		//update trail for the player ship
-		shiptrail.sourcePosition = Vector2fMake((Mainplayer.position.x+16), (Mainplayer.position.y+36));
-		[shiptrail updateWithDelta:deltaTime];
 	}
 	
 }  
@@ -246,20 +233,58 @@
 
 -(void) DrawLevelGame
 {
-
-	//background map
-	[testMap DrawLevelWithScrollLayer:0 Colors:Color4fInit];
-
-
-
-	//a placeholder for the bottom of the screen
-	[SpriteGame DrawImage:CGRectMake(0, gameState.screenBounds.y-32, gameState.screenBounds.x, 32) 
-			  OffsetPoint:CGPointMake(288, 0)
-			   ImageWidth:32 ImageHeight:32];
+	//example drawing a map with non-power of two tiles
+	 /*
+	  // Save the current Matrix
+	  glPushMatrix();
+	  
+	  // Translate the world coordinates so that the player is rendered in the middle of the screen
+	  glTranslatef(-340, -190, 0);
+	  
+	  
+	  //draw these 2 images as a batch
+	  [SpriteGame RenderToScreenActiveBlend:NO];
+	  
+	  
+	  [testMap renderLayer:0
+	  mapx:0 
+	  mapy:0 
+	  width:40 
+	  height:40];
+	  
+	  //the tilemap don't have any alpha sprite, so draw this batch right now
+	  [tilesImage RenderToScreenActiveBlend:NO];
+	  
+	  glPopMatrix();
+	  */
+	 
+	 
+	 
+	 //drawing a map with power of two tiles
+	 //width and height are tiles value,
+	 //in this case tiles are 32x32, 480/32 = 15 and 320/32 = 10
+	 //but we add another tile for smooth scroll, remember that when you create a map
+	 //to add a few more tiles for boundaries
+	 [testMap renderLayerPOW:0
+						mapx:0 
+						mapy:0 
+					   width:16 
+					  height:11];
 	
-	[SpriteGame RenderToScreenActiveBlend:NO];
-	
-	
+	[testMap renderLayerPOW:1
+					   mapx:0 
+					   mapy:0 
+					  width:16 
+					 height:11];
+	 [tilesImage RenderToScreenActiveBlend:NO];
+	 
+	 
+	 //a placeholder for the bottom of the screen
+	 [SpriteGame DrawImage:CGRectMake(0, gameState.screenBounds.y-32, gameState.screenBounds.x, 32) 
+			   OffsetPoint:CGPointMake(288, 0)
+				ImageWidth:32 ImageHeight:32];
+	 
+	 [SpriteGame RenderToScreenActiveBlend:NO];
 	
 	
 	//
@@ -289,13 +314,6 @@
 	
 	//draw all the sprites with alpha blend active, needed for transparency
 	[SpriteGame RenderToScreenActiveBlend:YES];
-	
-	
-	
-	
-	//render particles after everything to be on top of everything
-	[shiptrail renderParticles];
-	
 	
 	
 	//if we are exiting to main menu draw the transition screen

@@ -15,7 +15,7 @@
 #import "MenuScreen.h"
 #import "MainGamescreen.h"
 #import "MainGameWithoutPhysics.h"
-
+#import "TiledSceneGame.h"
 
 
 
@@ -28,7 +28,7 @@
 @synthesize input;
 @synthesize joystick;
 @synthesize screenBounds;
-@synthesize menuinitialised, gameinitialised, gamenophysics;
+@synthesize sceneInitialised;
 @synthesize fadecompleted, fadeOut, alpha, alphaOut, TimeAlpha, TimeAlphaOut, counteralpha, counteralphaOut;
 @synthesize blanktexture, _FPS, SpeedFactor,  TotalVolume, VolumeGlobal;
 
@@ -46,18 +46,15 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(StateManager);
 }
 
 
-- (id) initStates:(bool)landscapeView
+- (void) initStates:(bool)landscapeView
 {  
-    self = [super init]; 
-
 	StateOption = MENU;
 
 	isIpad = NO;
 	isRetinaDisplay = NO;
 	
-	menuinitialised = NO;
-	gameinitialised = NO;
-	gamenophysics = NO;
+	//flag to change between scenes, always start to NO
+	sceneInitialised = NO;
 
 	fadeOut = NO;
 	fadecompleted = NO;
@@ -99,8 +96,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(StateManager);
 	if (landscapeView)
     input.isLandscape = YES;
 	else input.isLandscape = NO;
-	
-    return self;  
+	 
 }
 
 
@@ -128,10 +124,20 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(StateManager);
 -(void) ChangeStates:(options)optionselected
 {
 	StateOption = optionselected;
+	[self ResetScene];
     
 }
 
 
+
+//call this each time you change the scene
+-(void)ResetScene
+{
+	sceneInitialised = NO;
+	fadecompleted = NO;
+	fadeOut = NO;
+	alphaOut = 0.0f;
+}
 
 
 
@@ -204,7 +210,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(StateManager);
 {	
 	
 	//update the input 
-    [input update];
+    //[input update];
 	
 	switch ( [self GetState] )
 	{
@@ -228,6 +234,18 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(StateManager);
 			else{
 				[MainGameNoPhysics handleInput];
 				[MainGameNoPhysics update:deltaTime];
+			}
+			break;
+			
+			
+		case PLAYTILEDMAP:
+			if (!fadecompleted)
+			{
+				[self UpdateScreenTransition];
+			}
+			else{
+				[_Tiledgame handleInput];
+				[_Tiledgame update:deltaTime];
 			}
 			break;
 			
@@ -266,12 +284,29 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(StateManager);
 	
 	switch ( [self GetState] )
 	{
+			//scene MENU
+		case MENU:
+			if (!sceneInitialised)
+			{
+				MainMenu = [[MenuScreen alloc] init];
+				sceneInitialised = YES;
+			}
+			else
+				[MainMenu draw];
+			
+			if (!fadecompleted)
+			{
+				[self fadeBackBufferToBlack:alpha];
+			}
+			break;
+			
+			
 		//scene PLAY
 		case PLAY:
-		if (!gameinitialised)
+		if (!sceneInitialised) 
 		{
 			MainGame = [[MainGameScreen alloc] init];
-			gameinitialised = YES;
+			sceneInitialised = YES;
 		}
 		else
 		[MainGame draw];
@@ -284,10 +319,10 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(StateManager);
 
 			
 		case PLAYNOPHYSICS:
-			if (!gamenophysics)
+			if (!sceneInitialised)
 			{
 				MainGameNoPhysics = [[MainGameWithoutPhysics alloc] init];
-				gamenophysics = YES;
+				sceneInitialised = YES;
 			}
 			else
 				[MainGameNoPhysics draw];
@@ -297,23 +332,24 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(StateManager);
 				[self fadeBackBufferToBlack:alpha];
 			}
 		break;
+		
 			
+		case PLAYTILEDMAP:
+			if (!sceneInitialised)
+			{
+				sceneInitialised = YES;
+				_Tiledgame = [[TiledSceneGame alloc] init];
+				sceneInitialised = YES;
+			}
+			else
+				[_Tiledgame draw];
 			
-		//scene MENU
-		case MENU:
-		if (!menuinitialised)
-		{
-			MainMenu = [[MenuScreen alloc] init];
-			menuinitialised = YES;
-		}
-		else
-		[MainMenu draw];
+			if (!fadecompleted)
+			{
+				[self fadeBackBufferToBlack:alpha];
+			}
+			break;
 			
-		if (!fadecompleted)
-		{
-			[self fadeBackBufferToBlack:alpha];
-		}
-		break;
 	};
 
 }

@@ -140,7 +140,7 @@
 
 -(void) LoadOption
 {
-	if (selected == 1 || selected == 2)
+	if (selected == 1 || selected == 2 || selected == 3)
 	{
 		exitscreen = YES;
 	}
@@ -166,7 +166,12 @@
 		{  
 			selected = 2;
 			active = 1;
-		} 
+		}
+		if ([menustate.input isButtonPressed:button3.touch Active:button3.active])  
+		{  
+			selected = 3;
+			active = 1;
+		}
 	}
 	
 	
@@ -207,31 +212,22 @@
 			switch (selected) {
 				case 1:
 					[menustate ChangeStates:PLAYNOPHYSICS];
-					menustate.menuinitialised = NO;
-					menustate.fadecompleted = NO;
-					Time = 2;
-					menustate.fadeOut = NO;
-					menustate.alphaOut = 0.0f;
 					[self unloadContent];
 					break;
 					
 				case 2:
 					[menustate ChangeStates:PLAY];
-					menustate.menuinitialised = NO;
-					menustate.fadecompleted = NO;
-					Time = 2;
-					menustate.fadeOut = NO;
-					menustate.alphaOut = 0.0f;
 					[self unloadContent];
 					break;
-				
-				default:
+					
+					
+				case 3:
+					[menustate ChangeStates:PLAYTILEDMAP];
+					[self unloadContent];
 					break;
 			}
 		}
 	}
-	
-	
 }  
 
 

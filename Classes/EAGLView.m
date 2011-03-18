@@ -120,7 +120,8 @@
 		[self initOpenGL];
 	}
 	//states
-	States = [[StateManager alloc] initStates:ISLANDSCAPE];
+	States = [StateManager sharedStateManager];
+	[States initStates:ISLANDSCAPE];
 	States.screenBounds = Vector2fMake(viewport.size.width, viewport.size.height);
 	States.isIpad = isIpad;
 	States.isRetinaDisplay = isRetinaDisplay;

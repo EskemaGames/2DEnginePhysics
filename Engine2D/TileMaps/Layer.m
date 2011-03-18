@@ -21,7 +21,7 @@
 
 
 - (void)dealloc {
-	
+
 	//free level array	
 	if (layerData)
 	{
@@ -42,7 +42,7 @@
 		layerID = aLayerID;
 		layerWidth = aLayerWidth;
 		layerHeight = aLayerHeight;
-		
+
 		//the layerdata array will be created based on the layer size
 		//this will reduce a bit the memory needed
 		layerData = (_Tiles **)malloc(layerHeight * sizeof(_Tiles *));
@@ -75,6 +75,11 @@
 	layerData[(int)aTileCoord.y][(int)aTileCoord.x].TileID = aTileID;
 	layerData[(int)aTileCoord.y][(int)aTileCoord.x].GlobalID = aGlobalID;
 	layerData[(int)aTileCoord.y][(int)aTileCoord.x].Value = aValue;
+	layerData[(int)aTileCoord.y][(int)aTileCoord.x].tileAnimated = NO;
+	layerData[(int)aTileCoord.y][(int)aTileCoord.x].delaySpeed = 0;
+	layerData[(int)aTileCoord.y][(int)aTileCoord.x].delay = 0;
+	layerData[(int)aTileCoord.y][(int)aTileCoord.x].nextframe = 0;
+	layerData[(int)aTileCoord.y][(int)aTileCoord.x].totalFramesAnimation = 0;
 }
 
 - (void)setValueAtTile:(CGPoint)aTileCoord value:(int)aValue {

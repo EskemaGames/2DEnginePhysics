@@ -28,7 +28,7 @@
 	int layerWidth;							// The width of the layer
 	int layerHeight;						// The height of layer layer
 	NSMutableDictionary *layerProperties;	// Layer properties
-	
+
 }
 
 @property(nonatomic, readonly) int layerID;
