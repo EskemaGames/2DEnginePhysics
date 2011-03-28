@@ -93,10 +93,14 @@
     //  Sets the current state to the query state  
     currentState.isBeingTouched = queryState.isBeingTouched;  
     currentState.touchLocation = queryState.touchLocation;  
-	
-    //  converts the coordinate system if the game is in landscape mode  
+
+	//  converts the coordinate system if the game is in landscape mode
+	if (isLandscape)
     [self convertCoordinatesToLandscape];
-	//[self convertCoordinatesToPortraitUpsideDown];
+	
+	//convert coordinates to portrait mode
+	if (upsideDown)
+	[self convertCoordinatesToPortraitUpsideDown];
 }  
 
 

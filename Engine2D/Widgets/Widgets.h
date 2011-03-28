@@ -11,7 +11,7 @@
 #import "CommonEngine.h"
 #import "SpriteBase.h"
 
-//@class Image;
+
 @class Fonts;
 
 
@@ -56,7 +56,7 @@
 - (id) initWidget:(Vector2f)pos Size:(Vector2f)Size LocAtlas:(Vector2f)LocAtlas Image:(Image *)image;
 
 
-
+- (void) DrawWidget:(Vector2f)camerapos;
 - (void) DrawWidget;
 - (void) DrawWidgetFont:(NSString *)text Scale:(float)scaletext Color:(Color4f)colortext;
 - (void) DrawWidgetFont:(NSString *)text;

@@ -229,8 +229,6 @@
 			<key>Layout</key>
 			<array>
 				<dict>
-					<key>BecomeActive</key>
-					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -267,7 +265,11 @@
 							<array>
 								<string>29B97314FDCFA39411CA2CEA</string>
 								<string>AC912274113E6090009B7C27</string>
-								<string>ACB9056E1294A6F800AC35AF</string>
+								<string>AC912275113E6090009B7C27</string>
+								<string>AC912280113E6090009B7C27</string>
+								<string>AC91228D113E6090009B7C27</string>
+								<string>AC912295113E6090009B7C27</string>
+								<string>080E96DDFE201D6D7F000001</string>
 								<string>29B97317FDCFA39411CA2CEA</string>
 								<string>AC91226F113E6019009B7C27</string>
 								<string>ACD7BEDB12EDEDC400C69963</string>
@@ -280,11 +282,8 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>31</integer>
-									<integer>30</integer>
-									<integer>29</integer>
-									<integer>28</integer>
-									<integer>27</integer>
+									<integer>7</integer>
+									<integer>3</integer>
 									<integer>0</integer>
 								</array>
 							</array>
@@ -319,12 +318,14 @@
 					<key>Dock</key>
 					<array>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>desert_test2gzip.tmx</string>
+								<string>Slider.mm</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -332,11 +333,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>desert_test2gzip.tmx</string>
+										<string>Slider.mm</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>AC4C698D1333F42D00B6DE44</string>
+										<string>AC59AA9813409C3B006270AE</string>
 										<key>history</key>
 										<array>
 											<string>ACC1167E113ED90700CC7DF1</string>
@@ -393,10 +394,6 @@
 											<string>ACCA6E7D131D738D004E1028</string>
 											<string>ACCA6EFC131D77E5004E1028</string>
 											<string>ACCA6EFD131D77E5004E1028</string>
-											<string>ACCA6F05131D77E5004E1028</string>
-											<string>ACCA6F06131D77E5004E1028</string>
-											<string>ACCA6F1B131D7848004E1028</string>
-											<string>ACCA6F28131D7866004E1028</string>
 											<string>ACCA6F4F131D7964004E1028</string>
 											<string>ACCA6F5A131D79AD004E1028</string>
 											<string>ACCA6F6D131D7A83004E1028</string>
@@ -409,17 +406,11 @@
 											<string>AC592882132C1728005515F4</string>
 											<string>AC592A0B132C65C7005515F4</string>
 											<string>AC5937231330FD2F005515F4</string>
-											<string>AC59372A1330FD2F005515F4</string>
 											<string>AC59372B1330FD2F005515F4</string>
 											<string>AC59372D1330FD2F005515F4</string>
 											<string>AC59372E1330FD2F005515F4</string>
-											<string>AC5937311330FD2F005515F4</string>
-											<string>AC5937321330FD2F005515F4</string>
-											<string>AC5937331330FD2F005515F4</string>
 											<string>AC5937341330FD2F005515F4</string>
-											<string>AC59384013312439005515F4</string>
 											<string>AC593961133139CC005515F4</string>
-											<string>AC593962133139CC005515F4</string>
 											<string>AC304CF5133147AE00A6CD92</string>
 											<string>AC304D161331493700A6CD92</string>
 											<string>AC304D181331493700A6CD92</string>
@@ -433,7 +424,6 @@
 											<string>AC403F6B1333857900DE57C5</string>
 											<string>AC403F6C1333857900DE57C5</string>
 											<string>AC403FBE1333886B00DE57C5</string>
-											<string>AC403FBF1333886B00DE57C5</string>
 											<string>AC403FCD1333892100DE57C5</string>
 											<string>AC403FCE1333892100DE57C5</string>
 											<string>AC403FCF1333892100DE57C5</string>
@@ -444,10 +434,8 @@
 											<string>AC40401E13338CFF00DE57C5</string>
 											<string>AC40405913338EBD00DE57C5</string>
 											<string>AC4040B7133391F500DE57C5</string>
-											<string>AC4040B8133391F500DE57C5</string>
 											<string>AC4040CD1333924100DE57C5</string>
 											<string>AC4040CE1333924100DE57C5</string>
-											<string>AC4040DC133392F200DE57C5</string>
 											<string>AC4040DD133392F200DE57C5</string>
 											<string>AC4040DE133392F200DE57C5</string>
 											<string>AC404157133397C800DE57C5</string>
@@ -456,7 +444,22 @@
 											<string>AC40418D13339A0500DE57C5</string>
 											<string>AC40419413339A2200DE57C5</string>
 											<string>AC4C698B1333F42D00B6DE44</string>
-											<string>AC4C698C1333F42D00B6DE44</string>
+											<string>AC59AA8813409C3B006270AE</string>
+											<string>AC59AA8913409C3B006270AE</string>
+											<string>AC59AA8A13409C3B006270AE</string>
+											<string>AC59AA8B13409C3B006270AE</string>
+											<string>AC59AA8C13409C3B006270AE</string>
+											<string>AC59AA8D13409C3B006270AE</string>
+											<string>AC59AA8E13409C3B006270AE</string>
+											<string>AC59AA8F13409C3B006270AE</string>
+											<string>AC59AA9013409C3B006270AE</string>
+											<string>AC59AA9113409C3B006270AE</string>
+											<string>AC59AA9213409C3B006270AE</string>
+											<string>AC59AA9313409C3B006270AE</string>
+											<string>AC59AA9413409C3B006270AE</string>
+											<string>AC59AA9513409C3B006270AE</string>
+											<string>AC59AA9613409C3B006270AE</string>
+											<string>AC59AA9713409C3B006270AE</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -514,9 +517,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>AC4C698E1333F42D00B6DE44</string>
+				<string>AC59AA9913409C3B006270AE</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>AC4C698F1333F42D00B6DE44</string>
+				<string>AC59AA9A13409C3B006270AE</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -735,7 +738,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>ACAB5649113C5F39001ACAAE</string>
-				<string>AC4C69901333F42D00B6DE44</string>
+				<string>AC59AA9B13409C3B006270AE</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>

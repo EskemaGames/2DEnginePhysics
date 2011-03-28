@@ -68,6 +68,7 @@
 		AC4DA0781292AEFE002E566A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AC4DA0771292AEFE002E566A /* libz.dylib */; };
 		AC59285C132C16B5005515F4 /* GLES-Render.mm in Sources */ = {isa = PBXBuildFile; fileRef = AC59285B132C16B5005515F4 /* GLES-Render.mm */; };
 		AC5937EE13311BDD005515F4 /* tmw_desert_spacing.png in Resources */ = {isa = PBXBuildFile; fileRef = AC5937ED13311BDD005515F4 /* tmw_desert_spacing.png */; };
+		AC59AA7A13409BFD006270AE /* Slider.mm in Sources */ = {isa = PBXBuildFile; fileRef = AC59AA7913409BFD006270AE /* Slider.mm */; };
 		AC91229E113E6090009B7C27 /* Camera.m in Sources */ = {isa = PBXBuildFile; fileRef = AC912277113E6090009B7C27 /* Camera.m */; };
 		AC91229F113E6090009B7C27 /* BaseActor.mm in Sources */ = {isa = PBXBuildFile; fileRef = AC91227A113E6090009B7C27 /* BaseActor.mm */; };
 		AC9122A0113E6090009B7C27 /* Animations.m in Sources */ = {isa = PBXBuildFile; fileRef = AC91227C113E6090009B7C27 /* Animations.m */; };
@@ -227,6 +228,8 @@
 		AC59285A132C16B5005515F4 /* GLES-Render.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GLES-Render.h"; sourceTree = "<group>"; };
 		AC59285B132C16B5005515F4 /* GLES-Render.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "GLES-Render.mm"; sourceTree = "<group>"; };
 		AC5937ED13311BDD005515F4 /* tmw_desert_spacing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tmw_desert_spacing.png; sourceTree = "<group>"; };
+		AC59AA7813409BFD006270AE /* Slider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Slider.h; sourceTree = "<group>"; };
+		AC59AA7913409BFD006270AE /* Slider.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Slider.mm; sourceTree = "<group>"; };
 		AC912276113E6090009B7C27 /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
 		AC912277113E6090009B7C27 /* Camera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Camera.m; sourceTree = "<group>"; };
 		AC912279113E6090009B7C27 /* BaseActor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseActor.h; sourceTree = "<group>"; };
@@ -725,6 +728,8 @@
 		ACC11695113EE22900CC7DF1 /* Widgets */ = {
 			isa = PBXGroup;
 			children = (
+				AC59AA7813409BFD006270AE /* Slider.h */,
+				AC59AA7913409BFD006270AE /* Slider.mm */,
 				ACC116A9113EE26A00CC7DF1 /* Widgets.h */,
 				ACC116AA113EE26A00CC7DF1 /* Widgets.mm */,
 			);
@@ -908,6 +913,7 @@
 				AC4040C51333922E00DE57C5 /* Layer.m in Sources */,
 				AC4040C61333922E00DE57C5 /* TiledMap.m in Sources */,
 				AC4040C71333922E00DE57C5 /* TileSet.m in Sources */,
+				AC59AA7A13409BFD006270AE /* Slider.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

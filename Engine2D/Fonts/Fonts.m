@@ -8,6 +8,9 @@
 
 #import "Fonts.h"
 #import "Image.h"
+#import "StateManager.h"
+
+
 
 @implementation Fonts
 
@@ -146,9 +149,9 @@
 //draw text centered on screen based on
 //landscape value
 //==============================================================================
--(void) DrawTextCenteredLanscape:(bool)landsCape Y:(float)Y  Scale:(float)scale  Text:(NSString *)Text 
+-(void) DrawTextCenteredY:(float)Y  Scale:(float)scale  Text:(NSString *)Text 
 {
-	[self DrawTextCenteredLanscape:landsCape Y:Y Scale:scale Colors:Color4fMake(255.0, 255.0, 255.0, 1.0) Text:Text];
+	[self DrawTextCenteredY:Y Scale:scale Colors:Color4fMake(255.0, 255.0, 255.0, 1.0) Text:Text];
 }
 
 
@@ -157,17 +160,13 @@
 //landscape value
 //colored version
 //==============================================================================
--(void) DrawTextCenteredLanscape:(bool)landsCape Y:(float)Y  Scale:(float)scale  Colors:(Color4f)_colors Text:(NSString *)Text 
+-(void) DrawTextCenteredY:(float)Y  Scale:(float)scale  Colors:(Color4f)_colors Text:(NSString *)Text 
 {
 	float pos;
+	StateManager *_state = [StateManager sharedStateManager];
 	
 	int widthtext =  [self GetTextWidth:Text Scale:scale];
-	if (landsCape) {
-		pos = 240 - (widthtext/2);
-	}
-	else {
-		pos = 160 - (widthtext/2);
-	}
+	pos = _state.screenBounds.x - (widthtext/2);
 	
 	
 	float dx = pos;

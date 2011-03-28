@@ -32,9 +32,9 @@
 //==============================================================================
 - (id) LoadFont:(Image *)ImageDraw   FileFont:(NSString *)fileFont;
 - (void) DrawTextCenteredPosXWidth:(float)Width X:(float)X  Y:(float)Y  Scale:(float)scale  Colors:(Color4f)_colors Text:(NSString *)Text;
-- (void) DrawTextCenteredLanscape:(bool)landsCape Y:(float)Y  Scale:(float)scale  Colors:(Color4f)_colors Text:(NSString *)Text;
+- (void) DrawTextCenteredY:(float)Y  Scale:(float)scale  Colors:(Color4f)_colors Text:(NSString *)Text;
 - (void) DrawTextCenteredPosXWidth:(float)Width  X:(float)X  Y:(float)Y  Scale:(float)scale  Text:(NSString *)Text;
-- (void) DrawTextCenteredLanscape:(bool)landsCape Y:(float)Y  Scale:(float)scale  Text:(NSString *)Text ;
+- (void) DrawTextCenteredY:(float)Y  Scale:(float)scale  Text:(NSString *)Text ;
 - (void) DrawTextX:(float)x  Y:(float)y  Scale:(float)scale  Text:(NSString *)Text;
 - (void) DrawTextX:(float)X  Y:(float)Y  Scale:(float)scale  Colors:(Color4f)_colors  Text:(NSString *)Text;
 - (int) GetTextWidth:(NSString *)text Scale:(float)scale;

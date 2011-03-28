@@ -75,7 +75,7 @@
 
 - (id) initWidget:(Vector2f)pos Size:(Vector2f)Size LocAtlas:(Vector2f)LocAtlas Color:(Color4f)Color Scale:(Vector2f)Scale Rotation:(float)Rotation Image:(Image *)image
 {
-	return [self initWidget:pos Size:Size LocAtlas:LocAtlas Color:Color Scale:Scale  Rotation:0.0f Active:YES Image:image];
+	return [self initWidget:pos Size:Size LocAtlas:LocAtlas Color:Color Scale:Scale  Rotation:Rotation Active:YES Image:image];
 }
 
 - (id) initWidget:(Vector2f)pos Size:(Vector2f)Size LocAtlas:(Vector2f)LocAtlas Color:(Color4f)Color Scale:(Vector2f)Scale Image:(Image *)image
@@ -106,6 +106,24 @@
 	[super dealloc];
 }
 
+
+
+
+//draw widget only respecting the camera position
+- (void) DrawWidget:(Vector2f)camerapos
+{
+	if (active)
+	{
+		touch = CGRectMake(position.x, position.y, size.x * scale.x, size.y * scale.y); //Touch
+		[widgetImage DrawSprites:CGRectMake(position.x - camerapos.x , position.y - camerapos.y, size.x*scale.x, size.y*scale.y) 
+					 OffsetPoint:CGPointMake(locAtlas.x, locAtlas.y) 
+					  ImageWidth:size.x ImageHeight:size.y 
+							Flip:1 
+						  Colors:color 
+						Rotation:rotation];
+	}
+	
+}
 
 
 //draw widget only

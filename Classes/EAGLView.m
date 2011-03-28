@@ -417,6 +417,10 @@
 	
 	UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
 	
+	//just uncomment or comment the rotations needed, uncomment all to have the 4 sides
+	//rotation enabled
+	
+	
 	if (orientation == UIDeviceOrientationLandscapeRight) {
 		States.interfaceOrientation = UIInterfaceOrientationLandscapeRight;
 		States.input.isLandscape = YES;
