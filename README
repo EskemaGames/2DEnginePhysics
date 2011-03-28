@@ -30,12 +30,22 @@ Just doing this the Tiled class will recognize this as an animated tile and will
 
 
 
+28/03/2011
+-Added Slider class, ideal for menus to have a slider to adjust values like volume or something like that.
+-Some bugs fixed on widgets and fonts class
+
+
+
+
+
+
+------Introduction--------
 2D engine to create iPhone/iPod games. Created by Alejandro Perez 2011, licensed for free to anyone, copy, use it or do whatever with it, no need for credits if you don't want to.
 
 
 Tools recommended/needed:
-Mappy for tilemaps
-Glyph for bitmap fonts from 71squared.com
+Mappy or Tiled for tilemaps
+Glyph designer, hiero or angel code for bitmap fonts
 Particle designer for particle emmiters from 71squared.com
 
 
