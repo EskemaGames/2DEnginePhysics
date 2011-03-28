@@ -229,6 +229,8 @@
 			<key>Layout</key>
 			<array>
 				<dict>
+					<key>BecomeActive</key>
+					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -265,11 +267,7 @@
 							<array>
 								<string>29B97314FDCFA39411CA2CEA</string>
 								<string>AC912274113E6090009B7C27</string>
-								<string>AC912275113E6090009B7C27</string>
-								<string>AC912280113E6090009B7C27</string>
 								<string>AC91228D113E6090009B7C27</string>
-								<string>AC912295113E6090009B7C27</string>
-								<string>080E96DDFE201D6D7F000001</string>
 								<string>29B97317FDCFA39411CA2CEA</string>
 								<string>AC91226F113E6019009B7C27</string>
 								<string>ACD7BEDB12EDEDC400C69963</string>
@@ -282,7 +280,8 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>7</integer>
+									<integer>20</integer>
+									<integer>14</integer>
 									<integer>3</integer>
 									<integer>0</integer>
 								</array>
@@ -318,14 +317,12 @@
 					<key>Dock</key>
 					<array>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>Slider.mm</string>
+								<string>StateManager.mm</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -333,11 +330,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>Slider.mm</string>
+										<string>StateManager.mm</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>AC59AA9813409C3B006270AE</string>
+										<string>AC59AB901340EDCC006270AE</string>
 										<key>history</key>
 										<array>
 											<string>ACC1167E113ED90700CC7DF1</string>
@@ -448,9 +445,7 @@
 											<string>AC59AA8913409C3B006270AE</string>
 											<string>AC59AA8A13409C3B006270AE</string>
 											<string>AC59AA8B13409C3B006270AE</string>
-											<string>AC59AA8C13409C3B006270AE</string>
 											<string>AC59AA8D13409C3B006270AE</string>
-											<string>AC59AA8E13409C3B006270AE</string>
 											<string>AC59AA8F13409C3B006270AE</string>
 											<string>AC59AA9013409C3B006270AE</string>
 											<string>AC59AA9113409C3B006270AE</string>
@@ -459,7 +454,9 @@
 											<string>AC59AA9413409C3B006270AE</string>
 											<string>AC59AA9513409C3B006270AE</string>
 											<string>AC59AA9613409C3B006270AE</string>
-											<string>AC59AA9713409C3B006270AE</string>
+											<string>AC59AB8D1340EDCC006270AE</string>
+											<string>AC59AB8E1340EDCC006270AE</string>
+											<string>AC59AB8F1340EDCC006270AE</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -517,9 +514,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>AC59AA9913409C3B006270AE</string>
+				<string>AC59AB911340EDCC006270AE</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>AC59AA9A13409C3B006270AE</string>
+				<string>AC59AB921340EDCC006270AE</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -738,7 +735,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>ACAB5649113C5F39001ACAAE</string>
-				<string>AC59AA9B13409C3B006270AE</string>
+				<string>AC59AB931340EDCC006270AE</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>

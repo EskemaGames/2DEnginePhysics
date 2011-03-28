@@ -166,7 +166,7 @@
 	StateManager *_state = [StateManager sharedStateManager];
 	
 	int widthtext =  [self GetTextWidth:Text Scale:scale];
-	pos = _state.screenBounds.x - (widthtext/2);
+	pos = (_state.screenBounds.x * 0.5f) - (widthtext/2);
 	
 	
 	float dx = pos;
