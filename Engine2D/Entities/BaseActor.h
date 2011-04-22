@@ -11,43 +11,46 @@
 #import <Foundation/Foundation.h> 
 
 
-#import "StateManager.h"
 #import "Animations.h"
 #import "SpriteBase.h"
+#import "StateManager.h"
 
 @interface BaseActor : SpriteBase  
 {  
-	//access the statemanager for all actors derived from this class
+	
+	
 	StateManager *m_states;
 	
+	
 	//pointers to classes
-	Animations *Animation; //create a animation for our actor	
-
-
+	Animations *_Animation; //create a animation for our actor	
+	
 	//vector to hold the direction for movement
-	Vector2f m_direction;
+	Vector2f _m_direction;
 	
 	//store all the frames number for this sprite
-	int TotalFramesAnimation;
+	int _TotalFramesAnimation;
 	
 	//used for physics, a character with fixed rotation
 	//will never rotate due the physics forces
 	//we don't want our player rotating when he falls from a ledge
-	bool FixedRotation;
+	bool _FixedRotation;
 	
 	//define the type of this actor (player, enemy, boss,etc,etc)
 	TypeActor _typeActor;
 	
+	CGRect _boundigxBox;
+	
+	Vector2f _cameraPosition;
 }
 
 
 
 
-@property (nonatomic, retain) Animations *Animation;
+@property (nonatomic, retain) Animations *_Animation;
 @property (readwrite) TypeActor _typeActor;
-
-
-
+@property (nonatomic, readwrite) Vector2f _m_direction;
+@property (nonatomic, readwrite) CGRect _boundigxBox;
 
 //==============================================================================
 //==============================================================================
@@ -59,6 +62,15 @@
 -(void) Draw:(Color4f)_colors;
 -(void) MoveXSpeed:(float)GameSpeed;
 -(void) MoveYSpeed:(float)GameSpeed;
+-(void)SetDirectionX:(float)direction;
+-(void)SetDirectionY:(float)direction;
+-(float)GetDirectionX;
+-(Vector2f)GetDirection;
+-(void)SetCameraPosition:(Vector2f)camerapos;
+
 -(void)Update;
+-(int)DetectCollision:(BaseActor *)sprCollision Actor2:(BaseActor *)thisActor CustomCollision:(bool)centered;
+-(void) drawBoundigBox:(CGRect) aRect;
+-(void)UpdateBoundingBox;
 
 @end

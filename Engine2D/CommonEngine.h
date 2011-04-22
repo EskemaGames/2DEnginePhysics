@@ -25,14 +25,16 @@
 // Macro that allows you to clamp a value within the defined bounds
 #define CLAMP(X, A, B) ((X < A) ? A : ((X > B) ? B : X))
 
-#define RANDOM_FLOAT_BETWEEN(x, y) (((float) rand() / RAND_MAX) * (y - x) + x)
+#define RANDOM_FLOAT_BETWEEN(x, y) (((float) arc4random() / RAND_MAX) * (y - x) + x)
 
 //get a random number between min and max
 //return rand() % (max - min) + min;
-#define RANDOM_INT(__MIN__, __MAX__) ((__MIN__) + arc4random() % ((__MAX__+1) - (__MIN__)))
+//#define RANDOM_INT(__MIN__, __MAX__) ((__MIN__) + arc4random() % ((__MAX__+1) - (__MIN__)))
 
+#define RANDOM_INT(__MIN, __MAX) ((arc4random() % __MAX) + __MIN)
+//int number = (arc4random() % 2) + 1; 
 
-
+#define kCGPointEpsilon FLT_EPSILON
 
 #pragma mark -
 #pragma mark Types
@@ -51,27 +53,27 @@ typedef struct MyTiles {
 
 typedef struct MyFonts
 {
-	short posX;
-	short posY;
-	short w;
-	short h;
-	short offsetx;
-	short offsety;
-	short xadvance;
+	int posX;
+	int posY;
+	int w;
+	int h;
+	int offsetx;
+	int offsety;
+	int xadvance;
 }_ArrayFonts;
 
 
 typedef struct MySprite
 {
-	short posX;
-	short posY;
-	short w;
-	short h;
-	short offsetX;
-	short offsetY;
-	short frame;
-	short cachedFrameNum;
-	short speed;
+	int posX;
+	int posY;
+	int w;
+	int h;
+	int offsetX;
+	int offsetY;
+	int frame;
+	int cachedFrameNum;
+	int speed;
 	bool loopAnimation;
 }_AnimationSprite;
 
@@ -180,8 +182,26 @@ static inline Vector2f Vector2fNormalize(Vector2f v)
 }
 
 
+static inline Vector2f Vector2fLerp(Vector2f from, Vector2f to, float t)
+{
+    t = CLAMP(t, 0.0f, 1.0f);
+    return (Vector2f) { (from.x + ((to.x - from.x) * t), from.y + ((to.y - from.y) * t))};
+}
 
 
+
+
+static float Vector2fAngle(Vector2f a, Vector2f b)
+{
+	float angle = acosf(Vector2fDot(Vector2fNormalize(a), Vector2fNormalize(b)));
+	if( fabs(angle) < kCGPointEpsilon ) return 0.f;
+	return angle;
+}
+
+static float Vector2fToAngle(const Vector2f v)
+{
+	return atan2f(v.y, v.x);
+}
 
 
 

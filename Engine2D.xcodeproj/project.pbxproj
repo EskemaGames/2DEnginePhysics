@@ -18,6 +18,8 @@
 		AC04DF7412EC57770019594D /* tileset.png in Resources */ = {isa = PBXBuildFile; fileRef = AC04DF7312EC57770019594D /* tileset.png */; };
 		AC04E05612EC78180019594D /* PhysicBodyBase.mm in Sources */ = {isa = PBXBuildFile; fileRef = AC04E05512EC78180019594D /* PhysicBodyBase.mm */; };
 		AC04E05912EC79060019594D /* SpriteBase.mm in Sources */ = {isa = PBXBuildFile; fileRef = AC04E05812EC79060019594D /* SpriteBase.mm */; };
+		AC10F4AD136184E50037E73E /* ActionPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = AC10F4AC136184E50037E73E /* ActionPoint.m */; };
+		AC10F5E5136186C80037E73E /* ActionManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = AC10F5E4136186C80037E73E /* ActionManager.mm */; };
 		AC3AA27B12EA72C100255B5A /* b2BroadPhase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC3AA22F12EA72C100255B5A /* b2BroadPhase.cpp */; };
 		AC3AA27C12EA72C100255B5A /* b2CollideCircle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC3AA23112EA72C100255B5A /* b2CollideCircle.cpp */; };
 		AC3AA27D12EA72C100255B5A /* b2CollidePolygon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC3AA23212EA72C100255B5A /* b2CollidePolygon.cpp */; };
@@ -132,6 +134,10 @@
 		AC04E05512EC78180019594D /* PhysicBodyBase.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PhysicBodyBase.mm; sourceTree = "<group>"; };
 		AC04E05712EC79060019594D /* SpriteBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpriteBase.h; sourceTree = "<group>"; };
 		AC04E05812EC79060019594D /* SpriteBase.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SpriteBase.mm; sourceTree = "<group>"; };
+		AC10F4AB136184E50037E73E /* ActionPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionPoint.h; sourceTree = "<group>"; };
+		AC10F4AC136184E50037E73E /* ActionPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionPoint.m; sourceTree = "<group>"; };
+		AC10F5E3136186C80037E73E /* ActionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionManager.h; sourceTree = "<group>"; };
+		AC10F5E4136186C80037E73E /* ActionManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ActionManager.mm; sourceTree = "<group>"; };
 		AC3AA22D12EA72C100255B5A /* Box2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Box2D.h; sourceTree = "<group>"; };
 		AC3AA22F12EA72C100255B5A /* b2BroadPhase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = b2BroadPhase.cpp; sourceTree = "<group>"; };
 		AC3AA23012EA72C100255B5A /* b2BroadPhase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = b2BroadPhase.h; sourceTree = "<group>"; };
@@ -390,6 +396,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		AC10F4AA136184E50037E73E /* Actions */ = {
+			isa = PBXGroup;
+			children = (
+				AC10F4AB136184E50037E73E /* ActionPoint.h */,
+				AC10F4AC136184E50037E73E /* ActionPoint.m */,
+			);
+			path = Actions;
+			sourceTree = "<group>";
+		};
 		AC3AA22C12EA72C100255B5A /* Box2D */ = {
 			isa = PBXGroup;
 			children = (
@@ -564,6 +579,7 @@
 		AC912274113E6090009B7C27 /* Engine2D */ = {
 			isa = PBXGroup;
 			children = (
+				AC10F4AA136184E50037E73E /* Actions */,
 				ACC116A8113EE26000CC7DF1 /* CommonEngine.h */,
 				AC3AA22C12EA72C100255B5A /* Box2D */,
 				ACB9056E1294A6F800AC35AF /* TileMaps */,
@@ -658,6 +674,8 @@
 		AC91228D113E6090009B7C27 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				AC10F5E3136186C80037E73E /* ActionManager.h */,
+				AC10F5E4136186C80037E73E /* ActionManager.mm */,
 				AC91228E113E6090009B7C27 /* GameTextureBound.h */,
 				AC91228F113E6090009B7C27 /* GameTextureBound.m */,
 				AC912290113E6090009B7C27 /* LenguageManager.h */,
@@ -914,6 +932,8 @@
 				AC4040C61333922E00DE57C5 /* TiledMap.m in Sources */,
 				AC4040C71333922E00DE57C5 /* TileSet.m in Sources */,
 				AC59AA7A13409BFD006270AE /* Slider.mm in Sources */,
+				AC10F4AD136184E50037E73E /* ActionPoint.m in Sources */,
+				AC10F5E5136186C80037E73E /* ActionManager.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

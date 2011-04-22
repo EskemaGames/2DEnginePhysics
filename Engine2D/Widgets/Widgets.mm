@@ -7,15 +7,16 @@
 //
 
 #import "Widgets.h"
-//#import "Image.h"
+#import "Image.h"
 #import "Fonts.h"
+
 
 
 @implementation Widgets
 
 
 @synthesize locAtlas;
-@synthesize color, scale, touch;
+@synthesize color, touch;
 @synthesize active, scaleText;
 
 
@@ -31,18 +32,19 @@
 // active = only active widgets are rendered on screen
 //image = the atlas containing the widget or the image itself
 //font = font to draw the text within the button
+
 - (id) initWidget:(Vector2f)pos Size:(Vector2f)Size LocAtlas:(Vector2f)LocAtlas Color:(Color4f)Color Scale:(Vector2f)Scale Rotation:(float)Rotation Active:(bool)Active Image:(Image *)image
 {
 	self = [super init];
 	if (self != nil) {
 		
-		position = pos;
-		size = Size;
+		self._position = pos;
+		self._size = Size;
 		locAtlas = LocAtlas;
 		color = Color;
-		scale = Scale;
-		touch = CGRectMake(pos.x, pos.y, size.x * Scale.x, size.y * Scale.y); //Touch
-		rotation = Rotation;
+		_scale = Scale;
+		touch = CGRectMake(pos.x, pos.y, _size.x * Scale.x, _size.y * Scale.y); //Touch
+		_rotation = Rotation;
 		widgetImage = image;
 		widgetFont = nil;
 		active = Active;
@@ -53,18 +55,18 @@
 
 
 //init a widget with text, typically a button with text
-- (id) initWidget:(Vector2f)pos Size:(Vector2f)Size LocAtlas:(Vector2f)LocAtlas Color:(Color4f)Color Scale:(Vector2f)Scale Rotation:(float)Rotation Active:(bool)Active Image:(Image *)image Font:(Fonts *)font;
+- (id) initWidget:(Vector2f)pos Size:(Vector2f)Size LocAtlas:(Vector2f)LocAtlas Color:(Color4f)Color Scale:(Vector2f)Scale Rotation:(float)Rotation Active:(bool)Active Image:(Image *)image Font:(Fonts *)font
 {
 	self = [super init];
 	if (self != nil) {
 		
-		position = pos;
-		size = Size;
+		self._position = pos;
+		self._size = Size;
 		locAtlas = LocAtlas;
 		color = Color;
-		scale = Scale;
-		touch = CGRectMake(pos.x, pos.y, size.x * Scale.x, size.y * Scale.y); //Touch
-		rotation = Rotation;
+		self._scale = Scale;
+		touch = CGRectMake(pos.x, pos.y, _size.x * Scale.x, _size.y * Scale.y); //Touch
+		_rotation = Rotation;
 		widgetImage = image;
 		active = Active;
 		widgetFont = font;
@@ -108,53 +110,69 @@
 
 
 
-
-//draw widget only respecting the camera position
+//draw widget only
 - (void) DrawWidget:(Vector2f)camerapos
 {
 	if (active)
 	{
-		touch = CGRectMake(position.x, position.y, size.x * scale.x, size.y * scale.y); //Touch
-		[widgetImage DrawSprites:CGRectMake(position.x - camerapos.x , position.y - camerapos.y, size.x*scale.x, size.y*scale.y) 
+		touch = CGRectMake(self._position.x, self._position.y, self._size.x * self._scale.x, self._size.y * self._scale.y); //Touch
+		[widgetImage DrawSprites:CGRectMake(self._position.x - camerapos.x , _position.y - camerapos.y, self._size.x*self._scale.x, self._size.y*self._scale.y) 
 					 OffsetPoint:CGPointMake(locAtlas.x, locAtlas.y) 
-					  ImageWidth:size.x ImageHeight:size.y 
+					  ImageWidth:self._size.x ImageHeight:self._size.y 
 							Flip:1 
 						  Colors:color 
-						Rotation:rotation];
+						Rotation:_rotation];
+	}
+	
+}
+
+- (void) DrawWidget
+{
+	if (active)
+	{
+		touch = CGRectMake(self._position.x, self._position.y, self._size.x * self._scale.x, self._size.y * self._scale.y); //Touch
+		[widgetImage DrawSprites:CGRectMake(self._position.x, self._position.y,self._size.x*self._scale.x, self._size.y*self._scale.y) 
+					 OffsetPoint:CGPointMake(locAtlas.x, locAtlas.y) 
+					  ImageWidth:self._size.x ImageHeight:self._size.y 
+							Flip:1 
+						  Colors:color 
+						Rotation:_rotation];
 	}
 	
 }
 
 
-//draw widget only
-- (void) DrawWidget
+- (void) DrawWidgetColored:(Color4f)_color
 {
 	if (active)
-		[widgetImage DrawSprites:CGRectMake(position.x, position.y, size.x*scale.x, size.y*scale.y) 
+	{
+		touch = CGRectMake(self._position.x, self._position.y, self._size.x * self._scale.x, self._size.y * self._scale.y); //Touch
+		[widgetImage DrawSprites:CGRectMake(self._position.x, self._position.y,self._size.x*self._scale.x, self._size.y*self._scale.y) 
 					 OffsetPoint:CGPointMake(locAtlas.x, locAtlas.y) 
-					  ImageWidth:size.x ImageHeight:size.y 
+					  ImageWidth:self._size.x ImageHeight:self._size.y  
 							Flip:1 
-						  Colors:color 
-						Rotation:rotation];
+						  Colors:_color 
+						Rotation:_rotation];
+	}
 	
 }
-
 
 - (void) DrawWidgetFont:(NSString *)text
 {	
 	
 	if (active)
 	{
-		[widgetImage DrawSprites:CGRectMake(position.x, position.y, size.x*scale.x, size.y*scale.y) 
+		touch = CGRectMake(self._position.x, self._position.y, self._size.x * self._scale.x, self._size.y * self._scale.y); //Touch
+		[widgetImage DrawSprites:CGRectMake(self._position.x, self._position.y, self._size.x *self._scale.x, self._size.y*self._scale.y) 
 					 OffsetPoint:CGPointMake(locAtlas.x, locAtlas.y) 
-					  ImageWidth:size.x ImageHeight:size.y 
+					  ImageWidth:self._size.x ImageHeight:self._size.y 
 							Flip:1 
 						  Colors:color
-						Rotation:rotation];
+						Rotation:_rotation];
 		[widgetFont DrawTextCenteredPosXWidth:[self GetWidthOfWidget] 
 											X:[self GetPositionX] 
 											Y:[self GetCenterOfWidgetY] 
-										Scale:scale.x
+										Scale:_scale.x
 									   Colors:color
 										 Text:text];
 	}
@@ -168,12 +186,13 @@
 {
 	if (active)
 	{
-		[widgetImage DrawSprites:CGRectMake(position.x, position.y, size.x*scale.x, size.y*scale.y) 
+		touch = CGRectMake(self._position.x, self._position.y, self._size.x * self._scale.x, self._size.y * self._scale.y); //Touch
+		[widgetImage DrawSprites:CGRectMake(self._position.x, self._position.y,self._size.x*self._scale.x, self._size.y*self._scale.y) 
 					 OffsetPoint:CGPointMake(locAtlas.x, locAtlas.y) 
-					  ImageWidth:size.x ImageHeight:size.y 
+					  ImageWidth:self._size.x ImageHeight:self._size.y  
 							Flip:1 
 						  Colors:color 
-						Rotation:rotation];
+						Rotation:_rotation];
 		[widgetFont DrawTextCenteredPosXWidth:[self GetWidthOfWidget] + 5
 											X:[self GetPositionX] 
 											Y:[self GetCenterOfWidgetY] - ([widgetFont GetTextHeight:scaletext myChar:text]/2)
@@ -183,36 +202,40 @@
 	}
 }
 
+
+
+
 - (int) GetCenterOfWidgetY
 {
-	return position.y + (((size.y*scale.y)/2)/2);
+	return self._position.y + (((self._size.y*_scale.y)/2)/2);
 }
 
 - (int) GetCenterOfWidgetX
 {
-	return position.x + (((size.x*scale.x)/2)/2);
+	return self._position.x + (((self._size.x*_scale.x)/2)/2);
 }
 
 
 - (int) GetWidthOfWidget
 {
-	return size.x*scale.x;
+	return self._size.x*_scale.x;
 }
 
 - (int) GetHeightOfWidget
 {
-	return size.y*scale.y;
+	return self._size.y*_scale.y;
 }
 
 - (int) GetPositionX
 {
-	return position.x;
+	return self._position.x;
 }
 
 - (int) GetPositionY
 {
-	return position.y;
+	return self._position.y;
 }
+
 
 
 @end

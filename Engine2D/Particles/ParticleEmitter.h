@@ -20,6 +20,19 @@ enum kParticleTypes {
 
 #define MAXIMUM_UPDATE_RATE 90.0f	// The maximum number of updates that occur per frame
 
+
+@protocol ParticleManagerProtocol
+
+-(void) onEmitterEnded;
+
+@end
+
+
+
+
+
+
+
 // The particleEmitter allows you to define parameters that are used when generating particles.
 // These particles are OpenGL particle sprites that based on the parameters provided each have
 // their own characteristics such as speed, lifespan, start and end colors etc.  Using these
@@ -80,12 +93,17 @@ enum kParticleTypes {
 	Particle *particles;		// Array of particles that hold the particle emitters particle details
 	PointSprite *vertices;		// Array of vertices and color information for each particle to be rendered
 	
+	id<ParticleManagerProtocol> delegate;
+	
+	
 }
 
+@property(nonatomic, retain) id<ParticleManagerProtocol> delegate;
 @property(nonatomic, assign) Vector2f sourcePosition;
 @property(nonatomic, assign) GLint particleCount;
 @property(nonatomic, assign) BOOL active;
 @property(nonatomic, assign) GLfloat duration;
+//@property(nonatomic, readwrite) GLfloat angle;
 
 // Initialises a particle emitter using configuration read from a file
 - (id)initParticleEmitterWithFile:(NSString*)aFileName;
@@ -95,6 +113,7 @@ enum kParticleTypes {
 
 // Updates all particles in the particle emitter
 - (void)updateWithDelta:(GLfloat)aDelta;
+- (void)updateWithDelta:(GLfloat)aDelta CameraPosition:(Vector2f)_camerapos;
 
 // Stops the particle emitter
 - (void)stopParticleEmitter;

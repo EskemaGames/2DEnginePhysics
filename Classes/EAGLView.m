@@ -16,7 +16,6 @@
 
 
 
-
 // A class extension to declare private methods
 @interface EAGLView ()
 
@@ -63,6 +62,8 @@
 			return nil;
 		}
 		
+		
+		//detect ipad or iphone screen
 		if((void *)UI_USER_INTERFACE_IDIOM() != NULL &&
 		   UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
 		{
@@ -74,6 +75,7 @@
 		
 		//start with no retina, we'll detect it later
 		isRetinaDisplay = NO;
+		
 		
 		// Get the bounds of the main screen
 		//by default the screen is always in portrait
@@ -89,12 +91,12 @@
 			[self initGame];
 		}
 		
+		
+		
 		// Observe orientation change notifications
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged:) name:@"UIDeviceOrientationDidChangeNotification" object:nil];
+		//[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged:) name:@"UIDeviceOrientationDidChangeNotification" object:nil];
 		
 		
-		animating = FALSE;
-		displayLink = nil;
 		
 		
 		glGenFramebuffersOES(1, &defaultFramebuffer);
@@ -102,6 +104,8 @@
 		glBindFramebufferOES(GL_FRAMEBUFFER_OES, defaultFramebuffer);
 		glBindRenderbufferOES(GL_RENDERBUFFER_OES, colorRenderbuffer);
 		glFramebufferRenderbufferOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_RENDERBUFFER_OES, colorRenderbuffer);
+		
+		
 	}
 	return self;
 }
@@ -122,9 +126,9 @@
 	//states
 	States = [StateManager sharedStateManager];
 	[States initStates:ISLANDSCAPE];
-	States.screenBounds = Vector2fMake(viewport.size.width, viewport.size.height);
 	States.isIpad = isIpad;
 	States.isRetinaDisplay = isRetinaDisplay;
+	States.screenBounds = Vector2fMake(viewport.size.width, viewport.size.height);
 	
 	//default values are loaded, so mark it
 	GameInit = YES;
@@ -177,7 +181,7 @@
 
 - (void)renderScene 
 {
-   
+	
 	//update game
 	[self update:delta];
 	
@@ -187,7 +191,7 @@
 	//bind buffer and render to screen
 	[context presentRenderbuffer:GL_RENDERBUFFER_OES];
 	
-
+	
 }
 
 
@@ -312,73 +316,43 @@
 
 
 - (void) layoutSubviews
-
-
 {
-	[EAGLContext setCurrentContext:context];
 	[self resizeFromLayer:(CAEAGLLayer*)self.layer];
     [self renderScene];
 }
 
 
-
-
-- (void)startAnimation {
-	if (!animating)
+- (void)startAnimation:(UIApplication*)application {
+	
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init]; 
+	
+	const double SecondsPerFrame = 1.0 / (((kFPS) > 60.0)? 60.0: (kFPS));
+	const double OneMillisecond = 1.0 / 1000.0;
+	for (;;)
 	{
-		// CADisplayLink is API new to iPhone SDK 3.1. Compiling against earlier versions will result in a warning, but can be dismissed
-		// if the system version runtime check for CADisplayLink exists in -initWithCoder:. The runtime check ensures this code will
-		// not be called in system versions earlier than 3.1.
-		displayLink = [NSClassFromString(@"CADisplayLink") displayLinkWithTarget:self selector:@selector(renderScene)];
-		[displayLink setFrameInterval:animationFrameInterval];
-		[displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+		double frameStartTime = (double)CFAbsoluteTimeGetCurrent();
+		[self performSelectorOnMainThread:@selector(renderScene) withObject:nil waitUntilDone:YES]; 
 		
-		animating = TRUE;
+		double secondsToProcessEvents = SecondsPerFrame - (((double)CFAbsoluteTimeGetCurrent()) - frameStartTime);
+		// if we run considerably slower than desired framerate anyhow
+		// then we should sleep for a while leaving OS some room to process events
+		if (secondsToProcessEvents < -OneMillisecond)
+			secondsToProcessEvents = OneMillisecond;
+		if (secondsToProcessEvents > 0)
+			[NSThread sleepForTimeInterval:secondsToProcessEvents];
 	}
 	
 	
+	[pool release];
 	
 }
 
 
-- (void)stopAnimation {
-	if (animating)
-	{
-		[displayLink invalidate];
-		displayLink = nil;
-		
-		animating = FALSE;
-	}
-	
-	
-}
-
-
-
-- (NSInteger) animationFrameInterval
+-(void)StartGame
 {
-	return animationFrameInterval;
+	[NSThread detachNewThreadSelector:@selector(startAnimation:) toTarget:self withObject:nil];
 }
 
-- (void) setAnimationFrameInterval:(NSInteger)frameInterval
-{
-	// Frame interval defines how many display frames must pass between each time the
-	// display link fires. The display link will only fire 30 times a second when the
-	// frame internal is two on a display that refreshes 60 times a second. The default
-	// frame interval setting of one will fire 60 times a second when the display refreshes
-	// at 60 times a second. A frame interval setting of less than one results in undefined
-	// behavior.
-	if (frameInterval >= 1)
-	{
-		animationFrameInterval = frameInterval;
-		
-		if (animating)
-		{
-			[self stopAnimation];
-			[self startAnimation];
-		}
-	}
-}
 
 
 
@@ -398,7 +372,7 @@
 		glDeleteRenderbuffersOES(1, &colorRenderbuffer);
 		colorRenderbuffer = 0;
 	}
-
+	
 	// Tear down context
 	if ([EAGLContext currentContext] == context)
         [EAGLContext setCurrentContext:nil];
@@ -413,83 +387,80 @@
 
 
 
+
 - (void) orientationChanged:(NSNotification *)notification {
 	
 	UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
 	
-	//just uncomment or comment the rotations needed, uncomment all to have the 4 sides
-	//rotation enabled
-	
-	
-	if (orientation == UIDeviceOrientationLandscapeRight) {
-		States.interfaceOrientation = UIInterfaceOrientationLandscapeRight;
-		States.input.isLandscape = YES;
-		States.input.upsideDown = NO;
-		glMatrixMode(GL_PROJECTION);  
-		glLoadIdentity();  
-		if (isIpad)
-			viewport = CGRectMake(0, 0, 1024, 768);
-		else {
-			viewport = CGRectMake(0, 0, 480, 320);
-		}
-		
-        if (isRetinaDisplay)
-		{
-			if (States)
-				States.screenBounds = Vector2fMake(viewport.size.width, viewport.size.height);
-			glViewport(0, 0, viewport.size.height * screenScale, viewport.size.width * screenScale);  
-			glRotatef(90, 0, 0, 1);  
-			glOrthof(0, viewport.size.width * screenScale, viewport.size.height * screenScale, 0, -1.0, 1.0);    
-		}
-		else {
-			if (States)
-				States.screenBounds = Vector2fMake(viewport.size.width, viewport.size.height);
-			glViewport(0, 0, viewport.size.height, viewport.size.width);  
-			glRotatef(90, 0, 0, 1);  
-			glOrthof(0, viewport.size.width, viewport.size.height, 0, -1.0, 1.0);
-		}
-		
-		glMatrixMode(GL_MODELVIEW);  
-		glLoadIdentity(); 
-	}
-	
-	if (orientation == UIDeviceOrientationLandscapeLeft) {
-		States.interfaceOrientation = UIInterfaceOrientationLandscapeLeft;
-		States.input.isLandscape = YES;
-		States.input.upsideDown = NO;
-		glMatrixMode(GL_PROJECTION);  
-		glLoadIdentity();  
-		if (isIpad)
-			viewport = CGRectMake(0, 0, 1024, 768);
-		else {
-			viewport = CGRectMake(0, 0, 480, 320);
-		}
-		
-		if (isRetinaDisplay)
-        {
-			if (States)
-				States.screenBounds = Vector2fMake(viewport.size.width, viewport.size.height);
-			glViewport(0, 0, viewport.size.height * screenScale, viewport.size.width * screenScale);  
-			glRotatef(-90, 0, 0, 1);  
-			glOrthof(0, viewport.size.width * screenScale, viewport.size.height * screenScale, 0, -1.0, 1.0);    
-		}
-		else {
-			if (States)
-				States.screenBounds = Vector2fMake(viewport.size.width, viewport.size.height);
-			glViewport(0, 0, viewport.size.height, viewport.size.width);  
-			glRotatef(-90, 0, 0, 1);  
-			glOrthof(0, viewport.size.width, viewport.size.height, 0, -1.0, 1.0); 
-		}
-		
-		glMatrixMode(GL_MODELVIEW);  
-		glLoadIdentity(); 
-		
-	}
+	/*if (orientation == UIDeviceOrientationLandscapeRight) {
+	 States.interfaceOrientation = UIInterfaceOrientationLandscapeRight;
+	 States.input.isLandscape = YES;
+	 States.input.upsideDown = NO;
+	 glMatrixMode(GL_PROJECTION);  
+	 glLoadIdentity();  
+	 if (isIpad)
+	 viewport = CGRectMake(0, 0, 1024, 768);
+	 else {
+	 viewport = CGRectMake(0, 0, 480, 320);
+	 }
+	 
+	 if (isRetinaDisplay)
+	 {
+	 if (States)
+	 States.screenBounds = Vector2fMake(viewport.size.width, viewport.size.height);
+	 glViewport(0, 0, viewport.size.height * screenScale, viewport.size.width * screenScale);  
+	 glRotatef(90, 0, 0, 1);  
+	 glOrthof(0, viewport.size.width * screenScale, viewport.size.height * screenScale, 0, -1.0, 1.0);    
+	 }
+	 else {
+	 if (States)
+	 States.screenBounds = Vector2fMake(viewport.size.width, viewport.size.height);
+	 glViewport(0, 0, viewport.size.height, viewport.size.width);  
+	 glRotatef(90, 0, 0, 1);  
+	 glOrthof(0, viewport.size.width, viewport.size.height, 0, -1.0, 1.0);
+	 }
+	 
+	 glMatrixMode(GL_MODELVIEW);  
+	 glLoadIdentity(); 
+	 }
+	 
+	 if (orientation == UIDeviceOrientationLandscapeLeft) {
+	 States.interfaceOrientation = UIInterfaceOrientationLandscapeLeft;
+	 States.input.isLandscape = YES;
+	 States.input.upsideDown = NO;
+	 glMatrixMode(GL_PROJECTION);  
+	 glLoadIdentity();  
+	 if (isIpad)
+	 viewport = CGRectMake(0, 0, 1024, 768);
+	 else {
+	 viewport = CGRectMake(0, 0, 480, 320);
+	 }
+	 
+	 if (isRetinaDisplay)
+	 {
+	 if (States)
+	 States.screenBounds = Vector2fMake(viewport.size.width, viewport.size.height);
+	 glViewport(0, 0, viewport.size.height * screenScale, viewport.size.width * screenScale);  
+	 glRotatef(-90, 0, 0, 1);  
+	 glOrthof(0, viewport.size.width * screenScale, viewport.size.height * screenScale, 0, -1.0, 1.0);    
+	 }
+	 else {
+	 if (States)
+	 States.screenBounds = Vector2fMake(viewport.size.width, viewport.size.height);
+	 glViewport(0, 0, viewport.size.height, viewport.size.width);  
+	 glRotatef(-90, 0, 0, 1);  
+	 glOrthof(0, viewport.size.width, viewport.size.height, 0, -1.0, 1.0); 
+	 }
+	 
+	 glMatrixMode(GL_MODELVIEW);  
+	 glLoadIdentity(); 
+	 
+	 }
+	 */
 	
 	
 	
-	
-	/*if (orientation == UIDeviceOrientationPortrait) {
+	if (orientation == UIDeviceOrientationPortrait) {
 		States.interfaceOrientation = UIInterfaceOrientationPortrait;
 		States.input.isLandscape = NO;
 		States.input.upsideDown = NO;
@@ -551,33 +522,35 @@
 		glLoadIdentity(); 
 		
 	}
-	 */
+	
 }
 
 
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event  
 {  
-    [States.input touchesBegan:touches withEvent:event InView:self];  
-	[States.joystick touchesBegan:touches withEvent:event view:self];  
+    [States.input touchesBegan:touches withEvent:event InView:self];
+	[States.joystick touchesBegan:touches withEvent:event view:self];
 }  
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event  
 {  
-    [States.input touchesMoved:touches withEvent:event InView:self]; 
-	[States.joystick touchesMoved:touches withEvent:event view:self]; 
+    [States.input touchesMoved:touches withEvent:event InView:self];  
+	[States.joystick touchesMoved:touches withEvent:event view:self];
+
 }  
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event  
 {  
     [States.input touchesEnded:touches withEvent:event InView:self]; 
-	[States.joystick touchesEnded:touches withEvent:event view:self]; 
+	[States.joystick touchesEnded:touches withEvent:event view:self];
+
 }  
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event  
 {  
-    [States.input touchesCancelled:touches withEvent:event InView:self]; 
-	
+    [States.input touchesCancelled:touches withEvent:event InView:self];  
 }
+
 
 @end

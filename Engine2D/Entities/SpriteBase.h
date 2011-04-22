@@ -11,21 +11,23 @@
 #import "PhysicBodyBase.h"
 #import "Image.h"
 
-@interface SpriteBase : NSObject {
 
+@interface SpriteBase : NSObject {
+	
 	PhysicBodyBase *physicBody;
 	
 	//enable or not physics
 	bool physicsEnabled;
 	
 	//variables
-	Vector2f position;
-	Vector2f size;
-	Vector2f offset;
-	float speed; //speed to move sprite
+	Vector2f _position;
+	Vector2f _size;
+	Vector2f _offset;
+	float _speed; //speed to move sprite
+	Vector2f _scale;
 	
-	int flip; //used to flip sprite left/right/up/down
-	float rotation; //maybe we want to rotate the sprite
+	int _flip; //used to flip sprite left/right/up/down
+	float _rotation; //maybe we want to rotate the sprite
 	
 	//image for all sprites derived from this class
 	Image *sprtImg;
@@ -42,9 +44,9 @@
 @property (nonatomic, readwrite) Quad2f *mvertex;
 
 @property (retain) PhysicBodyBase *physicBody;
-@property (nonatomic, readwrite) Vector2f position, size, offset;
-@property (nonatomic, readwrite) int flip;
-@property (nonatomic, readwrite) float rotation, speed;
+@property (nonatomic, readwrite) Vector2f _position, _size, _offset, _scale;
+@property (nonatomic, readwrite) int _flip;
+@property (nonatomic, readwrite) float _rotation, _speed;
 @property (nonatomic, readwrite) bool physicsEnabled;
 
 //each derived class must implement this values as they wish

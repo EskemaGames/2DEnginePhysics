@@ -275,8 +275,9 @@
 	//release the xml object
 	[tbxml release];
 	
-	
-	//we need to remove those 1 columns and rows for the smooth scroll
+	//this example level is a map of 30x20 wich means the iphone screen with 16x16 tiles.
+	//the full map is 90 columns plus 3 more for padding space. To achieve the continuos scroll
+	//we need to remove those 3 columns plus an extra one for the smooth scroll
 	WideTotalMap = (MaxColumns-1)*TileSize; //we can take minus 1 columns to "fake" the limits off map
 	HeighTotalMap = (MaxRows-1)*TileSize; //we can take minus 1 columns to "fake the limits off map
 	
@@ -307,8 +308,8 @@
 	
 	
 	//screen size map in tiles
-	tilesX = states.screenBounds.x  /TileSize;
-	tilesY = states.screenBounds.y  /TileSize;
+	tilesX = (states.screenBounds.x /TileSize)-1;
+	tilesY = (states.screenBounds.y /TileSize)-1;
 	
 	//calculate image coords size, basically how many rows and columns are in that image
 	ImageSizeTileX = (ImageSizeX / TileSize);
@@ -339,6 +340,12 @@
 	
 }
 
+-(void)UpdateMapRotation
+{
+	
+	tilesX = states.screenBounds.x  /TileSize;
+	tilesY = states.screenBounds.y  /TileSize;
+}
 //=============================================================================
 -(void) ProcessTiles
 {
@@ -425,8 +432,8 @@
 															 BodySizeAndPos:CGRectMake(j * TileSize, y * TileSize, TileSize, TileSize) 
 															   HandlerClass:tmp
 																	 Physic:myworld];
-						tmp.position.x = j*TileSize;
-						tmp.position.y = y*TileSize;
+						tmp._position.x = j*TileSize;
+						tmp._position.y = y*TileSize;
 						[TilesWithPhysic addObject:tmp];
 						[tmp release];		 
 					}
@@ -568,9 +575,9 @@
 	//we only want to render the visible screen plus 1 tile in each direcction
 	// if map its more bigger than the screen resolution, that extra tile its 
 	//for smooth scroll, so we only scan the screen resolution
-	for (int i = 0; i < tilesY; i ++)
+	for (int i = 0; i < tilesY+1; i ++)
 	{
-		for (int j = 0; j < tilesX; j++)
+		for (int j = 0; j < tilesX+1; j++)
 		{
 			//only draw visible tiles
 			if (level[Layer][i+ytile][j+xtile].visible) 
@@ -588,8 +595,8 @@
 				{
 					//get the pyshic tile to interact
 					Tiles *tmp = [TilesWithPhysic objectAtIndex:tile];
-					tmp.position.x = x;
-					tmp.position.y = y;
+					tmp._position.x = x;
+					tmp._position.y = y;
 				}
 				
 				Quad2f vert = *[mapImg getVerticesForSpriteAtrect:CGRectMake(x, y, TileSize, TileSize) Vertices:mvertex Flip:1];
@@ -829,6 +836,9 @@
     level[l] [y / TileSize] [x / TileSize].visible = false;
     level[l] [y / TileSize] [x / TileSize].nowalkable = false;
 }
+
+
+
 
 
 

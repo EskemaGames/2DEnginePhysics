@@ -30,8 +30,8 @@
     int step;				//counter to increase frame
     state status;			//the animation states
     int delay;				//establish time between frames 
-	bool EndAnimation;		//flag for animation ended
-	bool AnimationActive;	//flag for animation active
+	bool EndAnimation;
+	bool AnimationActive;
 }  
 
 
@@ -63,6 +63,8 @@
 -(bool)ReturnLoopAnimation;
 -(int)GetFrameSizeWidth;
 -(int)GetFrameSizeHeight;
+-(int)GetActualFrameValueX;
+-(int)GetActualFrameValueY;
 -(int)GetFrameOffsetX;
 -(int)GetFrameOffsetY;
 -(int) GetState;

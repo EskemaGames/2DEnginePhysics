@@ -16,9 +16,9 @@
 @synthesize mvertex;
 @synthesize physicBody;
 @synthesize physicsEnabled;
-@synthesize position, size, offset;
-@synthesize speed, flip;
-@synthesize rotation;
+@synthesize _position, _size, _offset, _scale;
+@synthesize _speed, _flip;
+@synthesize _rotation;
 
 
 
@@ -37,12 +37,25 @@
 - (void)dealloc
 {
 	sprtImg = nil;
+	[sprtImg release];
+	physicBody = nil;
 	[physicBody release];
 	free(cachedTexture);
 	free(textureCoordinates);
 	free(mvertex);
 	[super dealloc];
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 

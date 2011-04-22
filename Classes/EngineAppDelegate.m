@@ -19,7 +19,8 @@
 	[[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
 	[UIApplication sharedApplication].statusBarOrientation = UIInterfaceOrientationLandscapeRight;
 	
-	[glView startAnimation];
+	//start the game
+	[glView StartGame];
 }
 
 

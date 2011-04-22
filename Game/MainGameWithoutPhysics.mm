@@ -184,7 +184,7 @@
 	{
 		if (!gameState.fadeOut)
 		{
-			[gameState UpdateTransitionOut];
+			[gameState UpdateTransitionOut:deltaTime];
 		}
 		else{
 			[gameState ChangeStates:MENU];
@@ -205,7 +205,7 @@
 		
 
 		//update trail for the player ship
-		shiptrail.sourcePosition = Vector2fMake((Mainplayer.position.x+16), (Mainplayer.position.y+36));
+		shiptrail.sourcePosition = Vector2fMake((Mainplayer._position.x+16), (Mainplayer._position.y+36));
 		[shiptrail updateWithDelta:deltaTime];
 	}
 	

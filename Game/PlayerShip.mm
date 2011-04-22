@@ -52,7 +52,7 @@
 				
 				NSString *name = [TBXML valueOfAttributeNamed:@"name" forElement:animation];
 				NSString *frame = [TBXML valueOfAttributeNamed:@"frame" forElement:animation];
-				NSString *_speed = [TBXML valueOfAttributeNamed:@"speed" forElement:animation];
+				NSString *speed = [TBXML valueOfAttributeNamed:@"speed" forElement:animation];
 				NSString *_loop = [TBXML valueOfAttributeNamed:@"Loop" forElement:animation];
 				
 
@@ -60,37 +60,37 @@
 				//init the size propertly
 				if([name isEqualToString:@"Stopped"])
 				{
-					[Animation InitArray:STOPPED Number:[frame intValue]];
+					[_Animation InitArray:STOPPED Number:[frame intValue]];
 				}
 
 				if([name isEqualToString:@"MoveLeft"])
 				{
-					[Animation InitArray:MOVELEFT Number:[frame intValue]];
+					[_Animation InitArray:MOVELEFT Number:[frame intValue]];
 				}
 				
 				if([name isEqualToString:@"MoveRight"])
 				{
-					[Animation InitArray:MOVERIGHT Number:[frame intValue]];
+					[_Animation InitArray:MOVERIGHT Number:[frame intValue]];
 				}
 				
 				if([name isEqualToString:@"MoveDown"])
 				{
-					[Animation InitArray:MOVEDOWN Number:[frame intValue]];
+					[_Animation InitArray:MOVEDOWN Number:[frame intValue]];
 				}
 				
 				if([name isEqualToString:@"MoveUp"])
 				{
-					[Animation InitArray:MOVEUP Number:[frame intValue]];
+					[_Animation InitArray:MOVEUP Number:[frame intValue]];
 				}
 				
 				if([name isEqualToString:@"Dead"])
 				{
-					[Animation InitArray:DEAD Number:[frame intValue]];
+					[_Animation InitArray:DEAD Number:[frame intValue]];
 				}
 				
 				if([name isEqualToString:@"Dying"])
 				{
-					[Animation InitArray:DYING Number:[frame intValue]];
+					[_Animation InitArray:DYING Number:[frame intValue]];
 				}
 				
 				
@@ -112,54 +112,54 @@
 					
 					if([name isEqualToString:@"Stopped"])
 					{
-						[Animation LoadAnimation:STOPPED   
+						[_Animation LoadAnimation:STOPPED   
 								 AnimationValues:CGRectMake([X intValue] , [Y intValue], [Width intValue], [Height intValue]) 
-										   Speed:[_speed intValue] frames_number:[Num intValue] EndAnimation:[End intValue] CachedNum:i OffsetX:[_OffsetX intValue]
+										   Speed:[speed intValue] frames_number:[Num intValue] EndAnimation:[End intValue] CachedNum:i OffsetX:[_OffsetX intValue]
 										 OffsetY:[_OffsetY intValue] LoopAnimation:[_loop boolValue]];
 					}
 					
 					if([name isEqualToString:@"MoveLeft"])
 					{
-						[Animation LoadAnimation:MOVELEFT   
+						[_Animation LoadAnimation:MOVELEFT   
 								 AnimationValues:CGRectMake([X intValue] , [Y intValue], [Width intValue], [Height intValue]) 
-										   Speed:[_speed intValue] frames_number:[Num intValue] EndAnimation:[End intValue] CachedNum:i OffsetX:[_OffsetX intValue]
+										   Speed:[speed intValue] frames_number:[Num intValue] EndAnimation:[End intValue] CachedNum:i OffsetX:[_OffsetX intValue]
 										 OffsetY:[_OffsetY intValue] LoopAnimation:[_loop boolValue]];
 					}
 					if([name isEqualToString:@"MoveRight"])
 					{
-						[Animation LoadAnimation:MOVERIGHT   
+						[_Animation LoadAnimation:MOVERIGHT   
 								 AnimationValues:CGRectMake([X intValue] , [Y intValue], [Width intValue], [Height intValue]) 
-										   Speed:[_speed intValue] frames_number:[Num intValue] EndAnimation:[End intValue] CachedNum:i OffsetX:[_OffsetX intValue]
+										   Speed:[speed intValue] frames_number:[Num intValue] EndAnimation:[End intValue] CachedNum:i OffsetX:[_OffsetX intValue]
 										 OffsetY:[_OffsetY intValue] LoopAnimation:[_loop boolValue]];
 					}
 					if([name isEqualToString:@"MoveUp"])
 					{
-						[Animation LoadAnimation:MOVEUP   
+						[_Animation LoadAnimation:MOVEUP   
 								 AnimationValues:CGRectMake([X intValue] , [Y intValue], [Width intValue], [Height intValue]) 
-										   Speed:[_speed intValue] frames_number:[Num intValue] EndAnimation:[End intValue] CachedNum:i OffsetX:[_OffsetX intValue]
+										   Speed:[speed intValue] frames_number:[Num intValue] EndAnimation:[End intValue] CachedNum:i OffsetX:[_OffsetX intValue]
 										 OffsetY:[_OffsetY intValue] LoopAnimation:[_loop boolValue]];
 					}
 					if([name isEqualToString:@"MoveDown"])
 					{
-						[Animation LoadAnimation:MOVEDOWN   
+						[_Animation LoadAnimation:MOVEDOWN   
 								 AnimationValues:CGRectMake([X intValue] , [Y intValue], [Width intValue], [Height intValue]) 
-										   Speed:[_speed intValue] frames_number:[Num intValue] EndAnimation:[End intValue] CachedNum:i OffsetX:[_OffsetX intValue]
+										   Speed:[speed intValue] frames_number:[Num intValue] EndAnimation:[End intValue] CachedNum:i OffsetX:[_OffsetX intValue]
 										 OffsetY:[_OffsetY intValue] LoopAnimation:[_loop boolValue]];
 					}
 					
 					if([name isEqualToString:@"Dead"])
 					{
-						[Animation LoadAnimation:DEAD   
+						[_Animation LoadAnimation:DEAD   
 								 AnimationValues:CGRectMake([X intValue] , [Y intValue], [Width intValue], [Height intValue]) 
-										   Speed:[_speed intValue] frames_number:[Num intValue] EndAnimation:[End intValue] CachedNum:i OffsetX:[_OffsetX intValue]
+										   Speed:[speed intValue] frames_number:[Num intValue] EndAnimation:[End intValue] CachedNum:i OffsetX:[_OffsetX intValue]
 										 OffsetY:[_OffsetY intValue] LoopAnimation:[_loop boolValue]];
 					}
 					
 					if([name isEqualToString:@"Dying"])
 					{
-						[Animation LoadAnimation:DYING   
+						[_Animation LoadAnimation:DYING   
 								 AnimationValues:CGRectMake([X intValue] , [Y intValue], [Width intValue], [Height intValue]) 
-										   Speed:[_speed intValue] frames_number:[Num intValue] EndAnimation:[End intValue] CachedNum:i OffsetX:[_OffsetX intValue]
+										   Speed:[speed intValue] frames_number:[Num intValue] EndAnimation:[End intValue] CachedNum:i OffsetX:[_OffsetX intValue]
 										 OffsetY:[_OffsetY intValue] LoopAnimation:[_loop boolValue]];
 					}
 					
@@ -198,7 +198,7 @@
 		EntityState = STOPPED;
 		
 		//put a default animation state
-		[Animation ChangeStatesAndResetAnim:STOPPED];
+		[_Animation ChangeStatesAndResetAnim:STOPPED];
 		
 
 		
@@ -210,8 +210,8 @@
 		//create a physic body for this player class
 		physicBody = [[PhysicBodyBase alloc] init:b2_dynamicBody 
 										TypeShape:typeshape 
-									FixedRotation:FixedRotation 
-								   BodySizeAndPos:CGRectMake(position.x,position.y,[Animation GetFrameSizeWidth],[Animation GetFrameSizeHeight]) 
+									FixedRotation:_FixedRotation 
+								   BodySizeAndPos:CGRectMake(_position.x,_position.y,[_Animation GetFrameSizeWidth],[_Animation GetFrameSizeHeight]) 
 										   HandlerClass:self
 										   Physic:world];
 		}
@@ -227,7 +227,7 @@
 
 - (void) dealloc
 {
-	Animation.AnimationActive = NO;
+	_Animation.AnimationActive = NO;
 	[super dealloc];
 }
 
@@ -255,18 +255,18 @@
 -(void) Update:(float)deltaTime  Touchlocation:(CGPoint)Touchlocation
 {
 	//c = a - b
-	Vector2f tp1 = Vector2fMake(position.x, position.y);
+	Vector2f tp1 = Vector2fMake(_position.x, _position.y);
 	Vector2f tp2 = Vector2fMake(Touchlocation.x, Touchlocation.y);
 	Vector2f tp3 = Vector2fSub(tp1, tp2);
 	
 	//make enough room to handle the thumb propertly
 	if (tp3.x <= 84 && tp3.x > -84 && tp3.y <= 60 && tp3.y > -120)
 	{
-		position.x = Touchlocation.x - (size.x/2);
-		position.y = Touchlocation.y - 70;
+		_position.x = Touchlocation.x - (_size.x/2);
+		_position.y = Touchlocation.y - 70;
 
 		if (physicsEnabled)
-		physicBody.body->SetLinearVelocity(b2Vec2(position.x/PTM_RATIO * speed, position.y/PTM_RATIO * speed));
+		physicBody.body->SetLinearVelocity(b2Vec2(_position.x/PTM_RATIO * _speed, _position.y/PTM_RATIO * _speed));
 		
 	}
 
@@ -305,19 +305,19 @@
 			break;
 			
 		case MOVELEFT:
-			[Animation ChangeStates:MOVELEFT];
+			[_Animation ChangeStates:MOVELEFT];
 			break;
 			
 		case MOVERIGHT:
-			[Animation ChangeStates:MOVERIGHT];
+			[_Animation ChangeStates:MOVERIGHT];
 			break;
 			
 		case MOVEUP:
-			[Animation ChangeStates:MOVEUP];
+			[_Animation ChangeStates:MOVEUP];
 			break;
 			
 		case MOVEDOWN:
-			[Animation ChangeStates:MOVEDOWN];
+			[_Animation ChangeStates:MOVEDOWN];
 			break;
 
 			

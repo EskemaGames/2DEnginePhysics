@@ -8,6 +8,7 @@
 
 
 #import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
 #import <OpenGLES/EAGL.h>
 #import <OpenGLES/ES1/gl.h>
 #import <OpenGLES/ES1/glext.h>
@@ -20,40 +21,30 @@
 
 
 /*
-This class wraps the CAEAGLLayer from CoreAnimation into a convenient UIView subclass.
-The view content is basically an EAGL surface you render your OpenGL scene into.
-Note that setting the view non-opaque will only work if the EAGL surface has an alpha channel.
+ This class wraps the CAEAGLLayer from CoreAnimation into a convenient UIView subclass.
+ The view content is basically an EAGL surface you render your OpenGL scene into.
+ Note that setting the view non-opaque will only work if the EAGL surface has an alpha channel.
  This class only use cadisplay link, and this will only work on sdk 3.1 and superior
-*/
+ */
 @interface EAGLView : UIView {
     
 @private
 	EAGLContext *context;
 	
 	
-	//set the flag to control the screen resolution
+	// The OpenGL names for the framebuffer and renderbuffer used to render to this view
+	GLuint defaultFramebuffer, colorRenderbuffer;
+	
+	//set the flag to control the screen resolution, retina and scale
 	bool isIpad;
 	bool isRetinaDisplay;
 	float screenScale;
 	
-	// The OpenGL names for the framebuffer and renderbuffer used to render to this view
-	GLuint defaultFramebuffer, colorRenderbuffer;
-	
-
-	
-	NSInteger animationFrameInterval;
-	// Use of the CADisplayLink class is the preferred method for controlling your animation timing.
-	// CADisplayLink will link to the main display and fire every vsync when added to a given run-loop.
-	// The NSTimer class is used only as fallback when running on a pre 3.1 device where CADisplayLink
-	// isn't available.
-	id displayLink;
-	
-	BOOL animating;
 	
 	// Time since the last frame was rendered 
 	CFTimeInterval lastTime;
 	
-
+	
 	// State to define if OGL has been initialised or not 
 	bool glInitialised;
 	bool GameInit; 
@@ -61,7 +52,7 @@ Note that setting the view non-opaque will only work if the EAGL surface has an 
 	// Bounds of the current screen 
 	CGRect viewport;
 	
-
+	//deltatime to calculate
 	float delta;
 	//FPS counter
 	float _FPS;
@@ -69,7 +60,8 @@ Note that setting the view non-opaque will only work if the EAGL surface has an 
 	
 	//game states
 	StateManager *States;
-
+	
+	
 	
 }
 
@@ -77,13 +69,12 @@ Note that setting the view non-opaque will only work if the EAGL surface has an 
 
 
 
-@property (readonly, nonatomic, getter=isAnimating) BOOL animating;
-@property (nonatomic) NSInteger animationFrameInterval;
 
 - (BOOL) resizeFromLayer:(CAEAGLLayer *)layer;
-- (void)startAnimation;
-- (void)stopAnimation;
+//- (void)startAnimation;
+- (void)startAnimation:(UIApplication*)application;
 - (void)renderScene;
+-(void)StartGame;
 
 
 //  

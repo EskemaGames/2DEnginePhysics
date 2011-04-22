@@ -98,9 +98,9 @@
 		{
 			// update the sprite's position to where their physics bodies are
 			CGPoint t_point = [self toPixels:body->GetPosition()];
-			actor.position = Vector2fMake(t_point.x, t_point.y);
+			actor._position = Vector2fMake(t_point.x, t_point.y);
 			float angle = body->GetAngle();
-			actor.rotation = RADIANS_TO_DEGREES(angle) * -1;
+			actor._rotation = RADIANS_TO_DEGREES(angle) * -1;
 		}	
 	}
 	

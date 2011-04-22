@@ -37,6 +37,9 @@
 - (void) DrawTextCenteredY:(float)Y  Scale:(float)scale  Text:(NSString *)Text ;
 - (void) DrawTextX:(float)x  Y:(float)y  Scale:(float)scale  Text:(NSString *)Text;
 - (void) DrawTextX:(float)X  Y:(float)Y  Scale:(float)scale  Colors:(Color4f)_colors  Text:(NSString *)Text;
+- (void)DrawFunTextX:(float)X  Y:(float)Y  WaveX:(int)valueA WaveY:(int)valueB  SpeedMovement:(int)valueC Text:(NSString *)Text;
+- (void)DrawFunTextX:(float)X  Y:(float)Y  WaveX:(int)valueA WaveY:(int)valueB  SpeedMovement:(int)valueC Scale:(float)scale Text:(NSString *)Text;
+- (void)DrawFunTextX:(float)X  Y:(float)Y  WaveX:(int)valueA WaveY:(int)valueB  SpeedMovement:(int)valueC Scale:(float)scale   Colors:(Color4f)_colors Text:(NSString *)Text;
 - (int) GetTextWidth:(NSString *)text Scale:(float)scale;
 - (int) GetTextHeight:(float) scale;
 - (int) GetTextHeight:(float) scale myChar:(NSString *)mychar;

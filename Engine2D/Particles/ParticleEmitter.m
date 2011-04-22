@@ -12,7 +12,7 @@
 #import "TBXML.h"
 #import "TBXMLParticleAdditions.h"
 #import "NSDataAdditions.h"
-
+#import "StateManager.h"
 
 
 #pragma mark -
@@ -43,6 +43,10 @@
 @synthesize active;
 @synthesize particleCount;
 @synthesize duration;
+@synthesize delegate;
+
+//@synthesize angle;
+
 
 - (void)dealloc {
 	
@@ -82,6 +86,121 @@
 	}
 	return self;
 }
+
+- (void)updateWithDelta:(GLfloat)aDelta CameraPosition:(Vector2f)_camerapos {
+	
+	// If the emitter is active and the emission rate is greater than zero then emit
+	// particles
+	if(active && emissionRate) {
+		float rate = 1.0f/emissionRate;
+		emitCounter += aDelta;
+		while(particleCount < maxParticles && emitCounter > rate) {
+			[self addParticle];
+			emitCounter -= rate;
+		}
+		
+		elapsedTime += aDelta;
+		if(duration != -1 && duration < elapsedTime)
+			[self stopParticleEmitter];
+	}
+	
+	// Reset the particle index before updating the particles in this emitter
+	particleIndex = 0;
+	
+	// Loop through all the particles updating their location and color
+	while(particleIndex < particleCount) {
+		
+		// Get the particle for the current particle index
+		Particle *currentParticle = &particles[particleIndex];
+        
+        // FIX 1
+        // Reduce the life span of the particle
+        currentParticle->timeToLive -= aDelta;
+		
+		// If the current particle is alive then update it
+		if(currentParticle->timeToLive > 0) {
+			
+			// If maxRadius is greater than 0 then the particles are going to spin otherwise
+			// they are effected by speed and gravity
+			if (emitterType == kParticleTypeRadial) {
+				
+                // FIX 2
+                // Update the angle of the particle from the sourcePosition and the radius.  This is only
+				// done of the particles are rotating
+				currentParticle->angle += currentParticle->degreesPerSecond * aDelta;
+				currentParticle->radius -= currentParticle->radiusDelta;
+                
+				Vector2f tmp;
+				tmp.x = sourcePosition.x  - cosf(currentParticle->angle) * currentParticle->radius;
+				tmp.y = sourcePosition.y - sinf(currentParticle->angle) * currentParticle->radius;
+				currentParticle->position = tmp;
+				
+				if (currentParticle->radius < minRadius)
+					currentParticle->timeToLive = 0;
+			} else {
+				Vector2f tmp, radial, tangential;
+                
+				
+                radial = Vector2fZero;
+                Vector2f diff = Vector2fSub(currentParticle->startPos, Vector2fZero);
+                
+                currentParticle->position = Vector2fSub(currentParticle->position, diff);
+                
+                if (currentParticle->position.x || currentParticle->position.y)
+                    radial = Vector2fNormalize(currentParticle->position);
+                
+                tangential.x = radial.x;
+                tangential.y = radial.y;
+                radial = Vector2fMultiply(radial, currentParticle->radialAcceleration);
+                
+                GLfloat newy = tangential.x;
+                tangential.x = -tangential.y;
+                tangential.y = newy;
+                tangential = Vector2fMultiply(tangential, currentParticle->tangentialAcceleration);
+                
+				tmp = Vector2fAdd( Vector2fAdd(radial, tangential), gravity);
+                tmp = Vector2fMultiply(tmp, aDelta);
+				currentParticle->direction = Vector2fAdd(currentParticle->direction, tmp);
+				tmp = Vector2fMultiply(currentParticle->direction, aDelta);
+				
+				
+				currentParticle->position = Vector2fAdd(currentParticle->position, tmp);
+                currentParticle->position = Vector2fAdd(currentParticle->position, diff);
+			}
+			
+			// Update the particles color
+			currentParticle->color.red += currentParticle->deltaColor.red;
+			currentParticle->color.green += currentParticle->deltaColor.green;
+			currentParticle->color.blue += currentParticle->deltaColor.blue;
+			currentParticle->color.alpha += currentParticle->deltaColor.alpha;
+			
+			// Place the position of the current particle into the vertices array
+			vertices[particleIndex].x = currentParticle->position.x - _camerapos.x;
+			vertices[particleIndex].y = currentParticle->position.y - _camerapos.y;
+			
+			// Place the size of the current particle in the size array
+			currentParticle->particleSize += currentParticle->particleSizeDelta;
+			vertices[particleIndex].size = MAX(0, currentParticle->particleSize);
+			
+			// Place the color of the current particle into the color array
+			vertices[particleIndex].color = currentParticle->color;
+			
+			// Update the particle counter
+			particleIndex++;
+		} else {
+			
+			// As the particle is not alive anymore replace it with the last active particle 
+			// in the array and reduce the count of particles by one.  This causes all active particles
+			// to be packed together at the start of the array so that a particle which has run out of
+			// life will only drop into this clause once
+			if(particleIndex != particleCount - 1)
+				particles[particleIndex] = particles[particleCount - 1];
+			particleCount--;
+		}
+	}
+}
+
+
 
 - (void)updateWithDelta:(GLfloat)aDelta {
 	
@@ -127,7 +246,7 @@
 				currentParticle->radius -= currentParticle->radiusDelta;
                 
 				Vector2f tmp;
-				tmp.x = sourcePosition.x - cosf(currentParticle->angle) * currentParticle->radius;
+				tmp.x = sourcePosition.x  - cosf(currentParticle->angle) * currentParticle->radius;
 				tmp.y = sourcePosition.y - sinf(currentParticle->angle) * currentParticle->radius;
 				currentParticle->position = tmp;
 				
@@ -136,6 +255,7 @@
 			} else {
 				Vector2f tmp, radial, tangential;
                 
+				
                 radial = Vector2fZero;
                 Vector2f diff = Vector2fSub(currentParticle->startPos, Vector2fZero);
                 
@@ -157,6 +277,8 @@
                 tmp = Vector2fMultiply(tmp, aDelta);
 				currentParticle->direction = Vector2fAdd(currentParticle->direction, tmp);
 				tmp = Vector2fMultiply(currentParticle->direction, aDelta);
+				
+				
 				currentParticle->position = Vector2fAdd(currentParticle->position, tmp);
                 currentParticle->position = Vector2fAdd(currentParticle->position, diff);
 			}
@@ -193,10 +315,12 @@
 	}
 }
 
+
 - (void)stopParticleEmitter {
 	active = NO;
 	elapsedTime = 0;
 	emitCounter = 0;
+	[delegate onEmitterEnded];
 }
 
 - (void)renderParticles {
@@ -220,7 +344,8 @@
 		glBindTexture(GL_TEXTURE_2D, [[texture texture] name]);
 		[_sharedTexture setCurrentlyBoundTexture:[[texture texture] name]];
 	}
-
+	
+	
 	// Enable the point size array
 	glEnableClientState(GL_POINT_SIZE_ARRAY_OES);
 	
@@ -283,7 +408,7 @@
 }
 
 
-- (void)initParticle:(Particle*)particle {
+- (void)initParticle:(Particle*)particle{ 
 	
 	// Init the position of the particle.  This is based on the source position of the particle emitter
 	// plus a configured variance.  The RANDOM_MINUS_1_TO_1 macro allows the number to be both positive
@@ -298,7 +423,9 @@
 	float newAngle = (GLfloat)DEGREES_TO_RADIANS(angle + angleVariance * RANDOM_MINUS_1_TO_1());
 	
 	// Create a new Vector2f using the newAngle
-	Vector2f vector = Vector2fMake(cosf(newAngle), sinf(newAngle));
+	//invert coordinates to match my coordinates system
+	//the original particle emitter works with 0,0 at the bottom and my engine have 0,0 at top left
+	Vector2f vector = Vector2fMake(-cosf(newAngle), -sinf(newAngle));
 	
 	// Calculate the vectorSpeed using the speed and speedVariance which has been passed in
 	float vectorSpeed = speed + speedVariance * RANDOM_MINUS_1_TO_1();
@@ -371,10 +498,14 @@
         fileData = [TBXML valueOfAttributeNamed:@"data" forElement:element];
 	}
 	
+	//get the statemanager and invert some coordinates to match my engine coordinates
+	StateManager *_state = [StateManager sharedStateManager];
 	// Load all of the values from the XML file into the particle emitter.  The functions below are using the
 	// TBXMLAdditions category.  This adds convenience methods to TBXML to help cut down on the code in this method.
     emitterType = [aConfig intValueFromChildElementNamed:@"emitterType" parentElement:rootXMLElement];
 	sourcePosition = [aConfig vector2fFromChildElementNamed:@"sourcePosition" parentElement:rootXMLElement];
+	sourcePosition = Vector2fMake(sourcePosition.x, -sourcePosition.y + _state.screenBounds.y);
+	
 	sourcePositionVariance = [aConfig vector2fFromChildElementNamed:@"sourcePositionVariance" parentElement:rootXMLElement];
 	speed = [aConfig floatValueFromChildElementNamed:@"speed" parentElement:rootXMLElement];
 	speedVariance = [aConfig floatValueFromChildElementNamed:@"speedVariance" parentElement:rootXMLElement];
@@ -383,7 +514,9 @@
 	angle = [aConfig floatValueFromChildElementNamed:@"angle" parentElement:rootXMLElement];
 	angleVariance = [aConfig floatValueFromChildElementNamed:@"angleVariance" parentElement:rootXMLElement];
 	gravity = [aConfig vector2fFromChildElementNamed:@"gravity" parentElement:rootXMLElement];
-    radialAcceleration = [aConfig floatValueFromChildElementNamed:@"radialAcceleration" parentElement:rootXMLElement];
+    gravity = Vector2fMake(gravity.x, -gravity.y);
+	
+	radialAcceleration = [aConfig floatValueFromChildElementNamed:@"radialAcceleration" parentElement:rootXMLElement];
     tangentialAcceleration = [aConfig floatValueFromChildElementNamed:@"tangentialAcceleration" parentElement:rootXMLElement];
 	startColor = [aConfig color4fFromChildElementNamed:@"startColor" parentElement:rootXMLElement];
 	startColorVariance = [aConfig color4fFromChildElementNamed:@"startColorVariance" parentElement:rootXMLElement];
@@ -417,10 +550,10 @@
 	
 	// If texture data is present in the file then create the texture image from that data rather than an external file
 	/*if (fileData) {
-		texture = [[Image alloc] initWithTexture:[UIImage imageWithData:[[NSData dataWithBase64EncodedString:fileData] gzipInflate]]  filter:GL_LINEAR Use32bits:YES TotalVertex:(maxParticles*12)];
-		//texture = [[Texture2D alloc] initWithImage:[UIImage imageWithData:[[NSData dataWithBase64EncodedString:fileData] gzipInflate]] filter:GL_LINEAR];
-	}*/
-
+	 texture = [[Image alloc] initWithTexture:[UIImage imageWithData:[[NSData dataWithBase64EncodedString:fileData] gzipInflate]]  filter:GL_LINEAR Use32bits:YES TotalVertex:(maxParticles*12)];
+	 //texture = [[Texture2D alloc] initWithImage:[UIImage imageWithData:[[NSData dataWithBase64EncodedString:fileData] gzipInflate]] filter:GL_LINEAR];
+	 }*/
+	
 	
 	
 }

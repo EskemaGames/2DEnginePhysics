@@ -206,7 +206,7 @@
 	{
 		if (!menustate.fadeOut)
 		{
-			[menustate UpdateTransitionOut];
+			[menustate UpdateTransitionOut:deltaspeed];
 		}
 		else{
 			switch (selected) {

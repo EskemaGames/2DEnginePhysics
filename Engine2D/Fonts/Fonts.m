@@ -10,8 +10,6 @@
 #import "Image.h"
 #import "StateManager.h"
 
-
-
 @implementation Fonts
 
 
@@ -22,7 +20,7 @@
 {
 	self = [super init];
 	if (self != nil) {
-
+		
 		//get the reference to the sprite used for the font
 		fontImg = ImageDraw;
 		
@@ -52,6 +50,9 @@
 	free(vertices);
 	[super dealloc];
 }
+
+
+
 
 
 
@@ -121,7 +122,6 @@
 		}
 		
 		
-		//Quad2f tex = [fontImg getTextureCoordsForSpriteAt:charID  CachedTextures:cachedTexture];
 		Quad2f vert = *[fontImg getVerticesForSpriteAtrect:CGRectMake(dx, dy, arrayFonts[charID].w * scale, arrayFonts[charID].h * scale) Vertices:vertices Flip:1];
 		
 		[fontImg _addVertex:vert.tl_x  Y:vert.tl_y  UVX:cachedTexture[charID].tl_x  UVY:cachedTexture[charID].tl_y  Color:_color];
@@ -140,6 +140,7 @@
 		dx +=  widetext + arrayFonts[charID].offsetx;
 		
 	}//end for	
+	
 	
 }
 
@@ -167,6 +168,7 @@
 	
 	int widthtext =  [self GetTextWidth:Text Scale:scale];
 	pos = (_state.screenBounds.x * 0.5f) - (widthtext/2);
+	
 	
 	
 	float dx = pos;
@@ -233,6 +235,97 @@
 
 
 
+//draw wave text
+/*
+ float angle += 0.3f;
+ [_fontScreen DrawFunTextX:100 
+ Y:180 
+ WaveX:20 WaveY:150 SpeedMovement:angle 
+ Scale:1.0f Colors:Color4fInit 
+ Text:@"Hello"];
+ */
+//==============================================================================
+-(void)DrawFunTextX:(float)X  Y:(float)Y  WaveX:(int)valueA WaveY:(int)valueB SpeedMovement:(int)valueC Text:(NSString *)Text
+{
+	[self DrawFunTextX:X Y:Y WaveX:valueA WaveY:valueB SpeedMovement:valueC Scale:1.0f Colors:Color4fInit Text:Text];
+}
+-(void)DrawFunTextX:(float)X  Y:(float)Y  WaveX:(int)valueA WaveY:(int)valueB SpeedMovement:(int)valueC Scale:(float)scale Text:(NSString *)Text
+{
+	[self DrawFunTextX:X Y:Y WaveX:valueA WaveY:valueB SpeedMovement:valueC Scale:scale Colors:Color4fInit Text:Text];
+}
+
+-(void)DrawFunTextX:(float)X  Y:(float)Y  WaveX:(int)valueA WaveY:(int)valueB SpeedMovement:(int)valueC Scale:(float)scale   Colors:(Color4f)_colors Text:(NSString *)Text 
+{
+	
+	float B=6.28/valueB; //pi*2 / valueB
+	
+	float dx = X;
+	float dy;
+	float widetext;
+	float offsetY;
+	int fontlineskip = 0;
+	
+	unsigned char red = _colors.red * 1.0f;
+	unsigned char green = _colors.green * 1.0f;
+	unsigned char blue = _colors.blue * 1.0f;
+	unsigned char shortAlpha = _colors.alpha * 255.0f;
+	//	pack all of the color data bytes into an unsigned int
+	unsigned _color = (shortAlpha << 24) | (blue << 16) | (green << 8) | (red << 0);
+	
+	
+	for(int i=0; i<[Text length]; i++) {
+		
+		// Grab the unicode value of the current character
+		unichar charID = [Text characterAtIndex:i];
+		
+		if (charID == '\n') {
+			//calculate the size to center text on Y axis, based on its scale
+			fontlineskip += [self GetTextHeight:scale];
+			dx = X;
+		}
+		else {
+			//calculate the size to center text on Y axis, based on its scale
+			offsetY = arrayFonts[charID].offsety * scale;
+			dy = (Y + offsetY + fontlineskip) + (int)(valueA*sinf(B*(dx+valueC)));
+			
+		}
+		
+		
+		Quad2f vert = *[fontImg getVerticesForSpriteAtrect:CGRectMake(dx , dy, arrayFonts[charID].w * scale, arrayFonts[charID].h * scale) Vertices:vertices Flip:1];
+		
+		[fontImg _addVertex:vert.tl_x  Y:vert.tl_y  UVX:cachedTexture[charID].tl_x  UVY:cachedTexture[charID].tl_y  Color:_color];
+		[fontImg _addVertex:vert.tr_x  Y:vert.tr_y  UVX:cachedTexture[charID].tr_x  UVY:cachedTexture[charID].tr_y  Color:_color];
+		[fontImg _addVertex:vert.bl_x  Y:vert.bl_y  UVX:cachedTexture[charID].bl_x  UVY:cachedTexture[charID].bl_y  Color:_color];
+		
+		// Triangle #2
+		[fontImg _addVertex:vert.tr_x  Y:vert.tr_y  UVX:cachedTexture[charID].tr_x  UVY:cachedTexture[charID].tr_y  Color:_color];
+		[fontImg _addVertex:vert.bl_x  Y:vert.bl_y  UVX:cachedTexture[charID].bl_x  UVY:cachedTexture[charID].bl_y  Color:_color];
+		[fontImg _addVertex:vert.br_x  Y:vert.br_y  UVX:cachedTexture[charID].br_x  UVY:cachedTexture[charID].br_y  Color:_color];
+		
+		
+		//calculate the size to advance, based on its scale
+		widetext = (arrayFonts[charID].xadvance  * scale);
+		
+		//advance the position to draw the next letter
+		dx +=  widetext + arrayFonts[charID].offsetx;
+		
+		
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -266,6 +359,7 @@
 	unsigned char shortAlpha = _colors.alpha * 255.0f;
 	
 	
+	
 	//	pack all of the color data bytes into an unsigned int
 	unsigned _color = (shortAlpha << 24) | (blue << 16) | (green << 8) | (red << 0);
 	
@@ -288,7 +382,7 @@
 		
 		
 		Quad2f vert = *[fontImg getVerticesForSpriteAtrect:CGRectMake(dx, dy, arrayFonts[charID].w * scale, arrayFonts[charID].h * scale) Vertices:vertices Flip:1];
-		
+	
 		[fontImg _addVertex:vert.tl_x  Y:vert.tl_y  UVX:cachedTexture[charID].tl_x  UVY:cachedTexture[charID].tl_y  Color:_color];
 		[fontImg _addVertex:vert.tr_x  Y:vert.tr_y  UVX:cachedTexture[charID].tr_x  UVY:cachedTexture[charID].tr_y  Color:_color];
 		[fontImg _addVertex:vert.bl_x  Y:vert.bl_y  UVX:cachedTexture[charID].bl_x  UVY:cachedTexture[charID].bl_y  Color:_color];
@@ -297,6 +391,7 @@
 		[fontImg _addVertex:vert.tr_x  Y:vert.tr_y  UVX:cachedTexture[charID].tr_x  UVY:cachedTexture[charID].tr_y  Color:_color];
 		[fontImg _addVertex:vert.bl_x  Y:vert.bl_y  UVX:cachedTexture[charID].bl_x  UVY:cachedTexture[charID].bl_y  Color:_color];
 		[fontImg _addVertex:vert.br_x  Y:vert.br_y  UVX:cachedTexture[charID].br_x  UVY:cachedTexture[charID].br_y  Color:_color];
+		
 		
 		//calculate the size to advance, based on its scale
 		widetext = (arrayFonts[charID].xadvance  * scale);
@@ -327,7 +422,7 @@
 		if (charID == '\n') {
 			return linelength;
 		}else {
-			linelength += arrayFonts[charID].w * scale;
+			linelength += (arrayFonts[charID].w * scale);
 		}		
 	}
 	
@@ -348,18 +443,20 @@
 	return (arrayFonts[77].h + 7) * scale; 
 }
 
+
 -(int) GetTextHeight:(float) scale myChar:(NSString *)mychar
 {
-	//return "M" wich usually it's
-	//the biggest char on the font
-	//plus 7 pixels more to get text
-	//a little bit more spaced
+	//return character height size
 	unichar charID = [mychar characterAtIndex:0];
 	return (arrayFonts[charID].h) * scale; 
 }
 
+
+
+
 //parse the font and fill the cached quad array with texture coordinates
 //this is done only once and improves the performace a lot
+//==============================================================================
 - (void)parseFont:(NSString*)controlFile {
 	
 	// Read the contents of the file into a string
@@ -388,6 +485,7 @@
 
 
 
+//==============================================================================
 - (void)parseCharacterDefinition:(NSString*)line{
 	
 	int idNum;
@@ -454,3 +552,4 @@
 
 
 @end
+

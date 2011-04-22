@@ -153,6 +153,8 @@ typedef struct Tiles2 {
 -(int)GetLayerCollision;
 -(int)GetLayerObjects;
 
+-(void)UpdateMapRotation;
+
 
 //reset all values to 0
 -(void) CleanLevel;

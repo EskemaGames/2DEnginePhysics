@@ -94,8 +94,15 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(StateManager);
 	//and set the property to the screen orientation
 	input = [[InputManager alloc] init];
 	if (landscapeView)
-    input.isLandscape = YES;
-	else input.isLandscape = NO;
+	{
+		input.isLandscape = YES;
+		input.upsideDown = NO;
+	}
+	else{
+		input.isLandscape = NO;
+		input.upsideDown = YES;
+	}
+	
 	 
 }
 
@@ -144,52 +151,33 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(StateManager);
 
 //the counter alpha value is some value that fit may needs
 //you can change this to modify the speed of the transitions (fade out/in)
--(void) UpdateScreenTransition
-{
+-(void) UpdateScreenTransition:(float)deltaTime 
+{	
+	alpha -= 1.0f * deltaTime;
 	
-	if( !( counteralpha%5 ) ) 
-	{
-		TimeAlpha--;
-		
-		if (alpha > 0.0f)
-		{
-			alpha -=0.1f;
-		}
-	}
-	counteralpha++;
-	
-	if (TimeAlpha <= 0)
+	if (alpha < 0.0f)
 	{
 		fadecompleted = YES;
 		alpha = 1.0f;
-		TimeAlpha = 10;
-		counteralpha = 0;
 	}
+	
 }
 
 
--(void) UpdateTransitionOut
+-(void) UpdateTransitionOut:(float)deltaTime
 {
+	alphaOut += 1.0f * deltaTime; 
 	
-	if( !( counteralphaOut%7 ) ) //7 its some value that fit my needs
-	{
-		TimeAlphaOut--;
-		
-		if (alphaOut < 1.0f)
-		{
-			alphaOut +=0.1f;
-		}
-	}
-	counteralphaOut++;
 	
-	if (TimeAlphaOut <= 0)
+	if (alphaOut > 1.0f)
 	{
 		fadeOut = YES;
-		alphaOut = 1.0f; 
-		TimeAlphaOut = 10;
-		counteralphaOut = 0;
+		alphaOut = 1.0f;
 	}
+	
+	
 }
+
 
 
 
@@ -218,7 +206,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(StateManager);
 		case PLAY:
 			if (!fadecompleted)
 			{
-				[self UpdateScreenTransition];
+				[self UpdateScreenTransition:deltaTime];
 			}
 			else{
 				[MainGame handleInput];
@@ -229,7 +217,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(StateManager);
 		case PLAYNOPHYSICS:
 			if (!fadecompleted)
 			{
-				[self UpdateScreenTransition];
+				[self UpdateScreenTransition:deltaTime];
 			}
 			else{
 				[MainGameNoPhysics handleInput];
@@ -241,7 +229,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(StateManager);
 		case PLAYTILEDMAP:
 			if (!fadecompleted)
 			{
-				[self UpdateScreenTransition];
+				[self UpdateScreenTransition:deltaTime];
 			}
 			else{
 				[_Tiledgame handleInput];
@@ -254,7 +242,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(StateManager);
 		case MENU:
 			if (!fadecompleted)
 			{
-				[self UpdateScreenTransition];
+				[self UpdateScreenTransition:deltaTime];
 			}
 			else{
 				[MainMenu handleInput];

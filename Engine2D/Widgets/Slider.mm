@@ -1,6 +1,6 @@
 //
 //  Slider.mm
-//  HappyJumper
+//  
 //
 //  Created by Alejandro Perez Perez on 26/03/11.
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
@@ -20,7 +20,7 @@
 @synthesize locAtlasBackground;
 @synthesize locAtlasCap;
 
-@synthesize scale;
+
 @synthesize touch;
 @synthesize scaleText;
 
@@ -31,14 +31,14 @@
 	if (self != nil) {
 		
 		value = 0.0f;
-		self.position = pos;
-		self.size = Size;
+		self._position = pos;
+		self._size = Size;
 		locAtlasBackground = LocAtlas;
 		locAtlasCap = LocAtlasCap;
 		CapPosition = Vector2fZero;
 		CapSize = capsize;
-		scale = Scale;
-		touch = CGRectMake(pos.x, pos.y, self.size.x * Scale.x, self.size.y * Scale.y); 
+		self._scale = Scale;
+		touch = CGRectMake(pos.x, pos.y, self._size.x * Scale.x, self._size.y * Scale.y); 
 		sliderImg = image;
 		active = Active;
 	}
@@ -69,43 +69,42 @@
 
 -(float) GetSliderCenterY
 {
-	return self.position.y + ((self.size.y * scale.y) * 0.5f);
+	return self._position.y + ((self._size.y * self._scale.y) * 0.5f);
 }
 
 
-//set the initial value, values goes from 0.0f to 1.0f
+
 -(void)SetInitialSliderValue:(float)newValue
 {
 	if (newValue < 0.0) newValue = 0.0;
     if (newValue > 1.0) newValue = 1.0;
     value = newValue;
-
 	
-	CapPosition.x = (self.position.x + (value * (self.size.x * scale.x))) - ((CapSize.x * 0.5f) * 0.5f);
+	
+	CapPosition.x = (self._position.x + (value * (self._size.x * self._scale.x))) - ((CapSize.x * 0.5f) * 0.5f);
 	CapPosition.y = [self GetSliderCenterY] - (CapSize.y * 0.5f); 
 }
 
 
 
-//update the cap slider position to be in the center of the touch
 -(void)UpdateSlider
 {
 	StateManager *_state = [StateManager sharedStateManager];
 	
 	
-	if ([InputManager doesRectangle:CGRectMake(self.position.x, self.position.y, self.size.x * scale.x, self.size.y * scale.y) ContainPoint:_state.input.currentState.touchLocation])
+	if ([InputManager doesRectangle:CGRectMake(self._position.x, self._position.y, self._size.x * self._scale.x, self._size.y * self._scale.y) ContainPoint:_state.input.currentState.touchLocation])
 	{
 		CapPosition.x = _state.input.currentState.touchLocation.x;
-	
-		value = (( CapPosition.x - self.position.x + ( self.size.x * scale.x)) / ( self.position.x - self.position.x + (self.size.x * scale.x)) ) - 1.0f;
-	
-		CapPosition.x = (self.position.x + (value * (self.size.x * scale.x))) - ((CapSize.x * 0.5f) * 0.5f);
+		
+		value = (( CapPosition.x - self._position.x + ( self._size.x * self._scale.x)) / ( self._position.x - self._position.x + (self._size.x * self._scale.x)) ) - 1.0f;
+		
+		CapPosition.x = (self._position.x + (value * (self._size.x * self._scale.x))) - ((CapSize.x * 0.5f) * 0.5f);
 		CapPosition.y = [self GetSliderCenterY] - (CapSize.y * 0.5f);
 		
 		[delegate valueChanged:value];
 	}
-
-
+	
+	
 }
 
 
@@ -114,12 +113,12 @@
 	if (active)
 	{
 		//draw slider background
-		[sliderImg DrawSprites:CGRectMake(self.position.x, self.position.y , self.size.x*scale.x, self.size.y*scale.y) 
-					 OffsetPoint:CGPointMake(locAtlasBackground.x, locAtlasBackground.y) 
-					  ImageWidth:self.size.x ImageHeight:self.size.y 
-							Flip:1 
-						  Colors:Color4fInit 
-						Rotation:0.0f];
+		[sliderImg DrawSprites:CGRectMake(self._position.x, self._position.y , self._size.x*self._scale.x, self._size.y*self._scale.y) 
+				   OffsetPoint:CGPointMake(locAtlasBackground.x, locAtlasBackground.y) 
+					ImageWidth:self._size.x ImageHeight:self._size.y 
+						  Flip:1 
+						Colors:Color4fInit 
+					  Rotation:0.0f];
 		
 		//draw slider cap
 		[sliderImg DrawSprites:CGRectMake(CapPosition.x - (CapSize.x * 0.5f), CapPosition.y, CapSize.x, CapSize.y) 

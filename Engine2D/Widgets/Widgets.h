@@ -20,10 +20,8 @@
 //a widget is usually a button with or without a text
 @interface Widgets : SpriteBase
 {
-
 	Vector2f locAtlas;
 	Color4f color;
-	Vector2f scale;
 	CGRect touch;
 	Image *widgetImage;
 	Fonts *widgetFont;
@@ -32,12 +30,11 @@
 }
 
 
-@property (readwrite) bool active;
-@property (readwrite) Vector2f locAtlas;
-@property (readwrite) Color4f color;
-@property (readwrite) Vector2f scale;
-@property (readwrite) CGRect touch;
-@property (readwrite) float scaleText;
+@property (nonatomic, readwrite) bool active;
+@property (nonatomic, readwrite) Vector2f locAtlas;
+@property (nonatomic, readwrite) Color4f color;
+@property (nonatomic, readwrite) CGRect touch;
+@property (nonatomic, readwrite) float scaleText;
 
 
 
@@ -58,6 +55,7 @@
 
 - (void) DrawWidget:(Vector2f)camerapos;
 - (void) DrawWidget;
+- (void) DrawWidgetColored:(Color4f)_color;
 - (void) DrawWidgetFont:(NSString *)text Scale:(float)scaletext Color:(Color4f)colortext;
 - (void) DrawWidgetFont:(NSString *)text;
 - (int) GetCenterOfWidgetY;

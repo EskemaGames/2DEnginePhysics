@@ -193,7 +193,7 @@
 	{
 		if (!gameState.fadeOut)
 		{
-			[gameState UpdateTransitionOut];
+			[gameState UpdateTransitionOut:deltaTime];
 		}
 		else{
 			[gameState ChangeStates:MENU];

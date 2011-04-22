@@ -12,7 +12,6 @@
 @synthesize EndAnimation;
 @synthesize AnimationActive;
 
-
 - (id) init 
 {  
     self = [super init];  
@@ -22,12 +21,11 @@
 	frametoDisplay = 0;
 	EndAnimation = NO;
 	AnimationActive = NO;
-	
 	//create a sprite array to hold all the animations and states
 	//init only half array, the other part will be initiated
 	//when you parse the xml file with the proper size
 	SpriteFrames = (_AnimationSprite **)malloc(_TOTALSTATES * sizeof(_AnimationSprite *));
-
+	
     return self;  
 }
 
@@ -48,7 +46,7 @@
 	//alloc size for this animation
 	SpriteFrames[states] = (_AnimationSprite *)malloc(num * sizeof(_AnimationSprite));
 }
-	
+
 
 
 //this is the "core" of this class, we load each animation per separately
@@ -89,6 +87,7 @@
 //increase our frame animation, setting the delay we want
 -(int) NextAnimationFrame
 {
+	
 	if (delay < 0) //if delay < 0, change to next frame and reset delay counter
 	{
 		step ++;
@@ -117,6 +116,7 @@
 	}
 	else delay --;
 	
+	
 	return 0;
 }
 
@@ -125,7 +125,6 @@
 {
 	return SpriteFrames[status][0].loopAnimation;
 }
-
 
 //select the frame we want to show
 -(void) SelectFrame:(int) frames
@@ -142,6 +141,15 @@
 	return SpriteFrames[status][step].cachedFrameNum;
 }
 
+-(int)GetActualFrameValueX
+{
+	return SpriteFrames[status][step].posX;
+}
+
+-(int)GetActualFrameValueY
+{
+	return SpriteFrames[status][step].posY;
+}
 
 
 //return the values for this animation
@@ -152,7 +160,7 @@
 
 -(int)GetFrameSizeHeight
 {
-	return SpriteFrames[status][step].h;
+	return SpriteFrames[status][step].h; 
 }
 
 -(int)GetFrameOffsetX
@@ -175,8 +183,6 @@
 
 
 
-
-
 /////////////////////
 ////////////////////
 /// STATES
@@ -194,14 +200,16 @@
 
 
 
-
 //change our state and reset the animation to its first frame
 -(void) ChangeStatesAndResetAnim:(state) State
 {
-	EndAnimation = NO;
-	AnimationActive = YES;
-	status = State;
-	step = 0;
+	if (status != State)
+	{
+		EndAnimation = NO;
+		AnimationActive = YES;
+		status = State;
+		step = 0;
+	}
 }
 
 

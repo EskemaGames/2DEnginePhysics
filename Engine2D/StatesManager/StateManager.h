@@ -112,8 +112,8 @@
 - (int) GetState;
 - (void)ResetScene;
 - (void) ChangeStates:(options)optionselected;
-- (void) UpdateScreenTransition;
-- (void) UpdateTransitionOut;
+- (void) UpdateScreenTransition:(float)deltaTime;
+- (void) UpdateTransitionOut:(float)deltaTime;
 - (void) fadeBackBufferToBlack:(double)alpha1;
 - (void) updateScene:(float)deltaTime; 
 - (void) DrawScene;
