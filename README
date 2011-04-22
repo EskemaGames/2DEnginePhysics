@@ -36,6 +36,18 @@ Just doing this the Tiled class will recognize this as an animated tile and will
 
 
 
+22/04/2011
+-Added ActionManager class, very basic for now, just to move widgets or sprites from one position to another
+-Fixed things and added rotation to sprites in BaseActor class, now all sprites responds to the rotation if any
+-Added new font effects to the Fonts class
+-Removed the CALinkdisplay method in EAGLView and switched to a thread for better performance
+-Modified particle emitter class to accept the use of a camera, useful in games with scroll to place effects outside screen respecting the camera position
+
+
+
+
+
+
 
 
 
@@ -65,6 +77,7 @@ All the sprites are cached using a vertex array interleaved buffer, no VBO used
 -Statemanager, to control the game workflow.
 -Physics with Box2D
 -Joystick class for virtual joystick support on your games
+-ActionManager class for automatic movement of sprites
 
 
 The engine comes with an example with a main menu and 2 scenes, one with physics and another with a tilemap with automatic scroll, like a topdown shooter. Learn how you can go from the menu to the game and return to the menu with the buttons included in the game. The top right button pauses the game, then with the game paused press the bottom right button to exit the game to the main menu.

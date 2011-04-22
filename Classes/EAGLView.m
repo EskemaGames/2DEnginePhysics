@@ -392,71 +392,71 @@
 	
 	UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
 	
-	/*if (orientation == UIDeviceOrientationLandscapeRight) {
-	 States.interfaceOrientation = UIInterfaceOrientationLandscapeRight;
-	 States.input.isLandscape = YES;
-	 States.input.upsideDown = NO;
-	 glMatrixMode(GL_PROJECTION);  
-	 glLoadIdentity();  
-	 if (isIpad)
-	 viewport = CGRectMake(0, 0, 1024, 768);
-	 else {
-	 viewport = CGRectMake(0, 0, 480, 320);
-	 }
+	if (orientation == UIDeviceOrientationLandscapeRight) {
+		States.interfaceOrientation = UIInterfaceOrientationLandscapeRight;
+		States.input.isLandscape = YES;
+		States.input.upsideDown = NO;
+		glMatrixMode(GL_PROJECTION);  
+		glLoadIdentity();  
+		if (isIpad)
+			viewport = CGRectMake(0, 0, 1024, 768);
+		else {
+			viewport = CGRectMake(0, 0, 480, 320);
+		}
+		
+		if (isRetinaDisplay)
+		{
+			if (States)
+				States.screenBounds = Vector2fMake(viewport.size.width, viewport.size.height);
+			glViewport(0, 0, viewport.size.height * screenScale, viewport.size.width * screenScale);  
+			glRotatef(90, 0, 0, 1);  
+			glOrthof(0, viewport.size.width * screenScale, viewport.size.height * screenScale, 0, -1.0, 1.0);    
+		}
+		else {
+			if (States)
+				States.screenBounds = Vector2fMake(viewport.size.width, viewport.size.height);
+			glViewport(0, 0, viewport.size.height, viewport.size.width);  
+			glRotatef(90, 0, 0, 1);  
+			glOrthof(0, viewport.size.width, viewport.size.height, 0, -1.0, 1.0);
+		}
+		
+		glMatrixMode(GL_MODELVIEW);  
+		glLoadIdentity(); 
+	}
+	
+	if (orientation == UIDeviceOrientationLandscapeLeft) {
+		States.interfaceOrientation = UIInterfaceOrientationLandscapeLeft;
+		States.input.isLandscape = YES;
+		States.input.upsideDown = NO;
+		glMatrixMode(GL_PROJECTION);  
+		glLoadIdentity();  
+		if (isIpad)
+			viewport = CGRectMake(0, 0, 1024, 768);
+		else {
+			viewport = CGRectMake(0, 0, 480, 320);
+		}
+		
+		if (isRetinaDisplay)
+		{
+			if (States)
+				States.screenBounds = Vector2fMake(viewport.size.width, viewport.size.height);
+			glViewport(0, 0, viewport.size.height * screenScale, viewport.size.width * screenScale);  
+			glRotatef(-90, 0, 0, 1);  
+			glOrthof(0, viewport.size.width * screenScale, viewport.size.height * screenScale, 0, -1.0, 1.0);    
+		}
+		else {
+			if (States)
+				States.screenBounds = Vector2fMake(viewport.size.width, viewport.size.height);
+			glViewport(0, 0, viewport.size.height, viewport.size.width);  
+			glRotatef(-90, 0, 0, 1);  
+			glOrthof(0, viewport.size.width, viewport.size.height, 0, -1.0, 1.0); 
+		}
+		
+		glMatrixMode(GL_MODELVIEW);  
+		glLoadIdentity(); 
+		
+	}
 	 
-	 if (isRetinaDisplay)
-	 {
-	 if (States)
-	 States.screenBounds = Vector2fMake(viewport.size.width, viewport.size.height);
-	 glViewport(0, 0, viewport.size.height * screenScale, viewport.size.width * screenScale);  
-	 glRotatef(90, 0, 0, 1);  
-	 glOrthof(0, viewport.size.width * screenScale, viewport.size.height * screenScale, 0, -1.0, 1.0);    
-	 }
-	 else {
-	 if (States)
-	 States.screenBounds = Vector2fMake(viewport.size.width, viewport.size.height);
-	 glViewport(0, 0, viewport.size.height, viewport.size.width);  
-	 glRotatef(90, 0, 0, 1);  
-	 glOrthof(0, viewport.size.width, viewport.size.height, 0, -1.0, 1.0);
-	 }
-	 
-	 glMatrixMode(GL_MODELVIEW);  
-	 glLoadIdentity(); 
-	 }
-	 
-	 if (orientation == UIDeviceOrientationLandscapeLeft) {
-	 States.interfaceOrientation = UIInterfaceOrientationLandscapeLeft;
-	 States.input.isLandscape = YES;
-	 States.input.upsideDown = NO;
-	 glMatrixMode(GL_PROJECTION);  
-	 glLoadIdentity();  
-	 if (isIpad)
-	 viewport = CGRectMake(0, 0, 1024, 768);
-	 else {
-	 viewport = CGRectMake(0, 0, 480, 320);
-	 }
-	 
-	 if (isRetinaDisplay)
-	 {
-	 if (States)
-	 States.screenBounds = Vector2fMake(viewport.size.width, viewport.size.height);
-	 glViewport(0, 0, viewport.size.height * screenScale, viewport.size.width * screenScale);  
-	 glRotatef(-90, 0, 0, 1);  
-	 glOrthof(0, viewport.size.width * screenScale, viewport.size.height * screenScale, 0, -1.0, 1.0);    
-	 }
-	 else {
-	 if (States)
-	 States.screenBounds = Vector2fMake(viewport.size.width, viewport.size.height);
-	 glViewport(0, 0, viewport.size.height, viewport.size.width);  
-	 glRotatef(-90, 0, 0, 1);  
-	 glOrthof(0, viewport.size.width, viewport.size.height, 0, -1.0, 1.0); 
-	 }
-	 
-	 glMatrixMode(GL_MODELVIEW);  
-	 glLoadIdentity(); 
-	 
-	 }
-	 */
 	
 	
 	
