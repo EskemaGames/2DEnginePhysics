@@ -66,7 +66,7 @@
 }
 
 
-
+@property (nonatomic, readwrite) bool isRetinaDisplay;
 
 
 

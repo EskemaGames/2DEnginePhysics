@@ -157,6 +157,7 @@
 	
 }
 
+//draw a widget with some text, usually a menu button with the text "play" or whatever
 - (void) DrawWidgetFont:(NSString *)text
 {	
 	

@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h> 
+@class EAGLView;
 @class Image;
 
 
@@ -30,7 +31,8 @@
 
 @interface StateManager : NSObject 
 {
-
+    //added to control uikit views
+    EAGLView *eaglView;
 	UIInterfaceOrientation interfaceOrientation;
 	
 	//enum for states
@@ -86,6 +88,7 @@
 
 @property (readwrite) bool isIpad;
 @property (nonatomic, retain) SoundManager *sharedSoundManager;
+@property (nonatomic, retain) EAGLView *eaglView;
 @property (nonatomic, assign) UIInterfaceOrientation interfaceOrientation;
 @property (nonatomic, readwrite) Vector2f screenBounds;
 @property (nonatomic, retain) InputManager *input;

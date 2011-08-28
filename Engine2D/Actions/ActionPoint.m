@@ -14,6 +14,13 @@
 @synthesize m_speed;
 @synthesize m_entityPoint;
 
+@synthesize _duration;
+@synthesize oldDuration;
+@synthesize distX, distY;
+@synthesize from_;
+@synthesize to_;
+@synthesize delta_;
+
 
 - (id) init
 {

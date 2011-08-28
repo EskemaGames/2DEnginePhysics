@@ -8,6 +8,8 @@
 
 
 #import "StateManager.h"
+#import "EAGLView.h"
+#import "SynthesizeSingleton.h"
 //include image to handle the fade image
 #import "Image.h"
 
@@ -24,6 +26,7 @@
 @synthesize isIpad;
 @synthesize isRetinaDisplay;
 @synthesize sharedSoundManager;
+@synthesize eaglView;
 @synthesize interfaceOrientation;
 @synthesize input;
 @synthesize joystick;
@@ -111,6 +114,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(StateManager);
 // release resources when they are no longer needed.
 - (void)dealloc
 {	
+    eaglView = nil;
 	[sharedSoundManager shutdownSoundManager];
 	[blanktexture release];
 	[input release];

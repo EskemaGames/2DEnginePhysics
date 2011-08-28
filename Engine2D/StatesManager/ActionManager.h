@@ -29,7 +29,7 @@
 @interface ActionManager : NSObject {
 	
 	SpriteBase *m_sprite;
-
+    
 	//position
 	Vector2f m_position;
 	// Velocity
@@ -42,18 +42,15 @@
 	
 	// Array of waypoints this entity is to follow
 	NSMutableArray *m_entityPath;
-
+    
+	NSMutableArray *m_ActionPath;
+	
 	//flag for the action
 	bool ActionEnded;
 	bool repeatAction;
 	
 	id<ActionManagerProtocol> delegate;
 	
-	float			_duration;		//duration of this action
-	float			oldDuration;
-	float		distX, distY;		//dist to travel in this action
-	Vector2f		from_, to_;		//initial and destination points
-	Vector2f		delta_;			//delta distance between initial and destination point
 	
 }
 
@@ -64,16 +61,18 @@
 
 
 -(id) init:(SpriteBase *)spriteforAction RepeatAction:(bool)RepeatAction;
--(id)initWithDuration:(SpriteBase *)sprite Duration:(float)duration from:(Vector2f)from to:(Vector2f)to;
+-(id)initWithDuration:(SpriteBase *)sprite RepeatAction:(bool)RepeatAction;
 -(void)AddPointsToRoute:(Vector2f)onePoint Speed:(float)Speed;
 -(void)SetInitialPoint;
 -(void)MoveToPosition:(float)GameSpeed;
 -(void)RestartAction;
 
+-(void)SetInitialActionPoint;
+-(void)AddPointsToActionDuration:(float)duration from:(Vector2f)from to:(Vector2f)to EmptyAction:(bool)empty;
 -(void)RestartTimeAction;
 -(void)UpdateTimeAction:(float)deltaTime;
-
 @end
+
 
 
 // how to use this class

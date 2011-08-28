@@ -25,43 +25,42 @@
 	if (self != nil) {
 		m_sprite = spriteforAction;
 		m_position = m_sprite._position;
-		m_entityPath = [[NSMutableArray alloc] init];
+		m_entityPath = [[NSMutableArray alloc] initWithCapacity:5];
 		ActionEnded = NO;
 		repeatAction = RepeatAction;
 		m_wayPointCount = 0;
 		m_currentWayPoint = 0;
 		m_velocity = Vector2fZero;
 		
-
+        
 	}
 	return self;
 }
 
 
-- (id)initWithDuration:(SpriteBase *)sprite Duration:(float)duration from:(Vector2f)from to:(Vector2f)to 
+- (id)initWithDuration:(SpriteBase *)sprite RepeatAction:(bool)RepeatAction
 {
     
 	self = [super init];
 	if (self != nil) {
 		m_sprite = sprite;
-		m_position = Vector2fMake(from.x, from.y);
-		_duration = duration;
-		to_		= to;
-		from_	= from;
-		delta_ = Vector2fSub(to_, from_);
-		distX = delta_.x / _duration;
-		distY = delta_.y / _duration;
-		oldDuration = _duration;
-		
+		m_ActionPath = [[NSMutableArray alloc] initWithCapacity:5];
+		m_wayPointCount = 0;
+		m_currentWayPoint = 0;
+		repeatAction = RepeatAction;
 	}
     
 	return self;
 }
 
 
+
+
+
 - (void) dealloc
 {
 	[m_entityPath release];
+	[m_ActionPath release];
 	[super dealloc];
 }
 
@@ -76,6 +75,8 @@
 	[tmp release];
 	
 }
+
+
 
 
 //establish the first point for the action
@@ -140,7 +141,7 @@
 	m_position.x += (waypoint.m_speed*2) * m_velocity.x * GameSpeed;
 	m_position.y += (waypoint.m_speed*2) * m_velocity.y * GameSpeed;
 	
-
+    
 	// If the player gets to within a defined # of pixels from waypoint move to the next waypoint
 	if((m_position.x - waypoint.m_entityPoint.x) >= -WAYPOINT_DISTANCE && 
 	   (m_position.x - waypoint.m_entityPoint.x) <= WAYPOINT_DISTANCE && 
@@ -167,9 +168,9 @@
 		// Set the next waypoint from the entity path
 		waypoint = [m_entityPath objectAtIndex:m_currentWayPoint];
 	}
-
+    
 	m_sprite._position = m_position;
-
+    
 }
 
 
@@ -179,15 +180,71 @@
 
 
 
+#pragma mark -
+#pragma mark  time actions
+
+-(void)AddPointsToActionDuration:(float)duration from:(Vector2f)from to:(Vector2f)to EmptyAction:(bool)empty
+{
+	ActionPoint *tmp = [[ActionPoint alloc] init];
+    
+	//empty action means this will be our last action
+	//we only want to use this as a pause
+	if (empty)
+	{
+		ActionPoint *t = [m_ActionPath lastObject];
+		tmp._duration = duration;
+		tmp.to_ = t.to_;
+		tmp.from_ = t.from_;
+		tmp.delta_ = Vector2fSub(t.to_, t.from_);
+		tmp.distX = tmp.delta_.x / duration;
+		tmp.distY = tmp.delta_.y / duration;
+		tmp.oldDuration = duration;
+		
+		[m_ActionPath addObject:t];
+		m_wayPointCount = [m_ActionPath count];
+	}
+	else {
+		tmp._duration = duration;
+		tmp.to_ = to;
+		tmp.from_ = from;
+		tmp.delta_ = Vector2fSub(to, from);
+		tmp.distX = tmp.delta_.x / duration;
+		tmp.distY = tmp.delta_.y / duration;
+		tmp.oldDuration = duration;
+		
+		[m_ActionPath addObject:tmp];
+		m_wayPointCount = [m_ActionPath count];
+	}
+    
+	
+	[tmp release];
+	
+	
+	
+}
+
+-(void)SetInitialActionPoint
+{
+	ActionPoint *waypoint = [m_ActionPath objectAtIndex:0];
+	m_position = Vector2fMake(waypoint.from_.x, waypoint.from_.y);
+	m_sprite._position = m_position;
+	m_currentWayPoint = 0;
+}
 
 
 //reset positions and time to play again this action
 -(void)RestartTimeAction
 {
 	ActionEnded = NO;
-	_duration = oldDuration;
-	m_position = from_;
+	ActionPoint *waypoint = [m_ActionPath objectAtIndex:0];
+	waypoint._duration = waypoint.oldDuration;
+	m_position = waypoint.from_;
+    
 }
+
+
+
+
 
 
 -(void)UpdateTimeAction:(float)deltaTime
@@ -195,29 +252,47 @@
 	if (ActionEnded)
 		return;
 	
+	ActionPoint *waypoint = [m_ActionPath objectAtIndex:m_currentWayPoint];
 	
 	if( !ActionEnded )
 	{				
 		// See if we are done with our animation yet
-		if( ( deltaTime + _duration ) <= deltaTime )
+		if( ( deltaTime + waypoint._duration ) <= deltaTime )
 		{
-			ActionEnded = YES;
-			//notify system the action have ended
-			[delegate onAnimationEnded];
+			// Increment the current waypoint counter
+			m_currentWayPoint++;
 			
 			//finally put the sprite in the exact spot stated in the function
-			m_position = to_;
+			//m_position = waypoint.to_;
 			//update the associate sprite to this class
-			m_sprite._position = m_position;
+			//m_sprite._position = m_position;
+			
+			// Check to see if we have reached the end of the entity path
+			if(m_currentWayPoint > m_wayPointCount-1) 
+			{
+				m_currentWayPoint = 0;
+				ActionEnded = YES;
+				
+				//we finish the action, notify through delegate
+				if (!repeatAction)
+				{
+					//notify system the action have ended
+					[delegate onAnimationEnded];
+				}
+			}
+			
+			// Set the next waypoint from the entity path
+			waypoint = [m_entityPath objectAtIndex:m_currentWayPoint];
+			
 		}
 		else //we update the position because we have time to do it
 		{
-			_duration -= deltaTime;
+			waypoint._duration -= deltaTime;
 			ActionEnded = NO;
-			m_position.x += distX * deltaTime;
-			m_position.y += distY * deltaTime; 
+			m_position.x = waypoint.distX * deltaTime;
+			m_position.y = waypoint.distY * deltaTime; 
 			//update the associate sprite to this class
-			m_sprite._position = m_position;
+			m_sprite._position = Vector2fAdd(m_sprite._position, m_position); 			
 		}
 	}
 }

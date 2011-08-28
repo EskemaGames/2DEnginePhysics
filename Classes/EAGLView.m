@@ -36,6 +36,7 @@
 
 
 @synthesize context;
+@synthesize isRetinaDisplay;
 
 
 // You must implement this method
@@ -94,7 +95,7 @@
 		
 		
 		// Observe orientation change notifications
-		//[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged:) name:@"UIDeviceOrientationDidChangeNotification" object:nil];
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged:) name:@"UIDeviceOrientationDidChangeNotification" object:nil];
 		
 		
 		
@@ -227,24 +228,31 @@
 			viewport = CGRectMake(0, 0,  480, 320);
 		}
 		
-		if ([UIScreen instancesRespondToSelector:@selector(scale)]) {
-			CGFloat scale = [[UIScreen mainScreen] scale];
-			if (scale > 1.0) {
-				glViewport(0, 0, viewport.size.height * scale, viewport.size.width * scale);  
-				glRotatef(-90, 0, 0, 1);  
-				glOrthof(0, viewport.size.width * scale, viewport.size.height * scale, 0, -1.0, 1.0);
-				isRetinaDisplay = YES;
-				screenScale = scale;
-			}
-			else {
-				screenScale = scale;
-				isRetinaDisplay = NO;
-				glViewport(0, 0, viewport.size.height, viewport.size.width);  
-				glRotatef(-90, 0, 0, 1);  
-				glOrthof(0, viewport.size.width, viewport.size.height, 0, -1.0, 1.0);
-			}
-			
-		}  
+        
+        //the retina can be disabled, by default the bool flag is NO
+        //otherwise if we don't add this check it will detect always the retina display
+        //but maybe you don't have retina graphics.
+        if (isRetinaDisplay)
+        {
+            if ([UIScreen instancesRespondToSelector:@selector(scale)]) {
+                CGFloat scale = [[UIScreen mainScreen] scale];
+                if (scale > 1.0) {
+                    glViewport(0, 0, viewport.size.height * scale, viewport.size.width * scale);  
+                    glRotatef(-90, 0, 0, 1);  
+                    glOrthof(0, viewport.size.width * scale, viewport.size.height * scale, 0, -1.0, 1.0);
+                    isRetinaDisplay = YES;
+                    screenScale = scale;
+                }
+                else {
+                    screenScale = scale;
+                    isRetinaDisplay = NO;
+                    glViewport(0, 0, viewport.size.height, viewport.size.width);  
+                    glRotatef(-90, 0, 0, 1);  
+                    glOrthof(0, viewport.size.width, viewport.size.height, 0, -1.0, 1.0);
+                }
+                
+            } 
+        }
     }  
     else    //  Game is to be played in portrait  
     {  
@@ -254,22 +262,27 @@
 			viewport = CGRectMake(0, 0, 320, 480);
 		}
 		
-		if ([UIScreen instancesRespondToSelector:@selector(scale)]) {
-			CGFloat scale = [[UIScreen mainScreen] scale];
-			if (scale > 1.0) {
-				glViewport(0, 0, viewport.size.width * scale, viewport.size.height * scale);  
-				glOrthof(0.0, viewport.size.width * scale, viewport.size.height * scale, 0.0, -1.0, 1.0); 
-				isRetinaDisplay = YES;
-				screenScale = scale;
-			}
-			else {
-				isRetinaDisplay = NO;
-				screenScale = scale;
-				glViewport(0, 0, viewport.size.width, viewport.size.height);  
-				glOrthof(0.0, viewport.size.width, viewport.size.height, 0.0, -1.0, 1.0);
-			}
-			
-		}
+        //the retina can be disabled, by default the bool flag is NO
+        //otherwise if we don't add this check it will detect always the retina display
+        //but maybe you don't have retina graphics.
+        if (isRetinaDisplay)
+        {
+            if ([UIScreen instancesRespondToSelector:@selector(scale)]) {
+                CGFloat scale = [[UIScreen mainScreen] scale];
+                if (scale > 1.0) {
+                    glViewport(0, 0, viewport.size.width * scale, viewport.size.height * scale);  
+                    glOrthof(0.0, viewport.size.width * scale, viewport.size.height * scale, 0.0, -1.0, 1.0); 
+                    isRetinaDisplay = YES;
+                    screenScale = scale;
+                }
+                else {
+                    isRetinaDisplay = NO;
+                    screenScale = scale;
+                    glViewport(0, 0, viewport.size.width, viewport.size.height);  
+                    glOrthof(0.0, viewport.size.width, viewport.size.height, 0.0, -1.0, 1.0);
+                }
+            }
+        }
     }    
 	
 	

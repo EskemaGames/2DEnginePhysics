@@ -19,8 +19,12 @@
 	[[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
 	[UIApplication sharedApplication].statusBarOrientation = UIInterfaceOrientationLandscapeRight;
 	
+    
 	//start the game
 	[glView StartGame];
+    
+    //enable/disable the retina display
+    glView.isRetinaDisplay = NO;
 }
 
 
