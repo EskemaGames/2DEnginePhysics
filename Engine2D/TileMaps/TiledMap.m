@@ -333,55 +333,58 @@
 -(void)ParseAnimationTiles:(NSString *)layername
 {
 
-	//get the index for the layer
-	int animationLayerIndex = [self layerIndexWithName:layername];
-	// get the layer to work with
-	Layer *animLayer = [[self layers] objectAtIndex:animationLayerIndex];
-	
-	int a = 0;
-	for(int yy=0; yy < mapHeight; yy++) {
-		for(int xx=0; xx < mapWidth; xx++) {
-			int globalTileID = [animLayer globalTileIDAtTile:CGPointMake(xx, yy)];
-			
-			//skip all the empty tiles
-			if (globalTileID != -1)
-			{
-				//reset to 0 counter for the next animated tile
-				a = 0;
-				
-				NSMutableDictionary *objects = [tileSetProperties objectForKey:[NSString stringWithFormat:@"%d", globalTileID]];
-				int counter = [objects count];
-				
-				//we found more than 2 objects, wich we assume are 2 frames, because we are playing with 
-				//the animation layer, this layer will be only for animated tiles
-				if (counter >= 2)
-				{
-					
-					//set the data for the animated tiles
-					//and calloc space for the animation array
-					animLayer.layerData[yy][xx].totalFramesAnimation = counter;
-					animLayer.layerData[yy][xx].animated = (int *)calloc(animLayer.layerData[yy][xx].totalFramesAnimation, sizeof(int));
-			
-					for (NSString *objectKey in objects) {
-						animLayer.layerData[yy][xx].tileAnimated = YES;
-						animLayer.layerData[yy][xx].delaySpeed = 10;
-						animLayer.layerData[yy][xx].delay = 0;
-						animLayer.layerData[yy][xx].nextframe = 0;
-						
-						//get the frame value for the animation in the dictionary
-						int myvalue = [[objects objectForKey:objectKey] intValue];
-						
-						//set the frame in the animation array
-						animLayer.layerData[yy][xx].animated[a] = myvalue;
-						
-						//increase counter
-						++a;
-			
-					}
-				}
-			}
-		}
-	}
+    if (layername != nil)
+    {
+        //get the index for the layer
+        int animationLayerIndex = [self layerIndexWithName:layername];
+        // get the layer to work with
+        Layer *animLayer = [[self layers] objectAtIndex:animationLayerIndex];
+        
+        int a = 0;
+        for(int yy=0; yy < mapHeight; yy++) {
+            for(int xx=0; xx < mapWidth; xx++) {
+                int globalTileID = [animLayer globalTileIDAtTile:CGPointMake(xx, yy)];
+                
+                //skip all the empty tiles
+                if (globalTileID != -1)
+                {
+                    //reset to 0 counter for the next animated tile
+                    a = 0;
+                    
+                    NSMutableDictionary *objects = [tileSetProperties objectForKey:[NSString stringWithFormat:@"%d", globalTileID]];
+                    int counter = [objects count];
+                    
+                    //we found more than 2 objects, wich we assume are 2 frames, because we are playing with 
+                    //the animation layer, this layer will be only for animated tiles
+                    if (counter >= 2)
+                    {
+                        
+                        //set the data for the animated tiles
+                        //and calloc space for the animation array
+                        animLayer.layerData[yy][xx].totalFramesAnimation = counter;
+                        animLayer.layerData[yy][xx].animated = (int *)calloc(animLayer.layerData[yy][xx].totalFramesAnimation, sizeof(int));
+                        
+                        for (NSString *objectKey in objects) {
+                            animLayer.layerData[yy][xx].tileAnimated = YES;
+                            animLayer.layerData[yy][xx].delaySpeed = 10;
+                            animLayer.layerData[yy][xx].delay = 0;
+                            animLayer.layerData[yy][xx].nextframe = 0;
+                            
+                            //get the frame value for the animation in the dictionary
+                            int myvalue = [[objects objectForKey:objectKey] intValue];
+                            
+                            //set the frame in the animation array
+                            animLayer.layerData[yy][xx].animated[a] = myvalue;
+                            
+                            //increase counter
+                            ++a;
+                            
+                        }
+                    }
+                }
+            }
+        }
+    }
 	
 	
 }
