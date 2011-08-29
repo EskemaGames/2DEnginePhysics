@@ -36,9 +36,9 @@
 		// Create a body definition and set it to be a dynamic body
 		bodyDef.type = bodydef;
 		
-		// position must be converted to meters
-		bodyDef.position = [world toMeters:CGPointMake(bodysizeandpos.origin.x, bodysizeandpos.origin.y)];
-		
+		// position must be converted to meters and centered to the sprite, sprites anchor point start always in 0,0 (top-left)
+		bodyDef.position = [world toMeters:CGPointMake(bodysizeandpos.origin.x + bodysizeandpos.size.width/2, bodysizeandpos.origin.y + bodysizeandpos.size.height/2)];
+        
 		// assign the sprite as userdata so it's easy to get to the sprite when working with the body
 		bodyDef.userData = handlerClass;
 		

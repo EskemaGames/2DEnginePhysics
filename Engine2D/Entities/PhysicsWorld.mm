@@ -29,15 +29,15 @@
 		b2Vec2 gravity = b2Vec2(0.0f, 10.0f);
 		
 		_world = new b2World(gravity, SleepBodies);
-		
-		//uncomment this to draw debug data
-		/*_debugDraw = new GLESDebugDraw( PTM_RATIO );
+        
+		//uncomment/comment this to draw debug data
+		_debugDraw = new GLESDebugDraw( PTM_RATIO );
         _world->SetDebugDraw(_debugDraw);
 		
 		uint32 flags = 0;
         flags += b2DebugDraw::e_shapeBit;
         _debugDraw->SetFlags(flags);
-		*/
+		
 		
 		//set the collisions callback
 		_collisions = new BoxCollisionCallback(); 
@@ -98,7 +98,9 @@
 		{
 			// update the sprite's position to where their physics bodies are
 			CGPoint t_point = [self toPixels:body->GetPosition()];
-			actor._position = Vector2fMake(t_point.x, t_point.y);
+            //as usual box2d will center their box on a given point, but our sprites anchor point is always
+            //0,0 (top-left), so add the size/2 to get the sprite perfectly centered with the box2d shape
+			actor._position = Vector2fMake(t_point.x - (actor._size.x * 0.5f), t_point.y - (actor._size.y * 0.5f));
 			float angle = body->GetAngle();
 			actor._rotation = RADIANS_TO_DEGREES(angle) * -1;
 		}	

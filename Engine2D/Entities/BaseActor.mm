@@ -245,6 +245,11 @@
 -(void)Update
 {
 	[_Animation RefreshStates];
+    
+    //update our size values, the box2d class will use the size parameter
+    //in order to get the sprite values, so update it here to get always the proper size
+	_size.x = [_Animation GetFrameSizeWidth];
+    _size.y = [_Animation GetFrameSizeHeight];
 }
 
 
