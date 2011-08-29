@@ -24,13 +24,17 @@
 	<string>1.0</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSMainNibFile~iphone</key>
-	<string>MainWindow</string>
 	<key>NSMainNibFile~ipad</key>
 	<string>MainWindow@2x</string>
-	<key>UIStatusBarHidden</key>
-	<true/>
+	<key>NSMainNibFile~iphone</key>
+	<string>MainWindow</string>
 	<key>UIApplicationExitsOnSuspend</key>
 	<true/>
+	<key>UIStatusBarHidden</key>
+	<true/>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
 </dict>
 </plist>
