@@ -48,6 +48,7 @@
 		//assign the body to the world
 		body = world._world->CreateBody(&bodyDef);
 		
+        
 		float tileInMetersX = 0;
 		float tileInMetersY = 0;
 		b2FixtureDef fixtureDef;

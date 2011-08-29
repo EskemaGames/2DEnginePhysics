@@ -83,6 +83,7 @@
 
 -(void)Update
 {
+       
 	//update the physics world
 	float timeStep = 0.03f;
 	int32 velocityIterations = 8;
